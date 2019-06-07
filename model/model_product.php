@@ -4,5 +4,9 @@ function getListProduct($pdo){
     $listProduct->execute();
     return $listProduct;
 }
-
+function getLastProductAdded($pdo){
+    $lastProduct = $pdo->prepare("SELECT * FROM product ORDER BY product_id DESC LIMIT 1");
+    $lastProduct->execute();
+    return $lastProduct;
+}
 ?>

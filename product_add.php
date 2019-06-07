@@ -9,7 +9,7 @@ include_once($path);
 
 <body>
     <div class="container mt-5">
-        <h2 class="text-center my-4">เพิ่มสินค้า</h2>
+        <h2 class="text-center shadow-sm p-3 mb-5 bg-white rounded">เพิ่มสินค้า</h2>
 
         <form id="form_product_add" method="post">
             <!-- ชื่อ -->
@@ -74,15 +74,20 @@ include_once($path);
                 </div>
             </div>
 
-            <div class="form-group row">
-                <div class="col-sm-10">
-                    <button type="submit" required class="btn btn-primary">เพิ่ม</button>
+            <div class="form-group row justify-content-center">
+                <div class="col-sm-auto ">
+                    <button type="submit" required class="btn btn-primary mx-auto">ยืนยัน</button>
                 </div>
             </div>
         </form>
 
-
+        <?php
+        include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/model/model_product.php");
+        $lastProduct = getLastProductAdded($pdo);
+        $lastProduct->fetch();
+        ?>
     </div>
+
 </body>
 
 <script>
@@ -90,8 +95,9 @@ include_once($path);
     $(document).ready(function() {
         $('#form_product_add').submit(function(e) {
             e.preventDefault();
+            var product_name = $('input[name=product_name]').val();
             var formData = {
-                'product_name': $('input[name=product_name]').val(),
+                'product_name': product_name,
                 'product_type': $('input[name=product_type]').val(),
                 'product_potent': $('input[name=product_potent]').val(),
                 'product_amount': $('input[name=product_amount]').val(),
@@ -107,19 +113,30 @@ include_once($path);
                 })
 
                 .done(function(data) {
-                    alert('เพิ่มสินค้าสำเร็จ');
+                    Swal.fire({
+                        title: 'สำเร็จ !',
+                        text: 'คุณได้เพิ่ม ' + product_name + ' ในฐานข้อมูล!',
+                        type: 'success',
+                        confirmButtonText: 'ตกลง',
+                        timer: 1500
+
+                    })
                     console.log(data);
+                    $(':input', '#form_product_add')
+                        .not(':button, :submit, :reset, :hidden')
+                        .val('')
+                        .prop('checked', false)
+                        .prop('selected', false);
                 })
                 .fail(function(data) {
-                    alert('ผิดพลาด เพิ่มสินค้าไม่สำเร็จ');
+                    Swal.fire({
+                        title: 'ผิดพลาด !',
+                        text: 'เพิ่มสินค้า ' + pname + ' ไม่สำเร็จ!',
+                        type: 'error',
+                        confirmButtonText: 'ลองอีกครั้ง',
+                        timer: 1500
+                    })
                 });
-            
-            $(':input', '#form_product_add')
-                .not(':button, :submit, :reset, :hidden')
-                .val('')
-                .prop('checked', false)
-                .prop('selected', false);
-
 
         });
 
