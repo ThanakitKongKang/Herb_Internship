@@ -8,7 +8,6 @@ include_once($path);
 <head></head>
 
 <body>
-    <?php include('header.php'); ?>
     <div class="container mt-5">
         <h2 class="text-center my-4">เพิ่มสินค้า</h2>
 

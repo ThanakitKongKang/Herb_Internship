@@ -10,9 +10,11 @@
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index.php"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link" href="product_add.php"><i class="fas fa-plus"></i> add product <span class="sr-only">(current)</span></a>
+            </li>
         </ul>
 
         <form class="form-inline my-2 my-lg-0 mr-auto">

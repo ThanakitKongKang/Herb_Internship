@@ -46,3 +46,6 @@ session_start(); ?>
         }
     </style>
 </head>
+<body>
+<?php include('header.php'); ?>
+</body>
