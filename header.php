@@ -17,10 +17,10 @@
             </li>
         </ul>
 
-        <form class="form-inline my-2 my-lg-0 mr-auto">
+        <!-- <form class="form-inline my-2 my-lg-0 mr-auto">
             <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
+        </form> -->
 
     </div>
 </nav>
