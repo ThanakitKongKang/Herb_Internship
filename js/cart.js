@@ -46,7 +46,8 @@ var shoppingCart = (function () {
     // obj.addItemToCart = function (product_id, product_name, product_price, count) {
     for (var item in cart) {
       if (cart[item].product_id === product_id && cart[item].product_stock != 0) {
-        if (cart[item].count === cart[item].product_stock || cart[item].product_stock === 0) {
+
+        if (cart[item].count >= cart[item].product_stock || cart[item].product_stock === 0) {
           Swal.fire({
             title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
             text: 'มี ' + cart[item].product_name + ' ในสต็อก ' + cart[item].product_stock + ' ชิ้น',
@@ -69,11 +70,23 @@ var shoppingCart = (function () {
     saveCart();
   }
   // Set count from item
-  obj.setCountForItem = function (product_id, count) {
+  obj.setCountForItem = function (product_id, count,product_stock) {
     for (var i in cart) {
+    
       if (cart[i].product_id === product_id) {
+        if (count >= cart[i].product_stock ||count <= 0 ||count === 0 ) {
+          Swal.fire({
+            title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
+            text: 'มี ' + cart[i].product_name + ' ในสต็อก ' + cart[i].product_stock + ' ชิ้น',
+            type: 'error',
+            confirmButtonText: 'ลองอีกครั้ง',
+            // timer: 1500
+          })
+          return;
+        }
         cart[i].count = count;
         break;
+
       }
     }
   };
@@ -193,7 +206,7 @@ function displayCart() {
       + "<td name='name'>" + cartArray[i].product_name + "</td>"
       + "<td name='price'>" + cartArray[i].product_price + "</td>"
       + "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-product_id=" + cartArray[i].product_id + ">-</button>"
-      + "<input type='number' min='1' max=" + cartArray[i].product_stock + " class='item-count form-control' data-product_id='" + cartArray[i].product_id + "' value='" + cartArray[i].count + "'>"
+      + "<input type='number' min='1' max=" + cartArray[i].product_stock + " class='item-count form-control' data-product_id='" + cartArray[i].product_id + "'data-product_stock='"+cartArray[i].product_stock+"' value='" + cartArray[i].count + "'>"
       + "<button class='plus-item btn btn-primary input-group-addon' data-product_id=" + cartArray[i].product_id + ">+</button></div></td>"
       + "<td><button class='delete-item btn btn-danger' data-product_id=" + cartArray[i].product_id + ">X</button></td>"
       + " = "
@@ -237,6 +250,7 @@ $('.show-cart').on("click", ".delete-item", function (event) {
 $('.show-cart').on("change", ".item-count", function (event) {
   var product_id = Number($(this).data('product_id'));
   var count = Number($(this).val());
+  var product_stock = Number($(this).data('product_stock'));
   shoppingCart.setCountForItem(product_id, count);
   displayCart();
 });
