@@ -51,7 +51,7 @@ var shoppingCart = (function () {
               '<div style="font-size:0.75em" class="text-secondary">และมีในตะกร้าอยู่แล้ว ' + cart[item].count + ' ชิ้น</div>',
             type: 'error',
             confirmButtonText: 'ลองอีกครั้ง',
-            timer: 1500
+            // timer: 1500
           })
 
         }
@@ -65,10 +65,10 @@ var shoppingCart = (function () {
     if (product_stock === 0) {
       Swal.fire({
         title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
-        text: 'มี ' + product_name + ' ในสต็อก ' + product_stock + ' ชิ้น',
+        html: '<div>ไม่มี <span class="text-primary">' + cart[i].product_name + ' ' + cart[i].product_potent + '</span> ในสต็อก</div>',
         type: 'error',
         confirmButtonText: 'ลองอีกครั้ง',
-        timer: 1500
+        // timer: 1500
       })
       return;
     }
@@ -89,7 +89,7 @@ var shoppingCart = (function () {
             html: '<div>มี <span class="text-primary">' + cart[i].product_name + ' ' + cart[i].product_potent + '</span> ในสต็อก <span class="text-primary">' + cart[i].product_stock + ' </span>ชิ้น</div>',
             type: 'error',
             confirmButtonText: 'ลองอีกครั้ง',
-            timer: 1500
+            // timer: 1500
           })
           return;
         }
