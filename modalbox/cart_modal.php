@@ -27,14 +27,26 @@
             </div>
             <div class="modal-body">
                 <table class="show-cart table">
-  
+
                 </table>
                 <div class="row justify-content-end pr-5">ยอดรวม: <span class="total-cart px-1"></span> บาท</div>
             </div>
             <div class="cart-button modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="calculate-cart btn btn-primary">ดำเนินการต่อ</button>
+                <button type="button" class="calculate-cart btn btn-primary" data-dismiss="modal">ดำเนินการต่อ</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $(this).on("keypress", function(event) {
+            if (event.keyCode == 32) {
+                displayCart();
+                $('#cart').modal('hide');
+            }
+
+        });
+    });
+</script>

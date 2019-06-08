@@ -22,8 +22,8 @@ include_once($path);
             <!-- ตะกร้า -->
             <div class="row">
                 <div class="col">
-                    <button style="float:right" class="clear-cart btn btn-danger mx-1">ล้างตะกร้า</button>
-                    <button type="button" style="float:right" class="display-cart btn btn-primary" data-toggle="modal" data-target="#cart" title="คลิกหรือกดปุ่ม space เพื่อแสดงตะกร้าสินค้า"><i class="fas fa-shopping-cart"></i> ตะกร้า (<span class="total-count"></span>)</button>
+                    <span class="clear-cart cart-clear-clickable"></span>
+                    <span class="cart-clickable"></span>
                 </div>
             </div>
 
@@ -87,13 +87,7 @@ include_once($path);
 
 
     </div>
-    <?php 
-    date_default_timezone_set('Asia/Bangkok');
-    $timezone = date_default_timezone_get();
-    echo "The current server timezone is: " . $timezone;
-    $date = date('Y/m/d h:i:s a', time());
-    echo "<br>The current time is: " . $date;
-    
+    <?php
     include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/modalbox/cart_modal.php"); ?>
     <script src="./js/cart.js"></script>
 
@@ -115,6 +109,12 @@ include_once($path);
                 displayCart();
                 $('#cart').modal('show');
             }
+
         });
+     
+    });
+    $('.clear-cart').click(function() {
+            shoppingCart.clearCart();
+            displayCart();
     });
 </script>

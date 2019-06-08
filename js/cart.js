@@ -207,6 +207,7 @@ $('.add-to-cart').click(function (event) {
 
 // Clear items
 $('.clear-cart').click(function () {
+  console.log("มา");
   shoppingCart.clearCart();
   displayCart();
 });
@@ -227,9 +228,25 @@ function displayCart() {
       + "<td>" + cartArray[i].total + "</td>"
       + "</tr>";
   }
+  if (shoppingCart.totalCount() > 0) {
+    var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-primary' data-toggle='modal' data-target='#cart' title='คลิกหรือกดปุ่ม space เพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> ตะกร้า (" + shoppingCart.totalCount() + ")</button>";
+    $('.cart-clickable').html(cart_clickable);
+
+    var cart_clear_clickable = "<button style='float:right' class='btn btn-danger mx-1'>ล้างตะกร้า</button>";
+    $('.cart-clear-clickable').html(cart_clear_clickable);
+  }
+  else if (shoppingCart.totalCount() === 0){
+    var cart_clickable ="";
+    $('.cart-clickable').html(cart_clickable);
+
+    var cart_clear_clickable ="";
+    $('.cart-clear-clickable').html(cart_clear_clickable);
+  }
+
   $('.show-cart').html(output);
   $('.total-cart').html(shoppingCart.totalCart());
-  $('.total-count').html(shoppingCart.totalCount());
+  // $('.total-count').html(shoppingCart.totalCount());
+
   // console.log(cartArray);
   // console.dir(cartArray);
 }
@@ -282,7 +299,7 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
       'product_price': cartArray[i].product_price,
       'count': cartArray[i].count
     };
-  
+
     $.ajax({
       type: 'POST',
       url: './model/model_order_detail_make.php', // the url where we want to POST
@@ -290,15 +307,23 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
     })
 
   }
-  Swal.fire({
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 1000
+  });
+
+  Toast.fire({
     title: 'สำเร็จ !',
     text: 'บันทึกรายการขายในฐานข้อมูล!',
     type: 'success',
     confirmButtonText: 'ตกลง',
-    timer: 1500
   })
+
   shoppingCart.clearCart();
   displayCart();
+  window.setTimeout(function () { location.reload() }, 1000)
 })
 
 displayCart();
