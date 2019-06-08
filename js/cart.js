@@ -54,7 +54,7 @@ var shoppingCart = (function () {
             confirmButtonText: 'ลองอีกครั้ง',
             // timer: 1500
           })
-         
+
         }
         else if (cart[item].count < cart[item].product_stock) {
           cart[item].count++;
@@ -73,19 +73,19 @@ var shoppingCart = (function () {
       })
       return;
     }
-   
+
     var item = new Item(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count);
     // var item = new Item(product_id, product_name, product_price, count);
     cart.push(item);
     saveCart();
-    
+
   }
   // Set count from item
-  obj.setCountForItem = function (product_id, count,product_stock) {
+  obj.setCountForItem = function (product_id, count, product_stock) {
     for (var i in cart) {
-    
+
       if (cart[i].product_id === product_id) {
-        if (count > cart[i].product_stock ||count <= 0 ||count === 0 ) {
+        if (count > cart[i].product_stock || count < 0) {
           Swal.fire({
             title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
             text: 'มี ' + cart[i].product_name + ' ในสต็อก ' + cart[i].product_stock + ' ชิ้น',
@@ -93,6 +93,11 @@ var shoppingCart = (function () {
             confirmButtonText: 'ลองอีกครั้ง',
             // timer: 1500
           })
+          return;
+        }
+        else if (count === 0) {
+          cart.splice(item, 1);
+          saveCart();
           return;
         }
         cart[i].count = count;
@@ -217,7 +222,7 @@ function displayCart() {
       + "<td name='name'>" + cartArray[i].product_name + "</td>"
       + "<td name='price'>" + cartArray[i].product_price + "</td>"
       + "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-product_id=" + cartArray[i].product_id + ">-</button>"
-      + "<input type='number' min='1' max=" + cartArray[i].product_stock + " class='item-count form-control' data-product_id='" + cartArray[i].product_id + "'data-product_stock='"+cartArray[i].product_stock+"' value='" + cartArray[i].count + "'>"
+      + "<input type='number' min='1' max=" + cartArray[i].product_stock + " class='item-count form-control' data-product_id='" + cartArray[i].product_id + "'data-product_stock='" + cartArray[i].product_stock + "' value='" + cartArray[i].count + "'>"
       + "<button class='plus-item btn btn-primary input-group-addon' data-product_id=" + cartArray[i].product_id + ">+</button></div></td>"
       + "<td><button class='delete-item btn btn-danger' data-product_id=" + cartArray[i].product_id + ">X</button></td>"
       + " = "
