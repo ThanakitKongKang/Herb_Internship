@@ -85,7 +85,7 @@ var shoppingCart = (function () {
     for (var i in cart) {
     
       if (cart[i].product_id === product_id) {
-        if (count >= cart[i].product_stock ||count <= 0 ||count === 0 ) {
+        if (count > cart[i].product_stock ||count <= 0 ||count === 0 ) {
           Swal.fire({
             title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
             text: 'มี ' + cart[i].product_name + ' ในสต็อก ' + cart[i].product_stock + ' ชิ้น',
