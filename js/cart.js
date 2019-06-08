@@ -269,46 +269,34 @@ $('.show-cart').on("change", ".item-count", function (event) {
 });
 
 $('.cart-button').on("click", ".calculate-cart", function (event) {
+
+  $.ajax({
+    type: 'POST',
+    url: './model/model_order_history_make.php', // the url where we want to POST
+  })
+
   var cartArray = shoppingCart.listCart();
   for (var i in cartArray) {
     var formData = {
       'product_id': cartArray[i].product_id,
-      'product_id': cartArray[i].product_price,
+      'product_price': cartArray[i].product_price,
       'count': cartArray[i].count
     };
+  
     $.ajax({
       type: 'POST',
-      url: './model/model_order_make.php', // the url where we want to POST
+      url: './model/model_order_detail_make.php', // the url where we want to POST
       data: formData, // our data object
     })
 
-      .done(function (data) {
-        Swal.fire({
-          title: 'สำเร็จ !',
-          text: 'บันทึกรายการขายในฐานข้อมูล!',
-          type: 'success',
-          confirmButtonText: 'ตกลง',
-          timer: 1500
-
-        })
-        console.log(data);
-        $(':input', '#form_product_add')
-          .not(':button, :submit, :reset, :hidden')
-          .val('')
-          .prop('checked', false)
-          .prop('selected', false);
-      })
-      .fail(function (data) {
-        Swal.fire({
-          title: 'ผิดพลาด !',
-          text: 'ไม่สามารถบันทึกรายการขายได้!',
-          type: 'error',
-          confirmButtonText: 'ลองอีกครั้ง',
-          timer: 1500
-        })
-      });
-    console.log(cartArray[i].product_name);
   }
+  Swal.fire({
+    title: 'สำเร็จ !',
+    text: 'บันทึกรายการขายในฐานข้อมูล!',
+    type: 'success',
+    confirmButtonText: 'ตกลง',
+    timer: 1500
+  })
   shoppingCart.clearCart();
   displayCart();
 })

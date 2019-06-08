@@ -87,7 +87,14 @@ include_once($path);
 
 
     </div>
-    <?php include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/modalbox/cart_modal.php"); ?>
+    <?php 
+    date_default_timezone_set('Asia/Bangkok');
+    $timezone = date_default_timezone_get();
+    echo "The current server timezone is: " . $timezone;
+    $date = date('Y/m/d h:i:s a', time());
+    echo "<br>The current time is: " . $date;
+    
+    include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/modalbox/cart_modal.php"); ?>
     <script src="./js/cart.js"></script>
 
 </body>
