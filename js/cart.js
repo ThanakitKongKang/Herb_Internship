@@ -45,9 +45,8 @@ var shoppingCart = (function () {
   obj.addItemToCart = function (product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
     // obj.addItemToCart = function (product_id, product_name, product_price, count) {
     for (var item in cart) {
-      if (cart[item].product_id === product_id && cart[item].product_stock != 0) {
-
-        if (cart[item].count >= cart[item].product_stock || cart[item].product_stock === 0) {
+      if (cart[item].product_id === product_id) {
+        if (cart[item].count === cart[item].product_stock || cart[item].product_stock === 0) {
           Swal.fire({
             title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
             text: 'มี ' + cart[item].product_name + ' ในสต็อก ' + cart[item].product_stock + ' ชิ้น',
@@ -55,19 +54,31 @@ var shoppingCart = (function () {
             confirmButtonText: 'ลองอีกครั้ง',
             // timer: 1500
           })
+         
         }
         else if (cart[item].count < cart[item].product_stock) {
           cart[item].count++;
           saveCart();
         }
-
         return;
       }
     }
+    if (product_stock === 0) {
+      Swal.fire({
+        title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
+        text: 'มี ' + product_name + ' ในสต็อก ' + product_stock + ' ชิ้น',
+        type: 'error',
+        confirmButtonText: 'ลองอีกครั้ง',
+        timer: 1500
+      })
+      return;
+    }
+   
     var item = new Item(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count);
     // var item = new Item(product_id, product_name, product_price, count);
     cart.push(item);
     saveCart();
+    
   }
   // Set count from item
   obj.setCountForItem = function (product_id, count,product_stock) {
@@ -217,14 +228,14 @@ function displayCart() {
   $('.total-cart').html(shoppingCart.totalCart());
   $('.total-count').html(shoppingCart.totalCount());
   // console.log(cartArray);
-  console.dir(cartArray);
+  // console.dir(cartArray);
 }
 
 // -1
 $('.show-cart').on("click", ".minus-item", function (event) {
   var product_id = Number($(this).data('product_id'));
   shoppingCart.removeItemFromCart(product_id);
-  console.log("call success minus");
+  // console.log("call success minus");
 
   displayCart();
 })
@@ -232,7 +243,7 @@ $('.show-cart').on("click", ".minus-item", function (event) {
 $('.show-cart').on("click", ".plus-item", function (event) {
   var product_id = Number($(this).data('product_id'));
   shoppingCart.addItemToCart(product_id);
-  console.log("call success plus");
+  // console.log("call success plus");
 
   displayCart();
 })
@@ -242,7 +253,7 @@ $('.show-cart').on("click", ".plus-item", function (event) {
 $('.show-cart').on("click", ".delete-item", function (event) {
   var product_id = Number($(this).data('product_id'))
   shoppingCart.removeItemFromCartAll(product_id);
-  console.log("call success delete");
+  // console.log("call success delete");
   displayCart();
 })
 
