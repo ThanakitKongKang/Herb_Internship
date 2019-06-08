@@ -27,7 +27,7 @@
             </div>
             <div class="modal-body">
                 <table class="show-cart table">
-                   
+  
                 </table>
                 <div class="row justify-content-end pr-5">ยอดรวม: <span class="total-cart px-1"></span> บาท</div>
             </div>

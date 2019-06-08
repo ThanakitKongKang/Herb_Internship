@@ -9,17 +9,17 @@ var shoppingCart = (function () {
   cart = [];
 
   // Constructor
-  // function Item(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
-  function Item(product_id, product_name, product_price, count) {
+  function Item(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
+  // function Item(product_id, product_name, product_price, count) {
     this.product_id = product_id;
     this.product_name = product_name;
-    // this.product_type = product_type;
-    // this.product_potent = product_potent;
-    // this.product_amount = product_amount;
-    // this.product_cost = product_cost;
+    this.product_type = product_type;
+    this.product_potent = product_potent;
+    this.product_amount = product_amount;
+    this.product_cost = product_cost;
     this.product_price = product_price;
-    // this.product_price_discount = product_price_discount;
-    // this.product_stock = product_stock;
+    this.product_price_discount = product_price_discount;
+    this.product_stock = product_stock;
     this.count = count;
   }
 
@@ -43,8 +43,8 @@ var shoppingCart = (function () {
   var obj = {};
 
   // Add to cart
-  // obj.addItemToCart = function (product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
-  obj.addItemToCart = function (product_id, product_name, product_price, count) {
+  obj.addItemToCart = function (product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
+  // obj.addItemToCart = function (product_id, product_name, product_price, count) {
     for (var item in cart) {
       if (cart[item].product_id === product_id) {
         cart[item].count++;
@@ -52,8 +52,8 @@ var shoppingCart = (function () {
         return;
       }
     }
-    // var item = new Item(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count);
-    var item = new Item(product_id, product_name, product_price, count);
+    var item = new Item(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count);
+    // var item = new Item(product_id, product_name, product_price, count);
     cart.push(item);
     saveCart();
   }
@@ -154,16 +154,16 @@ $('.add-to-cart').click(function (event) {
   event.preventDefault();
   var product_id = Number($(this).data('product_id'));
   var product_name = $(this).data('product_name');
-  // var product_type = $(this).data('product_type');
-  // var product_potent = $(this).data('product_potent');
-  // var product_amount = $(this).data('product_amount');
-  // var product_cost = Number($(this).data('product_cost'));
+  var product_type = $(this).data('product_type');
+  var product_potent = $(this).data('product_potent');
+  var product_amount = $(this).data('product_amount');
+  var product_cost = Number($(this).data('product_cost'));
   var product_price = Number($(this).data('product_price'));
-  // var product_price_discount = Number($(this).data('product_price_discount'));
-  // var product_stock = Number($(this).data('product_stock'));
+  var product_price_discount = Number($(this).data('product_price_discount'));
+  var product_stock = Number($(this).data('product_stock'));
 
-  // shoppingCart.addItemToCart(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, 1);
-  shoppingCart.addItemToCart(product_id, product_name, product_price, 1);
+  shoppingCart.addItemToCart(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, 1);
+  // shoppingCart.addItemToCart(product_id, product_name, product_price, 1);
   displayCart();
 });
 
@@ -195,7 +195,6 @@ function displayCart() {
   // console.log(cartArray);
   console.dir(cartArray);
 }
-
 
 // -1
 $('.show-cart').on("click", ".minus-item", function (event) {

@@ -59,11 +59,11 @@ session_start(); ?>
         <!-- print -->
 
         <div class="my-3">
-
+            <!-- ตะกร้า -->
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Cart (<span class="total-count"></span>)</button>
-                    <button class="clear-cart btn btn-danger">Clear Cart</button></div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">ตะกร้า (<span class="total-count"></span>)</button>
+                    <button class="clear-cart btn btn-danger">ล้างตะกร้า</button></div>
             </div>
 
             <table class="table table-striped table-bordered" id="product" data-page-length='25'>
@@ -126,11 +126,11 @@ session_start(); ?>
 
 
     </div>
-
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/modalbox/cart_modal.php"); ?>
     <script src="./js/cart.js"></script>
 
 </body>
-<?php include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/modalbox/cart_modal.php"); ?>
+
 <script>
     $(document).ready(function() {
         var table = $('#product').DataTable({
@@ -139,7 +139,8 @@ session_start(); ?>
             paging: false
         });
         $('#product tbody').on('click', 'tr', function() {
-            // $(this).toggleClass('selected');
+            
+            
             // alert(table.rows('.selected').data());
         });
     });
