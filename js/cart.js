@@ -96,6 +96,9 @@ var shoppingCart = (function () {
         else if (count === 0) {
           cart.splice(item, 1);
           saveCart();
+          if(shoppingCart.totalCount() === 0){
+            $('#cart').modal('hide');
+          }
           return;
         }
         cart[i].count = count;
@@ -111,7 +114,11 @@ var shoppingCart = (function () {
         cart[item].count--;
         if (cart[item].count === 0) {
           cart.splice(item, 1);
+          if(shoppingCart.totalCount() === 0){
+          $('#cart').modal('hide');
+          }
         }
+       
         break;
       }
     }
@@ -123,6 +130,9 @@ var shoppingCart = (function () {
     for (var item in cart) {
       if (cart[item].product_id === product_id) {
         cart.splice(item, 1);
+        if(shoppingCart.totalCount() === 0){
+          $('#cart').modal('hide');
+        }
         break;
       }
     }
@@ -229,10 +239,10 @@ function displayCart() {
       + "</tr>";
   }
   if (shoppingCart.totalCount() > 0) {
-    var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-primary' data-toggle='modal' data-target='#cart' title='คลิกหรือกดปุ่ม space เพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> ตะกร้า (" + shoppingCart.totalCount() + ")</button>";
+    var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-primary btn-lg' data-toggle='modal' data-target='#cart' title='คลิกหรือกดปุ่ม space เพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> ตะกร้า (" + shoppingCart.totalCount() + ")</button>";
     $('.cart-clickable').html(cart_clickable);
 
-    var cart_clear_clickable = "<button style='float:right' class='btn btn-danger mx-1'>ล้างตะกร้า</button>";
+    var cart_clear_clickable = "<button style='float:right' class='btn btn-danger mx-1 btn-lg'>ล้างตะกร้า</button>";
     $('.cart-clear-clickable').html(cart_clear_clickable);
   }
   else if (shoppingCart.totalCount() === 0){

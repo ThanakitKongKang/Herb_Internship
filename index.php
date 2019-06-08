@@ -19,21 +19,14 @@ include_once($path);
         <!-- print -->
 
         <div class="my-3">
-            <!-- ตะกร้า -->
-            <div class="row">
-                <div class="col">
-                    <span class="clear-cart cart-clear-clickable"></span>
-                    <span class="cart-clickable"></span>
-                </div>
-            </div>
-
-            <table class="table table-striped table-bordered" id="product" data-page-length='25'>
-                <?php
-                $i = 0;
-                while ($rowListProduct = $listProduct->fetch()) {
-                    // echo ("<pre>" . print_r($rowListProduct, true) . "</pre>");
-                    if ($i == 0) {
-                        echo ' 
+           
+                <table class="table table-striped table-bordered" id="product" data-page-length='25'>
+                    <?php
+                    $i = 0;
+                    while ($rowListProduct = $listProduct->fetch()) {
+                        // echo ("<pre>" . print_r($rowListProduct, true) . "</pre>");
+                        if ($i == 0) {
+                            echo ' 
                 <thead>
                 <tr>
                 <th class="align-middle text-center" rowspan="2">รหัสสินค้า</th>
@@ -53,8 +46,8 @@ include_once($path);
                    
                 </tr>
                 </thead><tbody>';
-                    }
-                    echo '<tr>
+                        }
+                        echo '<tr>
             <td class="text-center">' . $rowListProduct['product_id'] . '</td>
             <td>' . $rowListProduct['product_name'] . '</td>
             <td class="text-center">' . $rowListProduct['product_type'] . '</td>
@@ -77,12 +70,21 @@ include_once($path);
                 data-product_stock="' . $rowListProduct['product_stock'] . '">
                 <i class="fas fa-plus"></i></a></td>
             </tr>';
-                    $i++;
-                }
+                        $i++;
+                    }
 
-                ?>
-                </tbody>
-            </table>
+                    ?>
+                    </tbody>
+                </table>
+
+             <!-- ตะกร้า -->
+             <div class="row mt-3">
+                <div class="col">
+                <span class="cart-clickable"></span>
+                    <span class="clear-cart cart-clear-clickable"></span>
+                  
+                </div>
+            </div>
         </div>
 
 
@@ -111,10 +113,10 @@ include_once($path);
             }
 
         });
-     
+
     });
     $('.clear-cart').click(function() {
-            shoppingCart.clearCart();
-            displayCart();
+        shoppingCart.clearCart();
+        displayCart();
     });
 </script>
