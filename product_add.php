@@ -56,7 +56,7 @@ include_once($path);
             <div class="form-group row">
                 <label for="price" class="col-sm-2 col-form-label">ราคา</label>
                 <div class="col-sm-3">
-                    <input type="number" required step=0.01 class="form-control" name="product_price" id="product_price" placeholder="ราคาขายปลึก">
+                    <input type="number" required step=0.01 class="form-control" name="product_price" id="product_price" placeholder="ราคาขายปลีก">
                 </div>
                 <div class="col-sm-3">
                     <input type="number" required step=0.01 class="form-control" name="product_price_discount" id="product_price_discount" placeholder="ราคาขาย(ยอด 5,000 ขึ้น)">
