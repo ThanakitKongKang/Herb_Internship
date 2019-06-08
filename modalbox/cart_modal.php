@@ -3,16 +3,17 @@
         .show-cart li {
             display: flex;
         }
+
         .card {
             margin-bottom: 20px;
         }
+
         .card-img-top {
             width: 200px;
             height: 200px;
             align-self: center;
         }
     </style>
-
 </head>
 <!-- Modal -->
 <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -26,9 +27,9 @@
             </div>
             <div class="modal-body">
                 <table class="show-cart table">
-
+                   
                 </table>
-                <div>Total price: $<span class="total-cart"></span></div>
+                <div class="row justify-content-end pr-5">ยอดรวม: <span class="total-cart px-1"></span> บาท</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
