@@ -10,7 +10,6 @@ var shoppingCart = (function () {
 
   // Constructor
   function Item(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
-    // function Item(product_id, product_name, product_price, count) {
     this.product_id = product_id;
     this.product_name = product_name;
     this.product_type = product_type;
@@ -43,16 +42,16 @@ var shoppingCart = (function () {
 
   // Add to cart
   obj.addItemToCart = function (product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
-    // obj.addItemToCart = function (product_id, product_name, product_price, count) {
     for (var item in cart) {
       if (cart[item].product_id === product_id) {
         if (cart[item].count === cart[item].product_stock || cart[item].product_stock === 0) {
           Swal.fire({
             title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
-            text: 'มี ' + cart[item].product_name + ' ในสต็อก ' + cart[item].product_stock + ' ชิ้น',
+            html: '<div>มี <span class="text-primary">' + cart[item].product_name + ' ' + cart[item].product_potent + '</span> ในสต็อก <span class="text-primary">' + cart[item].product_stock + ' </span>ชิ้น</div>' +
+              '<div style="font-size:0.75em" class="text-secondary">และมีในตะกร้าอยู่แล้ว ' + cart[item].count + ' ชิ้น</div>',
             type: 'error',
             confirmButtonText: 'ลองอีกครั้ง',
-            // timer: 1500
+            timer: 1500
           })
 
         }
@@ -75,23 +74,22 @@ var shoppingCart = (function () {
     }
 
     var item = new Item(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count);
-    // var item = new Item(product_id, product_name, product_price, count);
     cart.push(item);
     saveCart();
 
   }
   // Set count from item
-  obj.setCountForItem = function (product_id, count, product_stock) {
+  obj.setCountForItem = function (product_id, count) {
     for (var i in cart) {
 
       if (cart[i].product_id === product_id) {
         if (count > cart[i].product_stock || count < 0) {
           Swal.fire({
             title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
-            text: 'มี ' + cart[i].product_name + ' ในสต็อก ' + cart[i].product_stock + ' ชิ้น',
+            html: '<div>มี <span class="text-primary">' + cart[i].product_name + ' ' + cart[i].product_potent + '</span> ในสต็อก <span class="text-primary">' + cart[i].product_stock + ' </span>ชิ้น</div>',
             type: 'error',
             confirmButtonText: 'ลองอีกครั้ง',
-            // timer: 1500
+            timer: 1500
           })
           return;
         }
@@ -266,9 +264,53 @@ $('.show-cart').on("click", ".delete-item", function (event) {
 $('.show-cart').on("change", ".item-count", function (event) {
   var product_id = Number($(this).data('product_id'));
   var count = Number($(this).val());
-  var product_stock = Number($(this).data('product_stock'));
   shoppingCart.setCountForItem(product_id, count);
   displayCart();
 });
+
+$('.cart-button').on("click", ".calculate-cart", function (event) {
+  var cartArray = shoppingCart.listCart();
+  for (var i in cartArray) {
+    var formData = {
+      'product_id': cartArray[i].product_id,
+      'product_id': cartArray[i].product_price,
+      'count': cartArray[i].count
+    };
+    $.ajax({
+      type: 'POST',
+      url: './model/model_order_make.php', // the url where we want to POST
+      data: formData, // our data object
+    })
+
+      .done(function (data) {
+        Swal.fire({
+          title: 'สำเร็จ !',
+          text: 'บันทึกรายการขายในฐานข้อมูล!',
+          type: 'success',
+          confirmButtonText: 'ตกลง',
+          timer: 1500
+
+        })
+        console.log(data);
+        $(':input', '#form_product_add')
+          .not(':button, :submit, :reset, :hidden')
+          .val('')
+          .prop('checked', false)
+          .prop('selected', false);
+      })
+      .fail(function (data) {
+        Swal.fire({
+          title: 'ผิดพลาด !',
+          text: 'ไม่สามารถบันทึกรายการขายได้!',
+          type: 'error',
+          confirmButtonText: 'ลองอีกครั้ง',
+          timer: 1500
+        })
+      });
+    console.log(cartArray[i].product_name);
+  }
+  shoppingCart.clearCart();
+  displayCart();
+})
 
 displayCart();

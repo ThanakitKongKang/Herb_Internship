@@ -1,56 +1,16 @@
-<?php include "./model/connect.php";
-session_start(); ?>
+<?php  //include from root php's style
+$path = $_SERVER['DOCUMENT_ROOT'];
+$path .= "/herb_internship/head.php";
+include_once($path);
+
+?>
+<html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>หน้าหลัก</title>
-
-    <!-- bootstrap -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> -->
-    <link rel="stylesheet" type="text/css" media="screen" href="./css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
-
-    <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script> -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
-    <!-- js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>    
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script> -->
-    <script src="./js/bootstrap.min.js"></script>
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
-
-    <!-- font -->
-    <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-    
-    <!-- datatables -->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/fh-3.1.4/kt-2.5.0/r-2.2.2/sc-2.0.0/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" /> -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-
-    <!-- alert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-
-    <style>
-        body {
-            font-family: 'Kanit', sans-serif;
-        }
-    </style>
-
+    <title>Herb retail</title>
 </head>
 
 <body>
-    <?php include('header.php'); ?>
     <div class="container">
         <?php
         include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/model/model_product.php");
@@ -62,8 +22,9 @@ session_start(); ?>
             <!-- ตะกร้า -->
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">ตะกร้า (<span class="total-count"></span>)</button>
-                    <button class="clear-cart btn btn-danger">ล้างตะกร้า</button></div>
+                    <button style="float:right" class="clear-cart btn btn-danger mx-1">ล้างตะกร้า</button>
+                    <button type="button" style="float:right" class="display-cart btn btn-primary" data-toggle="modal" data-target="#cart" title="คลิกหรือกดปุ่ม space เพื่อแสดงตะกร้าสินค้า"><i class="fas fa-shopping-cart"></i> ตะกร้า (<span class="total-count"></span>)</button>
+                </div>
             </div>
 
             <table class="table table-striped table-bordered" id="product" data-page-length='25'>
@@ -136,14 +97,17 @@ session_start(); ?>
         var table = $('#product').DataTable({
             scrollY: 800,
             scrollCollapse: true,
-            paging: false
+            paging: false,
+            info: false
         });
-        $('#product tbody').on('click', 'tr', function() {
-            
-            
-            // alert(table.rows('.selected').data());
+
+
+        // table.columns(1).search(this.value).draw();
+        $(this).on("keypress", function(event) {
+            if (event.keyCode == 32) {
+                displayCart();
+                $('#cart').modal('show');
+            }
         });
     });
 </script>
-
-</html>
