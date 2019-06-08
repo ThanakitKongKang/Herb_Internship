@@ -10,7 +10,7 @@ var shoppingCart = (function () {
 
   // Constructor
   function Item(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
-  // function Item(product_id, product_name, product_price, count) {
+    // function Item(product_id, product_name, product_price, count) {
     this.product_id = product_id;
     this.product_name = product_name;
     this.product_type = product_type;
@@ -36,7 +36,6 @@ var shoppingCart = (function () {
     loadCart();
   }
 
-
   // =============================
   // Public methods and propeties
   // =============================
@@ -44,11 +43,23 @@ var shoppingCart = (function () {
 
   // Add to cart
   obj.addItemToCart = function (product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
-  // obj.addItemToCart = function (product_id, product_name, product_price, count) {
+    // obj.addItemToCart = function (product_id, product_name, product_price, count) {
     for (var item in cart) {
-      if (cart[item].product_id === product_id) {
-        cart[item].count++;
-        saveCart();
+      if (cart[item].product_id === product_id && cart[item].product_stock != 0) {
+        if (cart[item].count === cart[item].product_stock || cart[item].product_stock === 0) {
+          Swal.fire({
+            title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
+            text: 'มี ' + cart[item].product_name + ' ในสต็อก ' + cart[item].product_stock + ' ชิ้น',
+            type: 'error',
+            confirmButtonText: 'ลองอีกครั้ง',
+            // timer: 1500
+          })
+        }
+        else if (cart[item].count < cart[item].product_stock) {
+          cart[item].count++;
+          saveCart();
+        }
+
         return;
       }
     }
@@ -182,9 +193,9 @@ function displayCart() {
       + "<td name='name'>" + cartArray[i].product_name + "</td>"
       + "<td name='price'>" + cartArray[i].product_price + "</td>"
       + "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-product_id=" + cartArray[i].product_id + ">-</button>"
-      + "<input type='number' class='item-count form-control' data-product_id='" + cartArray[i].product_id + "' value='" + cartArray[i].count + "'>"
+      + "<input type='number' min='1' max=" + cartArray[i].product_stock + " class='item-count form-control' data-product_id='" + cartArray[i].product_id + "' value='" + cartArray[i].count + "'>"
       + "<button class='plus-item btn btn-primary input-group-addon' data-product_id=" + cartArray[i].product_id + ">+</button></div></td>"
-      + "<td><button class='delete-item btn btn-danger' data-name=" + cartArray[i].product_id + ">X</button></td>"
+      + "<td><button class='delete-item btn btn-danger' data-product_id=" + cartArray[i].product_id + ">X</button></td>"
       + " = "
       + "<td>" + cartArray[i].total + "</td>"
       + "</tr>";
@@ -216,7 +227,7 @@ $('.show-cart').on("click", ".plus-item", function (event) {
 // Delete item button
 
 $('.show-cart').on("click", ".delete-item", function (event) {
-  var product_id = Number($(this).data('name'))
+  var product_id = Number($(this).data('product_id'))
   shoppingCart.removeItemFromCartAll(product_id);
   console.log("call success delete");
   displayCart();
