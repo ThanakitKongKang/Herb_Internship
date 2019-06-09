@@ -45,7 +45,7 @@ include_once($path);
                     </tr>
                 </thead>
 
-                <tbody id="tbodyData">';
+                <tbody id="tbodyData">
 
                 </tbody>
             </table>
@@ -69,6 +69,20 @@ include_once($path);
 </body>
 
 <script>
+    if (document.hasFocus()) {
+        setInterval(function() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("tbodyData").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
+            xmlhttp.send();
+        }, 1000);
+    }
+
+
     $(document).ready(function() {
         var table = $('#product').DataTable({
             scrollY: 800,
@@ -88,6 +102,9 @@ include_once($path);
         });
 
     });
+
+
+
     $('.clear-cart').click(function() {
         shoppingCart.clearCart();
         displayCart();
