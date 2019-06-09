@@ -199,7 +199,24 @@ var shoppingCart = (function () {
 // Triggers / Events
 // ***************************************** 
 // Add item
-$('.add-to-cart').click(function (event) {
+// $('.add-to-cart').on("click", function (event) {
+//   event.preventDefault();
+//   var product_id = Number($(this).data('product_id'));
+//   var product_name = $(this).data('product_name');
+//   var product_type = $(this).data('product_type');
+//   var product_potent = $(this).data('product_potent');
+//   var product_amount = $(this).data('product_amount');
+//   var product_cost = Number($(this).data('product_cost'));
+//   var product_price = Number($(this).data('product_price'));
+//   var product_price_discount = Number($(this).data('product_price_discount'));
+//   var product_stock = Number($(this).data('product_stock'));
+
+//   shoppingCart.addItemToCart(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, 1);
+//   // shoppingCart.addItemToCart(product_id, product_name, product_price, 1);
+//   displayCart();
+// });
+
+$('#product tbody').on("click", "tr", function (event) {
   event.preventDefault();
   var product_id = Number($(this).data('product_id'));
   var product_name = $(this).data('product_name');
@@ -215,6 +232,7 @@ $('.add-to-cart').click(function (event) {
   // shoppingCart.addItemToCart(product_id, product_name, product_price, 1);
   displayCart();
 });
+
 
 // Clear items
 $('.clear-cart').click(function () {
@@ -302,21 +320,22 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
 
   shoppingCart.clearCart();
   displayCart();
-  // refresh productTable
-  // getListProductTable();
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function () {
-  //   if (this.readyState == 4 && this.status == 200) {
-  //     document.getElementById("tbodyData").innerHTML = this.responseText;
-  //   }
-  // };
-  // xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
-  // xmlhttp.send();
 
-  window.setTimeout(function () { location.reload() }, 1000)
+  // getListProductTable();
+  // use non-function call to force-refreshing
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("tbodyData").innerHTML = this.responseText;
+    }
+  };
+  xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
+  xmlhttp.send();
+
+  // window.setTimeout(function () { location.reload() }, 1000)
 })
 
-// ajax get product table
+// ajax refresh product table function
 // function getListProductTable() {
 //   var xmlhttp = new XMLHttpRequest();
 //   xmlhttp.onreadystatechange = function () {
