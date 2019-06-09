@@ -19,43 +19,35 @@ include_once($path);
         <!-- print -->
 
         <div class="my-3">
-           
-                <table class="table table-striped table-bordered" id="product" data-page-length='25'>
-                    <?php
-                    $i = 0;
-                    while ($rowListProduct = $listProduct->fetch()) {
-                        // echo ("<pre>" . print_r($rowListProduct, true) . "</pre>");
-                        if ($i == 0) {
-                            echo ' 
+
+            <table class="table table-striped table-bordered" id="product" data-page-length='25'>
+                <?php
+                $i = 0;
+                while ($rowListProduct = $listProduct->fetch()) {
+                    // echo ("<pre>" . print_r($rowListProduct, true) . "</pre>");
+                    if ($i == 0) {
+                        echo ' 
                 <thead>
                 <tr>
-                <th class="align-middle text-center" rowspan="2">รหัสสินค้า</th>
-                <th class="align-middle text-center" rowspan="2">ชื่อ</th>
-                <th class="align-middle text-center" rowspan="2">ประเภท</th>
-                <th class="align-middle text-center" rowspan="2">ความแรง</th>
-                <th class="align-middle text-center" rowspan="2">ขนาดบรรจุ</th>
-                <th class="align-middle text-center" colspan="3">ราคา</th>
-                <th class="align-middle text-center" rowspan="2">สต็อก</th>
-                <th class="align-middle text-center" rowspan="2"></th>
+                <th class="align-middle text-center">รหัสสินค้า</th>
+                <th class="align-middle text-center">ชื่อ</th>
+                <th class="align-middle text-center">ประเภท</th>
+                <th class="align-middle text-center">ความแรง</th>
+                <th class="align-middle text-center">ขนาดบรรจุ</th>
+                <th class="align-middle text-center">ราคา<br><span class="text-secondary" style="font-size:0.75em;">(บาท)<span></th>
+                <th class="align-middle text-center">สต็อก</th>
+                <th class="align-middle text-center"></th>
                 
                 </tr>
-                <tr>
-                    <th class="align-middle text-center" ><span class="text-secondary" style="font-size:0.75em;">ทุน<span></th>
-                    <th class="align-middle text-center"><span class="text-secondary" style="font-size:0.75em;">ขายปลีก<span></th>
-                    <th class="align-middle text-center" style="border-right:1px solid #dee2e6;"><span class="text-secondary" style="font-size:0.75em;">ยอด 5,000 ขึ้น<span></th>
-                   
-                </tr>
                 </thead><tbody class="datatableBody">';
-                        }
-                        echo '<tr>
+                    }
+                    echo '<tr>
             <td class="text-center">' . $rowListProduct['product_id'] . '</td>
             <td>' . $rowListProduct['product_name'] . '</td>
             <td class="text-center">' . $rowListProduct['product_type'] . '</td>
             <td>' . $rowListProduct['product_potent'] . '</td>
             <td>' . $rowListProduct['product_amount'] . '</td>
-            <td class="text-center">' . $rowListProduct['product_cost'] . '</td>
             <td class="text-center">' . $rowListProduct['product_price'] . '</td>
-            <td class="text-center">' . $rowListProduct['product_price_discount'] . '</td>
             <td>' . $rowListProduct['product_stock'] . '</td>
             <td>
                 <a href="#" class="add-to-cart btn btn-success text-white" title="เพิ่มลงตะกร้า" 
@@ -70,19 +62,19 @@ include_once($path);
                 data-product_stock="' . $rowListProduct['product_stock'] . '">
                 <i class="fas fa-plus"></i></a></td>
             </tr>';
-                        $i++;
-                    }
+                    $i++;
+                }
 
-                    ?>
-                    </tbody>
-                </table>
+                ?>
+                </tbody>
+            </table>
 
-             <!-- ตะกร้า -->
-             <div class="row mt-3">
+            <!-- ตะกร้า -->
+            <div class="row mt-3">
                 <div class="col">
-                <span class="cart-clickable"></span>
+                    <span class="cart-clickable"></span>
                     <span class="clear-cart cart-clear-clickable"></span>
-                  
+
                 </div>
             </div>
         </div>

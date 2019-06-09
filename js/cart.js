@@ -243,7 +243,7 @@ function displayCart() {
     var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-primary btn-lg' data-toggle='modal' data-target='#cart' title='คลิกหรือกดปุ่ม space เพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> ตะกร้า (" + shoppingCart.totalCount() + ")</button>";
     $('.cart-clickable').html(cart_clickable);
 
-    var cart_clear_clickable = "<button style='float:right' class='btn btn-danger mx-1 btn-lg'>ล้างตะกร้า</button>";
+    var cart_clear_clickable = "<button style='float:right' class='btn btn-danger mx-1 btn-lg'><i class='far fa-window-close'></i> ยกเลิก</button>";
     $('.cart-clear-clickable').html(cart_clear_clickable);
   }
   else if (shoppingCart.totalCount() === 0) {
@@ -256,6 +256,7 @@ function displayCart() {
 
   $('.show-cart').html(output);
   $('.total-cart').html(shoppingCart.totalCart());
+
   // $('.total-count').html(shoppingCart.totalCount());
 
   // console.log(cartArray);

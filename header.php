@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Herb</a>
+    <a class="navbar-brand" href="#">Herb<img src="_etc/herb.ico" style="max-width:1.5rem" class="pb-2"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,11 +10,29 @@
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item">
-                <a class="nav-link" href="index.php"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link 
+                <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') {
+                    echo "active";
+                } ?>" href="index.php"><i class="fas fa-home"></i> หน้าหลัก <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="product_add.php"><i class="fas fa-plus"></i> add product <span class="sr-only">(current)</span></a>
+
+
+
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="<?php if (basename($_SERVER['PHP_SELF']) == 'product_add.php') { echo "text-dark"; } ?>"><i class="fas fa-tasks"></i> จัดการสินค้า</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'product_add.php') { echo "active"; } ?> " href="product_add.php"><i class="fas fa-plus"></i> เพิ่มสินค้าลงฐานข้อมูล</a>
+
+                    <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'product_add_stock.php') { echo "active"; } ?> " href="product_add_stock.php"><i class="fas fa-sync"></i> อัปเดตจำนวนสินค้าในสต็อก</a>
+
+                    <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'product_edit.php') { echo "active"; } ?> " href="product_edit.php"><i class="fas fa-edit"></i> แก้ไขข้อมูลสินค้า</a>
+                </div>
             </li>
+
         </ul>
 
         <!-- <form class="form-inline my-2 my-lg-0 mr-auto">

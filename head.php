@@ -9,7 +9,7 @@ session_start(); ?>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="_etc/herb.ico">
-   <!-- bootstrap -->
+    <!-- bootstrap -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> -->
     <link rel="stylesheet" type="text/css" media="screen" href="./css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
@@ -47,12 +47,9 @@ session_start(); ?>
             font-family: 'Kanit', sans-serif;
         }
 
-        h1,
-        .className {
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            width: 80%;
-            overflow: hidden;
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0; // remove the gap so it doesn't close
         }
     </style>
 </head>
@@ -60,5 +57,5 @@ session_start(); ?>
 <body>
 
     <?php include('header.php'); ?>
-   
+
 </body>
