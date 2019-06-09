@@ -216,7 +216,7 @@ var shoppingCart = (function () {
 //   displayCart();
 // });
 
-$('#product tbody').on("click", "tr", function (event) {
+$('#product tbody').on("click", "th", function (event) {
   event.preventDefault();
   var product_id = Number($(this).data('product_id'));
   var product_name = $(this).data('product_name');
@@ -254,7 +254,7 @@ function displayCart() {
       + "<button class='plus-item btn btn-primary input-group-addon' data-product_id=" + cartArray[i].product_id + ">+</button></div></td>"
       + "<td><button class='delete-item btn btn-danger' data-product_id=" + cartArray[i].product_id + ">X</button></td>"
       + " = "
-      + "<td>" + cartArray[i].total + "</td>"
+      + "<td class='' style='min-width:2rem'>" + cartArray[i].total + "</td>"
       + "</tr>";
   }
   if (shoppingCart.totalCount() > 0) {
