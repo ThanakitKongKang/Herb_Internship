@@ -45,7 +45,7 @@ include_once($path);
                     <th class="align-middle text-center" style="border-right:1px solid #dee2e6;"><span class="text-secondary" style="font-size:0.75em;">ยอด 5,000 ขึ้น<span></th>
                    
                 </tr>
-                </thead><tbody>';
+                </thead><tbody class="datatableBody">';
                         }
                         echo '<tr>
             <td class="text-center">' . $rowListProduct['product_id'] . '</td>

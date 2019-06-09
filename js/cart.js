@@ -42,6 +42,16 @@ var shoppingCart = (function () {
 
   // Add to cart
   obj.addItemToCart = function (product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
+    if (product_stock === 0) {
+      Swal.fire({
+        title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
+        html: '<div>ไม่มี <span class="text-primary">' + product_name + ' ' + product_potent + '</span> ในสต็อก</div>',
+        type: 'error',
+        confirmButtonText: 'ลองอีกครั้ง',
+        // timer: 1500
+      })
+      return;
+    }
     for (var item in cart) {
       if (cart[item].product_id === product_id) {
         if (cart[item].count === cart[item].product_stock || cart[item].product_stock === 0) {
@@ -62,16 +72,7 @@ var shoppingCart = (function () {
         return;
       }
     }
-    if (product_stock === 0) {
-      Swal.fire({
-        title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
-        html: '<div>ไม่มี <span class="text-primary">' + cart[i].product_name + ' ' + cart[i].product_potent + '</span> ในสต็อก</div>',
-        type: 'error',
-        confirmButtonText: 'ลองอีกครั้ง',
-        // timer: 1500
-      })
-      return;
-    }
+
 
     var item = new Item(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count);
     cart.push(item);
@@ -96,7 +97,7 @@ var shoppingCart = (function () {
         else if (count === 0) {
           cart.splice(item, 1);
           saveCart();
-          if(shoppingCart.totalCount() === 0){
+          if (shoppingCart.totalCount() === 0) {
             $('#cart').modal('hide');
           }
           return;
@@ -114,11 +115,11 @@ var shoppingCart = (function () {
         cart[item].count--;
         if (cart[item].count === 0) {
           cart.splice(item, 1);
-          if(shoppingCart.totalCount() === 0){
-          $('#cart').modal('hide');
+          if (shoppingCart.totalCount() === 0) {
+            $('#cart').modal('hide');
           }
         }
-       
+
         break;
       }
     }
@@ -130,7 +131,7 @@ var shoppingCart = (function () {
     for (var item in cart) {
       if (cart[item].product_id === product_id) {
         cart.splice(item, 1);
-        if(shoppingCart.totalCount() === 0){
+        if (shoppingCart.totalCount() === 0) {
           $('#cart').modal('hide');
         }
         break;
@@ -222,7 +223,7 @@ $('.clear-cart').click(function () {
   displayCart();
 });
 
-
+// แสดงตะกร้า
 function displayCart() {
   var cartArray = shoppingCart.listCart();
   var output = "<tr><th>ชื่อ</th><th>ราคา</th><th class='text-center'>จำนวน</th><th></th><th>รวม</th></tr>";
@@ -245,11 +246,11 @@ function displayCart() {
     var cart_clear_clickable = "<button style='float:right' class='btn btn-danger mx-1 btn-lg'>ล้างตะกร้า</button>";
     $('.cart-clear-clickable').html(cart_clear_clickable);
   }
-  else if (shoppingCart.totalCount() === 0){
-    var cart_clickable ="";
+  else if (shoppingCart.totalCount() === 0) {
+    var cart_clickable = "";
     $('.cart-clickable').html(cart_clickable);
 
-    var cart_clear_clickable ="";
+    var cart_clear_clickable = "";
     $('.cart-clear-clickable').html(cart_clear_clickable);
   }
 
@@ -261,40 +262,7 @@ function displayCart() {
   // console.dir(cartArray);
 }
 
-// -1
-$('.show-cart').on("click", ".minus-item", function (event) {
-  var product_id = Number($(this).data('product_id'));
-  shoppingCart.removeItemFromCart(product_id);
-  // console.log("call success minus");
-
-  displayCart();
-})
-// +1
-$('.show-cart').on("click", ".plus-item", function (event) {
-  var product_id = Number($(this).data('product_id'));
-  shoppingCart.addItemToCart(product_id);
-  // console.log("call success plus");
-
-  displayCart();
-})
-
-// Delete item button
-
-$('.show-cart').on("click", ".delete-item", function (event) {
-  var product_id = Number($(this).data('product_id'))
-  shoppingCart.removeItemFromCartAll(product_id);
-  // console.log("call success delete");
-  displayCart();
-})
-
-// Item count input
-$('.show-cart').on("change", ".item-count", function (event) {
-  var product_id = Number($(this).data('product_id'));
-  var count = Number($(this).val());
-  shoppingCart.setCountForItem(product_id, count);
-  displayCart();
-});
-
+// คิดเงิน ตัดสต็อก รีเฟรชตารางสินค้า
 $('.cart-button').on("click", ".calculate-cart", function (event) {
 
   $.ajax({
@@ -333,7 +301,65 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
 
   shoppingCart.clearCart();
   displayCart();
+  // refresh productTable
+  // getListProductTable();
+  // var xmlhttp = new XMLHttpRequest();
+  // xmlhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     document.getElementById("tbodyData").innerHTML = this.responseText;
+  //   }
+  // };
+  // xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
+  // xmlhttp.send();
+
   window.setTimeout(function () { location.reload() }, 1000)
 })
+
+// ajax get product table
+// function getListProductTable() {
+//   var xmlhttp = new XMLHttpRequest();
+//   xmlhttp.onreadystatechange = function () {
+//     if (this.readyState == 4 && this.status == 200) {
+//       document.getElementById("tbodyData").innerHTML = this.responseText;
+//     }
+//   };
+//   xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
+//   xmlhttp.send();
+// }
+
+
+// -1
+$('.show-cart').on("click", ".minus-item", function (event) {
+  var product_id = Number($(this).data('product_id'));
+  shoppingCart.removeItemFromCart(product_id);
+  // console.log("call success minus");
+
+  displayCart();
+})
+// +1
+$('.show-cart').on("click", ".plus-item", function (event) {
+  var product_id = Number($(this).data('product_id'));
+  shoppingCart.addItemToCart(product_id);
+  // console.log("call success plus");
+
+  displayCart();
+})
+
+// Delete item button
+
+$('.show-cart').on("click", ".delete-item", function (event) {
+  var product_id = Number($(this).data('product_id'))
+  shoppingCart.removeItemFromCartAll(product_id);
+  // console.log("call success delete");
+  displayCart();
+})
+
+// Item count input
+$('.show-cart').on("change", ".item-count", function (event) {
+  var product_id = Number($(this).data('product_id'));
+  var count = Number($(this).val());
+  shoppingCart.setCountForItem(product_id, count);
+  displayCart();
+});
 
 displayCart();

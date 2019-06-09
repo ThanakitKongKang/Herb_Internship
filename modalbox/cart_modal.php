@@ -15,6 +15,13 @@
         }
     </style>
 </head>
+<?php 
+$list_product_count = $pdo->prepare("SELECT COUNT(product_id) AS listProductCount FROM product");
+$list_product_count->execute();
+$rowListProductCount = $list_product_count->fetch();
+// echo "whatttt ".$rowListProductCount['listProductCount'];
+
+?>
 <!-- Modal -->
 <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -33,7 +40,7 @@
             </div>
             <div class="cart-button modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="calculate-cart btn btn-primary" data-dismiss="modal">ดำเนินการต่อ</button>
+                <button type="button" class="calculate-cart btn btn-primary" data-dismiss="modal" data-list_product_count="<?=$rowListProductCount['listProductCount']?>">ดำเนินการต่อ</button>
             </div>
         </div>
     </div>
@@ -46,7 +53,6 @@
                 displayCart();
                 $('#cart').modal('hide');
             }
-
         });
     });
 </script>
