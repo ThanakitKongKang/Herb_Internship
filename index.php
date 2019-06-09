@@ -18,6 +18,14 @@ include_once($path);
         xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
         xmlhttp.send();
     </script>
+    <style>
+        table tr:hover {
+            color:green;
+        }
+        table tr:active {
+            color:greenyellow;
+        }
+    </style>
 </head>
 
 <body>
