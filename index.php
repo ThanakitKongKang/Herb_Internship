@@ -22,9 +22,11 @@ include_once($path);
         table tr:hover {
             color:green;
         }
-        table tr:active {
+        table tr:active , .add-to-cart:active{
             color:greenyellow;
+            background-color: #35cc57!important;
         }
+
     </style>
 </head>
 
