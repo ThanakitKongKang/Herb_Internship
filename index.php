@@ -151,6 +151,7 @@ include_once($path);
             scrollCollapse: true,
             paging: false,
             info: false,
+            "deferRender": true,
 
 
             // "searching": false,
@@ -182,6 +183,7 @@ include_once($path);
                 scrollCollapse: true,
                 paging: false,
                 info: false,
+                "deferRender": true,
 
                 "columnDefs": [{
                         "targets": 'no-sort',
