@@ -16,10 +16,6 @@
                 } ?>" href="index.php"><i class="fas fa-home"></i> หน้าหลัก <span class="sr-only">(current)</span></a>
             </li>
 
-
-
-
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="<?php if (basename($_SERVER['PHP_SELF']) == 'product_add.php') { echo "text-dark"; } ?>"><i class="fas fa-tasks"></i> จัดการสินค้า</span>
@@ -33,8 +29,30 @@
                 </div>
             </li>
 
-        </ul>
+           
 
+        </ul>
+      
+        <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { ?>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php') {
+                                            echo "text-dark";
+                                        } ?>"><i class="far fa-window-maximize"></i> เปลี่ยนความสูงตาราง</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                        <a class="dropdown-item table-height-change" href="#.php" data-height="200">200 px</a>
+                        <a class="dropdown-item table-height-change" href="#.php" data-height="300">300 px</a>
+                        <a class="dropdown-item table-height-change" href="#.php" data-height="400">400 px</a>
+                        <a class="dropdown-item table-height-change" href="#.php" data-height="500">500 px</a>
+                        <a class="dropdown-item table-height-change" href="#.php" data-height="600">600 px</a>
+                                    
+                    </div>
+                </li>
+                </ul>
+            <?php } ?>
+                                    
         <!-- <form class="form-inline my-2 my-lg-0 mr-auto">
             <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
