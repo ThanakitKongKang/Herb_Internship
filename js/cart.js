@@ -308,7 +308,7 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
-    timer: 1000
+    timer: 3000
   });
 
   Toast.fire({
