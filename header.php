@@ -47,6 +47,10 @@
                         <a class="dropdown-item table-height-change" href="#.php" data-height="400">400 px</a>
                         <a class="dropdown-item table-height-change" href="#.php" data-height="500">500 px</a>
                         <a class="dropdown-item table-height-change" href="#.php" data-height="600">600 px</a>
+                        <a class="dropdown-item table-height-change" href="#.php" data-height="700">700 px</a>
+                        <a class="dropdown-item table-height-change" href="#.php" data-height="800">800 px</a>
+                        <a class="dropdown-item table-height-change" href="#.php" data-height="900">900 px</a>
+                        <a class="dropdown-item table-height-change" href="#.php" data-height="1000">1000 px</a>
                                     
                     </div>
                 </li>

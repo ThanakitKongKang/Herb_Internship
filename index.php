@@ -39,10 +39,10 @@ include_once($path);
 
 
         <div class="my-3">
-            <div class="row">
-                <div class="col-1.5"><input type="text" class="code_filter form-control" id="code_filter" placeholder="รหัสสินค้า"></div>
+            <!-- <div class="row">
+                <div class="col-2"><input type="text" class="code_filter form-control" id="code_filter" placeholder="รหัสสินค้า"></div>
                 <div class="col-3"><input type="text" class="name_filter form-control" id="name_filter" placeholder="ชื่อสินค้า"></div>
-            </div>
+            </div> -->
             <table class="table table-striped table-responsive table-bordered table-hover" id="product" data-page-length='25'>
 
                 <thead class="thead-dark">
@@ -131,21 +131,20 @@ include_once($path);
         }, 30000);
     }
 
-    function filterCode() {
-        $('#product').DataTable().column(0).search(
-            $('#code_filter').val(),
-        ).draw();
-    }
+    // function filterCode() {
+    //     $('#product').DataTable().column(0).search(
+    //         $('#code_filter').val(),
+    //     ).draw();
+    // }
 
-    function filterName() {
-        $('#product').DataTable().column(1).search(
-            $('#name_filter').val(),
-        ).draw();
-    }
+    // function filterName() {
+    //     $('#product').DataTable().column(1).search(
+    //         $('#name_filter').val(),
+    //     ).draw();
+    // }
 
 
     $(document).ready(function() {
-        document.getElementsByClassName("form-control form-control-sm").type = "hidden";
         var table = $('#product').DataTable({
             scrollY: 500,
             scrollX: false,
@@ -157,13 +156,23 @@ include_once($path);
             // "searching": false,
 
             "columnDefs": [{
-                "targets": 'no-sort',
-                "orderable": false,
-            }]
+                    "targets": 'no-sort',
+                    "orderable": false,
+                },
+                {
+                    "targets": [2, 3, 4, 5, 6],
+                    "searchable": false,
+                }
+            ],
+
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "ค้นหารหัส หรือ ชื่อสินค้า"
+            }
 
 
         });
-       
+
         $('.table-height-change').on("click", function(event) {
             var height = Number($(this).data('height'));
             table.destroy();
@@ -175,9 +184,19 @@ include_once($path);
                 info: false,
 
                 "columnDefs": [{
-                    "targets": 'no-sort',
-                    "orderable": false,
-                }]
+                        "targets": 'no-sort',
+                        "orderable": false,
+                    },
+                    {
+                        "targets": [2, 3, 4, 5, 6],
+                        "searchable": false,
+                    }
+                ],
+
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "ค้นหารหัส หรือ ชื่อสินค้า"
+                }
 
             });
 
@@ -206,14 +225,15 @@ include_once($path);
 
         });
 
-        $('input.code_filter').on('keyup', function() {
-            filterCode();
-        });
-        $('input.name_filter').on('keyup', function() {
-            filterName();
-        });
+        // $('input.code_filter').on('keyup', function() {
+        //     filterCode();
+        // });
+        // $('input.name_filter').on('keyup', function() {
+        //     filterName();
+        // });
 
-
+        // document.getElementsByClassName("form-control form-control-sm").placeholder = "ค้นหารหัส หรือ ชื่อสินค้า";
+        // document.getElementByClass("product_filter").placeholder = "ค้นหารหัส หรือ ชื่อสินค้า";
     });
 
     $('.clear-cart').click(function() {
