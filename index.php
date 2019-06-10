@@ -145,6 +145,7 @@ include_once($path);
 
 
     $(document).ready(function() {
+        document.getElementsByClassName("form-control form-control-sm").type = "hidden";
         var table = $('#product').DataTable({
             scrollY: 500,
             scrollX: false,
@@ -162,7 +163,7 @@ include_once($path);
 
 
         });
-
+       
         $('.table-height-change').on("click", function(event) {
             var height = Number($(this).data('height'));
             table.destroy();
@@ -204,7 +205,7 @@ include_once($path);
             }
 
         });
-        
+
         $('input.code_filter').on('keyup', function() {
             filterCode();
         });
