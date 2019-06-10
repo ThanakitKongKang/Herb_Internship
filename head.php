@@ -42,6 +42,8 @@ session_start(); ?>
     <!-- alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
+    <!-- cookie -->
+    <script src="./js/jquery.cookie.js"></script>
     <style>
         body {
             font-family: 'Kanit', sans-serif;

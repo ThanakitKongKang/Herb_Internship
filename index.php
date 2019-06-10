@@ -145,34 +145,74 @@ include_once($path);
 
 
     $(document).ready(function() {
-        var table = $('#product').DataTable({
-            scrollY: 500,
-            scrollX: false,
-            scrollCollapse: true,
-            paging: false,
-            info: false,
-            "deferRender": true,
+
+        var window_height = Number($.cookie("window-height"));
+        // console.log("window_height : "+window_height);
+
+        if ($.cookie("window-height") !== null) {
+            var table = $('#product').DataTable({
+                // scrollY: 500,
+                scrollY: window_height,
+                scrollX: false,
+                scrollCollapse: true,
+                paging: false,
+                info: false,
+                // "deferRender": true,
 
 
-            // "searching": false,
+                // "searching": false,
 
-            "columnDefs": [{
-                    "targets": 'no-sort',
-                    "orderable": false,
-                },
-                {
-                    "targets": [2, 3, 4, 5, 6],
-                    "searchable": false,
+                "columnDefs": [{
+                        "targets": 'no-sort',
+                        "orderable": false,
+                    },
+                    {
+                        "targets": [2, 3, 4, 5, 6],
+                        "searchable": false,
+                    }
+                ],
+
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "ค้นหารหัส หรือ ชื่อสินค้า"
                 }
-            ],
-
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "ค้นหารหัส หรือ ชื่อสินค้า"
-            }
 
 
-        });
+            });
+        }
+        else {
+            var table = $('#product').DataTable({
+                scrollY: 500,
+                // scrollY: window_height,
+                scrollX: false,
+                scrollCollapse: true,
+                paging: false,
+                info: false,
+                // "deferRender": true,
+
+
+                // "searching": false,
+
+                "columnDefs": [{
+                        "targets": 'no-sort',
+                        "orderable": false,
+                    },
+                    {
+                        "targets": [2, 3, 4, 5, 6],
+                        "searchable": false,
+                    }
+                ],
+
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "ค้นหารหัส หรือ ชื่อสินค้า"
+                }
+
+
+            });
+        }
+
+
 
         $('.table-height-change').on("click", function(event) {
             var height = Number($(this).data('height'));
@@ -201,7 +241,8 @@ include_once($path);
                 }
 
             });
-
+            $.cookie("window-height", height);
+            // console.log("cookie : " + $.cookie("window-height"));
         })
 
         $('.refresh-table').on("click", function(event) {
