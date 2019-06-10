@@ -40,7 +40,7 @@ $rowListProductCount = $list_product_count->fetch();
             </div>
             <div class="cart-button modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="calculate-cart btn btn-primary" data-dismiss="modal" data-list_product_count="<?=$rowListProductCount['listProductCount']?>">ดำเนินการต่อ</button>
+                <button type="button" class="calculate-cart btn btn-primary" data-dismiss="modal" data-list_product_count="<?=$rowListProductCount['listProductCount']?>">ยืนยันการขายและพิมพ์ใบเสร็จ</button>
             </div>
         </div>
     </div>

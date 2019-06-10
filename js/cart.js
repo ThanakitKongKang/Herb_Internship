@@ -321,8 +321,22 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   shoppingCart.clearCart();
   displayCart();
 
-  // getListProductTable();
+  getListProductTable();
   // use non-function call to force-refreshing
+  // var xmlhttp = new XMLHttpRequest();
+  // xmlhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     document.getElementById("tbodyData").innerHTML = this.responseText;
+  //   }
+  // };
+  // xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
+  // xmlhttp.send();
+
+  // window.setTimeout(function () { location.reload() }, 1000)
+})
+
+// ajax refresh product table function
+function getListProductTable() {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -331,21 +345,7 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   };
   xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
   xmlhttp.send();
-
-  // window.setTimeout(function () { location.reload() }, 1000)
-})
-
-// ajax refresh product table function
-// function getListProductTable() {
-//   var xmlhttp = new XMLHttpRequest();
-//   xmlhttp.onreadystatechange = function () {
-//     if (this.readyState == 4 && this.status == 200) {
-//       document.getElementById("tbodyData").innerHTML = this.responseText;
-//     }
-//   };
-//   xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
-//   xmlhttp.send();
-// }
+}
 
 
 // -1

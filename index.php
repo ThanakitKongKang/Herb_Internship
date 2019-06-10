@@ -4,23 +4,12 @@ $path .= "/herb_internship/head.php";
 include_once($path);
 
 ?>
-<html>
 
 <head>
     <title>Herb retail</title>
-    <!-- <script>
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("tbodyData").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
-        xmlhttp.send();
-    </script> -->
     <style>
         table tbody tr:hover {
-            color: green;
+            color: green !important;
         }
 
         table tbody button:active,
@@ -50,8 +39,12 @@ include_once($path);
 
 
         <div class="my-3">
-
+            <div class="row">
+                <div class="col-1.5"><input type="text" class="code_filter form-control" id="code_filter" placeholder="รหัสสินค้า"></div>
+                <div class="col-3"><input type="text" class="name_filter form-control" id="name_filter" placeholder="ชื่อสินค้า"></div>
+            </div>
             <table class="table table-striped table-responsive table-bordered table-hover" id="product" data-page-length='25'>
+
                 <thead class="thead-dark">
                     <tr>
 
@@ -135,13 +128,23 @@ include_once($path);
             };
             xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
             xmlhttp.send();
-        }, 5000);
+        }, 30000);
     }
 
+    function filterCode() {
+        $('#product').DataTable().column(0).search(
+            $('#code_filter').val(),
+        ).draw();
+    }
+
+    function filterName() {
+        $('#product').DataTable().column(1).search(
+            $('#name_filter').val(),
+        ).draw();
+    }
+
+
     $(document).ready(function() {
-
-
-
         var table = $('#product').DataTable({
             scrollY: 500,
             scrollX: false,
@@ -149,10 +152,14 @@ include_once($path);
             paging: false,
             info: false,
 
+
+            // "searching": false,
+
             "columnDefs": [{
                 "targets": 'no-sort',
                 "orderable": false,
             }]
+
 
         });
 
@@ -190,8 +197,6 @@ include_once($path);
             xmlhttp.send();
         })
 
-
-        // table.columns(1).search(this.value).draw();
         $(this).on("keypress", function(event) {
             if (event.keyCode == 32) {
                 displayCart();
@@ -199,11 +204,16 @@ include_once($path);
             }
 
         });
+        
+        $('input.code_filter').on('keyup', function() {
+            filterCode();
+        });
+        $('input.name_filter').on('keyup', function() {
+            filterName();
+        });
 
 
     });
-
-
 
     $('.clear-cart').click(function() {
         shoppingCart.clearCart();
