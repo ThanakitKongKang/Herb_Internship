@@ -64,8 +64,7 @@ var shoppingCart = (function () {
             // timer: 1500
           })
 
-        }
-        else if (cart[item].count < cart[item].product_stock) {
+        } else if (cart[item].count < cart[item].product_stock) {
           cart[item].count++;
           saveCart();
         }
@@ -93,8 +92,7 @@ var shoppingCart = (function () {
             // timer: 1500
           })
           return;
-        }
-        else if (count === 0) {
+        } else if (count === 0) {
           cart.splice(item, 1);
           saveCart();
           if (shoppingCart.totalCount() === 0) {
@@ -264,16 +262,16 @@ function displayCart() {
   var cartArray = shoppingCart.listCart();
   var output = "<tr><th>ชื่อ</th><th>ราคา</th><th class='text-center'>จำนวน</th><th></th><th>รวม</th></tr>";
   for (var i in cartArray) {
-    output += "<tr>"
-      + "<td name='name'>" + cartArray[i].product_name + "</td>"
-      + "<td name='price'>" + cartArray[i].product_price + "</td>"
-      + "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-product_id=" + cartArray[i].product_id + ">-</button>"
-      + "<input type='number' min='1' max=" + cartArray[i].product_stock + " class='item-count form-control' data-product_id='" + cartArray[i].product_id + "'data-product_stock='" + cartArray[i].product_stock + "' value='" + cartArray[i].count + "'>"
-      + "<button class='plus-item btn btn-primary input-group-addon' data-product_id=" + cartArray[i].product_id + ">+</button></div></td>"
-      + "<td><button class='delete-item btn btn-danger' data-product_id=" + cartArray[i].product_id + ">X</button></td>"
-      + " = "
-      + "<td class='' style='min-width:2rem'>" + cartArray[i].total + "</td>"
-      + "</tr>";
+    output += "<tr>" +
+      "<td name='name'>" + cartArray[i].product_name + "</td>" +
+      "<td name='price'>" + cartArray[i].product_price + "</td>" +
+      "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-product_id=" + cartArray[i].product_id + ">-</button>" +
+      "<input type='number' min='1' max=" + cartArray[i].product_stock + " class='item-count form-control' data-product_id='" + cartArray[i].product_id + "'data-product_stock='" + cartArray[i].product_stock + "' value='" + cartArray[i].count + "'>" +
+      "<button class='plus-item btn btn-primary input-group-addon' data-product_id=" + cartArray[i].product_id + ">+</button></div></td>" +
+      "<td><button class='delete-item btn btn-danger' data-product_id=" + cartArray[i].product_id + ">X</button></td>" +
+      " = " +
+      "<td class='' style='min-width:2rem'>" + cartArray[i].total + "</td>" +
+      "</tr>";
   }
   if (shoppingCart.totalCount() > 0) {
     var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-primary btn-lg' data-toggle='modal' data-target='#cart' title='คลิกหรือกดปุ่ม space เพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> ตะกร้า (" + shoppingCart.totalCount() + ")</button>";
@@ -281,8 +279,7 @@ function displayCart() {
 
     var cart_clear_clickable = "<button style='float:right' class='btn btn-danger mx-1 btn-lg'><i class='far fa-window-close'></i> ยกเลิก</button>";
     $('.cart-clear-clickable').html(cart_clear_clickable);
-  }
-  else if (shoppingCart.totalCount() === 0) {
+  } else if (shoppingCart.totalCount() === 0) {
     var cart_clickable = "";
     $('.cart-clickable').html(cart_clickable);
 
@@ -352,7 +349,7 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
 
   // window.setTimeout(function () { location.reload() }, 1000)
 
-  console.log(document.getElementById("total-receive").value);
+  // console.log(document.getElementById("total-receive").value);
   document.getElementById("total-receive").value = "";
   document.getElementById("total-change").style.visibility = "hidden";
   document.getElementById("not-enough-receive").style.visibility = "hidden";
@@ -397,8 +394,9 @@ function calculate_change() {
     document.getElementById("total-change").style.visibility = "hidden";
     document.getElementById("not-enough-receive").style.visibility = "hidden";
 
-    // console.log(total_receive);
+
   }
+  // console.log(total_receive);
 }
 
 
@@ -407,16 +405,18 @@ $('.show-cart').on("click", ".minus-item", function (event) {
   var product_id = Number($(this).data('product_id'));
   shoppingCart.removeItemFromCart(product_id);
   // console.log("call success minus");
-  calculate_change();
+
   displayCart();
+  calculate_change();
 })
 // +1
 $('.show-cart').on("click", ".plus-item", function (event) {
   var product_id = Number($(this).data('product_id'));
   shoppingCart.addItemToCart(product_id);
   // console.log("call success plus");
-  calculate_change();
+
   displayCart();
+  calculate_change();
 })
 
 // Delete item button
@@ -425,8 +425,9 @@ $('.show-cart').on("click", ".delete-item", function (event) {
   var product_id = Number($(this).data('product_id'))
   shoppingCart.removeItemFromCartAll(product_id);
   // console.log("call success delete");
-  calculate_change();
+
   displayCart();
+  calculate_change();
 })
 
 // Item count input
@@ -434,8 +435,9 @@ $('.show-cart').on("change", ".item-count", function (event) {
   var product_id = Number($(this).data('product_id'));
   var count = Number($(this).val());
   shoppingCart.setCountForItem(product_id, count);
-  calculate_change();
+
   displayCart();
+  calculate_change();
 });
 
 displayCart();

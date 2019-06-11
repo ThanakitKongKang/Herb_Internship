@@ -67,17 +67,11 @@ $rowListProductCount = $list_product_count->fetch();
             calculate_change();
         });
 
-        if (document.hasFocus()) {
-        setInterval(function() {
-            calculate_change();
-        }, 1000);
-    }
+    //     if (document.hasFocus()) {
+    //     setInterval(function() {
+    //         calculate_change();
+    //     }, 1000);
+    // }
 
-        // $(this).on("keypress", function(event) {
-        //     if (event.keyCode == 32) {
-        //         displayCart();
-        //         $('#cart').modal('hide');
-        //     }
-        // });
     });
 </script>
