@@ -9,74 +9,76 @@ include_once($path);
 
 <body>
     <div class="container mt-5">
-        <h2 class="text-center shadow-sm p-3 mb-5 bg-white rounded">เพิ่มสินค้า</h2>
+        <h2 class="text-center shadow-sm p-3 mb-1 bg-white rounded">เพิ่มสินค้า</h2>
 
         <form id="form_product_add" method="post">
-            <!-- ชื่อ -->
-            <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">ชื่อผลิตภัณฑ์</label>
-                <div class="col-sm-6">
-                    <input type="text" required class="form-control" name="product_name" id="product_name" placeholder="ชื่อผลิตภัณฑ์">
-                </div>
-            </div>
-            <!-- ประเภทสินค้า -->
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">ประเภทสินค้า</legend>
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            <input required class="form-check-input" type="radio" name="product_type" id="product_type1" value="ED" checked>
-                            <label class="form-check-label" for="product_type1">
-                                ED
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input required class="form-check-input" type="radio" name="product_type" id="product_type2" value="NED">
-                            <label class="form-check-label" for="product_type">
-                                NED
-                            </label>
-                        </div>
+            <div class="bg-light p-5 rounded">
+                <!-- ชื่อ -->
+                <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label">ชื่อผลิตภัณฑ์</label>
+                    <div class="col-sm-6">
+                        <input type="text" required class="form-control" name="product_name" id="product_name" placeholder="ชื่อผลิตภัณฑ์">
                     </div>
                 </div>
-            </fieldset>
+                <!-- ประเภทสินค้า -->
+                <fieldset class="form-group" pattern="[ก-ฮ]+">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">ประเภทสินค้า</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input required class="form-check-input" type="radio" name="product_type" id="product_type1" value="ED" checked>
+                                <label class="form-check-label" for="product_type1">
+                                    ED
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input required class="form-check-input" type="radio" name="product_type" id="product_type2" value="NED">
+                                <label class="form-check-label" for="product_type">
+                                    NED
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
 
-            <!-- ขนาดบรรจุ ความแรง -->
-            <div class="form-group row">
-                <label for="potent" class="col-sm-2 col-form-label">ความแรงยา/ขนาดบรรจุ</label>
-                <div class="col-sm-3">
-                    <input type="text" required class="form-control" name="product_potent" id="product_potent" placeholder="ความแรง">
-                </div>
-                <div class="col-sm-3">
-                    <input type="text" required class="form-control" name="product_amount" id="product_amount" placeholder="ขนาดบรรจุ">
+                <!-- ขนาดบรรจุ ความแรง -->
+                <div class="form-group row">
+                    <label for="potent" class="col-sm-2 col-form-label">ความแรงยา/ขนาดบรรจุ</label>
+                    <div class="col-sm-3">
+                        <input type="text" required class="form-control" name="product_potent" id="product_potent" placeholder="ความแรง">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" required class="form-control" name="product_amount" id="product_amount" placeholder="ขนาดบรรจุ">
+                    </div>
+
                 </div>
 
-            </div>
+                <!-- ทุน ราคา-->
+                <div class="form-group row">
+                    <label for="price" class="col-sm-2 col-form-label">ราคา</label>
+                    <div class="col-sm-3">
+                        <input type="number" required step=0.01 class="form-control" name="product_price" id="product_price" placeholder="ราคาขายปลีก">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="number" required step=0.01 class="form-control" name="product_price_discount" id="product_price_discount" placeholder="ราคาขาย(ยอด 5,000 ขึ้น)">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="number" required step=0.01 class="form-control" name="product_cost" id="product_cost" placeholder="ราคาทุน/หน่วย">
+                    </div>
+                </div>
 
-            <!-- ทุน ราคา-->
-            <div class="form-group row">
-                <label for="price" class="col-sm-2 col-form-label">ราคา</label>
-                <div class="col-sm-3">
-                    <input type="number" required step=0.01 class="form-control" name="product_price" id="product_price" placeholder="ราคาขายปลีก">
+                <!-- สต็อก -->
+                <div class="form-group row">
+                    <label for="price" class="col-sm-2 col-form-label">จำนวนในสต็อก</label>
+                    <div class="col-sm-3">
+                        <input type="number" required class="form-control" name="product_stock" id="product_stock" placeholder="จำนวนในสต็อก">
+                    </div>
                 </div>
-                <div class="col-sm-3">
-                    <input type="number" required step=0.01 class="form-control" name="product_price_discount" id="product_price_discount" placeholder="ราคาขาย(ยอด 5,000 ขึ้น)">
-                </div>
-                <div class="col-sm-3">
-                    <input type="number" required step=0.01 class="form-control" name="product_cost" id="product_cost" placeholder="ราคาทุน/หน่วย">
-                </div>
-            </div>
 
-            <!-- สต็อก -->
-            <div class="form-group row">
-                <label for="price" class="col-sm-2 col-form-label">จำนวนในสต็อก</label>
-                <div class="col-sm-3">
-                    <input type="number" required class="form-control" name="product_stock" id="product_stock" placeholder="จำนวนในสต็อก">
-                </div>
-            </div>
-
-            <div class="form-group row justify-content-center">
-                <div class="col-sm-auto ">
-                    <button type="submit" required class="btn btn-primary mx-auto">ยืนยัน</button>
+                <div class="form-group row justify-content-center">
+                    <div class="col-sm-auto ">
+                        <button type="submit" required class="btn btn-primary mx-auto">ยืนยัน</button>
+                    </div>
                 </div>
             </div>
         </form>

@@ -51,7 +51,11 @@ session_start(); ?>
 
         .dropdown:hover .dropdown-menu {
             display: block;
-            margin-top: 0; // remove the gap so it doesn't close
+            margin-top: 0;
+        }
+
+        body {
+            background-image: url("./_etc/background.jpg");
         }
     </style>
 </head>
