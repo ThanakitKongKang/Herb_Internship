@@ -57,13 +57,13 @@ include_once($path);
                 <div class="form-group row">
                     <label for="price" class="col-sm-2 col-form-label">ราคา</label>
                     <div class="col-sm-3">
-                        <input type="number" required step=0.01 class="form-control" name="product_price" id="product_price" placeholder="ราคาขายปลีก">
+                        <input type="number" required step=0.01 min="1" class="form-control" name="product_price" id="product_price" placeholder="ราคาขายปลีก">
                     </div>
                     <div class="col-sm-3">
-                        <input type="number" required step=0.01 class="form-control" name="product_price_discount" id="product_price_discount" placeholder="ราคาขาย(ยอด 5,000 ขึ้น)">
+                        <input type="number" required step=0.01 min="1" class="form-control" name="product_price_discount" id="product_price_discount" placeholder="ราคาขาย(ยอด 5,000 ขึ้น)">
                     </div>
                     <div class="col-sm-3">
-                        <input type="number" required step=0.01 class="form-control" name="product_cost" id="product_cost" placeholder="ราคาทุน/หน่วย">
+                        <input type="number" required step=0.01 min="1" class="form-control" name="product_cost" id="product_cost" placeholder="ราคาทุน/หน่วย">
                     </div>
                 </div>
 
@@ -71,13 +71,13 @@ include_once($path);
                 <div class="form-group row">
                     <label for="price" class="col-sm-2 col-form-label">จำนวนในสต็อก</label>
                     <div class="col-sm-3">
-                        <input type="number" required class="form-control" name="product_stock" id="product_stock" placeholder="จำนวนในสต็อก">
+                        <input type="number" min="1" required class="form-control" name="product_stock" id="product_stock" placeholder="จำนวนในสต็อก">
                     </div>
                 </div>
 
-                <div class="form-group row justify-content-center">
+                <div class="form-group row justify-content-center mt-5 mb-0">
                     <div class="col-sm-auto ">
-                        <button type="submit" required class="btn btn-primary mx-auto">ยืนยัน</button>
+                        <button type="submit" required class="btn btn-primary mx-auto btn-lg">ยืนยัน</button>
                     </div>
                 </div>
             </div>
