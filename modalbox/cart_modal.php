@@ -47,7 +47,7 @@ $rowListProductCount = $list_product_count->fetch();
                     </div>
 
                     <div class="row justify-content-end pr-5" id="total-change" style="visibility:hidden">เงินที่ต้องทอน : <span class="total-change-span px-1 text-primary" id="total-change-span"></span> บาท</div>
-                    <div class="row justify-content-end pr-5" id="not-enough-receive" style="visibility:hidden">จำนวนเงินที่รับมาไม่พอ! ขาดอีก <span class="still-not-enough-span px-1 text-danger" id="still-not-enough"></span> บาท</div>
+                    <div class="row justify-content-center pr-5" id="not-enough-receive" style="visibility:hidden">จำนวนเงินที่รับมาไม่พอ! ขาดอีก <span class="still-not-enough-span px-1 text-danger" id="still-not-enough"></span> บาท</div>
 
                 </div>
             </div>
