@@ -98,6 +98,10 @@ var shoppingCart = (function () {
           cart.splice(item, 1);
           saveCart();
           if (shoppingCart.totalCount() === 0) {
+            document.getElementById("total-receive").value = "";
+            document.getElementById("total-change").style.visibility = "hidden";
+            document.getElementById("not-enough-receive").style.visibility = "hidden";
+            document.getElementById("footer-submit").style.visibility = "hidden";
             $('#cart').modal('hide');
           }
           return;
@@ -116,6 +120,10 @@ var shoppingCart = (function () {
         if (cart[item].count === 0) {
           cart.splice(item, 1);
           if (shoppingCart.totalCount() === 0) {
+            document.getElementById("total-receive").value = "";
+            document.getElementById("total-change").style.visibility = "hidden";
+            document.getElementById("not-enough-receive").style.visibility = "hidden";
+            document.getElementById("footer-submit").style.visibility = "hidden";
             $('#cart').modal('hide');
           }
         }
@@ -132,6 +140,10 @@ var shoppingCart = (function () {
       if (cart[item].product_id === product_id) {
         cart.splice(item, 1);
         if (shoppingCart.totalCount() === 0) {
+          document.getElementById("total-receive").value = "";
+          document.getElementById("total-change").style.visibility = "hidden";
+          document.getElementById("not-enough-receive").style.visibility = "hidden";
+          document.getElementById("footer-submit").style.visibility = "hidden";
           $('#cart').modal('hide');
         }
         break;
@@ -144,6 +156,7 @@ var shoppingCart = (function () {
   obj.clearCart = function () {
     cart = [];
     saveCart();
+
   }
 
   // Count cart 
@@ -238,6 +251,10 @@ $('#product tbody').on("click", "th", function (event) {
 $('.clear-cart').click(function () {
   shoppingCart.clearCart();
   displayCart();
+  document.getElementById("total-receive").value = "";
+  document.getElementById("total-change").style.visibility = "hidden";
+  document.getElementById("not-enough-receive").style.visibility = "hidden";
+  document.getElementById("footer-submit").style.visibility = "hidden";
 });
 
 // แสดงตะกร้า
@@ -333,8 +350,11 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
 
   // window.setTimeout(function () { location.reload() }, 1000)
 
-  console.log(document.getElementById("total-recieve").value);
+  console.log(document.getElementById("total-receive").value);
   document.getElementById("total-receive").value = "";
+  document.getElementById("total-change").style.visibility = "hidden";
+  document.getElementById("not-enough-receive").style.visibility = "hidden";
+  document.getElementById("footer-submit").style.visibility = "hidden";
 })
 
 // ajax refresh product table function
