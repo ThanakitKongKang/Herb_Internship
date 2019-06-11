@@ -215,8 +215,8 @@ include_once($path);
 
 
         $('.table-height-change').on("click", function(event) {
-            var height = Number($(this).data('height'));
             table.destroy();
+            var height = Number($(this).data('height'));
             table = $('#product').DataTable({
                 scrollY: height,
                 scrollX: false,
@@ -242,6 +242,14 @@ include_once($path);
 
             });
             $.cookie("window-height", height);
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("tbodyData").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
+            xmlhttp.send();
             // console.log("cookie : " + $.cookie("window-height"));
         })
 
@@ -259,6 +267,8 @@ include_once($path);
             xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
             xmlhttp.send();
         })
+
+
 
         // $(this).on("keypress", function(event) {
         //     if (event.keyCode == 32) {
