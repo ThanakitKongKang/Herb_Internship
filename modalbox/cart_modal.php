@@ -64,34 +64,14 @@ $rowListProductCount = $list_product_count->fetch();
 <script>
     $(document).ready(function() {
         $('#total-receive').on("keyup", function(event) {
-            var total_cart = Number(document.getElementById("total-cart").innerHTML);
-            var total_receive = Number(document.getElementById("total-receive").value);
-            if (total_receive !== 0 && total_receive !== null && total_receive >= 0) {
-                document.getElementById("footer-submit").style.visibility = "visible";
-                var change = document.getElementById("total-change-span").innerHTML = total_receive - total_cart;
-                if (change < 0) {
-                    document.getElementById("footer-submit").style.visibility = "hidden";
-                    document.getElementById("total-change").style.visibility = "hidden";
-                    document.getElementById("not-enough-receive").style.visibility = "visible";
-                    document.getElementById("still-not-enough").innerHTML = Math.abs(change);
-
-                }
-                // else if (change === 0) {
-                //     document.getElementById("not-enough-receive").style.visibility = "hidden";
-                // } 
-                else {
-                    document.getElementById("total-change").style.visibility = "visible";
-                    document.getElementById("not-enough-receive").style.visibility = "hidden";
-                }
-
-            } else {
-                document.getElementById("footer-submit").style.visibility = "hidden";
-                document.getElementById("total-change").style.visibility = "hidden";
-                document.getElementById("not-enough-receive").style.visibility = "hidden";
-
-                // console.log(total_receive);
-            }
+            calculate_change();
         });
+
+        if (document.hasFocus()) {
+        setInterval(function() {
+            calculate_change();
+        }, 1000);
+    }
 
         // $(this).on("keypress", function(event) {
         //     if (event.keyCode == 32) {

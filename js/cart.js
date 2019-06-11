@@ -81,8 +81,8 @@ var shoppingCart = (function () {
   }
   // Set count from item
   obj.setCountForItem = function (product_id, count) {
+    calculate_change();
     for (var i in cart) {
-
       if (cart[i].product_id === product_id) {
         if (count > cart[i].product_stock || count < 0) {
           Swal.fire({
@@ -154,6 +154,7 @@ var shoppingCart = (function () {
 
   // Clear cart
   obj.clearCart = function () {
+    calculate_change();
     cart = [];
     saveCart();
 
@@ -244,6 +245,7 @@ $('#product tbody').on("click", "th", function (event) {
   shoppingCart.addItemToCart(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, 1);
   // shoppingCart.addItemToCart(product_id, product_name, product_price, 1);
   displayCart();
+  calculate_change();
 });
 
 
@@ -369,13 +371,43 @@ function getListProductTable() {
   xmlhttp.send();
 }
 
+function calculate_change() {
+  var total_cart = Number(document.getElementById("total-cart").innerHTML);
+  var total_receive = Number(document.getElementById("total-receive").value);
+  if (total_receive !== 0 && total_receive !== null && total_receive >= 0) {
+    document.getElementById("footer-submit").style.visibility = "visible";
+    var change = document.getElementById("total-change-span").innerHTML = total_receive - total_cart;
+    if (change < 0) {
+      document.getElementById("footer-submit").style.visibility = "hidden";
+      document.getElementById("total-change").style.visibility = "hidden";
+      document.getElementById("not-enough-receive").style.visibility = "visible";
+      document.getElementById("still-not-enough").innerHTML = Math.abs(change);
+
+    }
+    // else if (change === 0) {
+    //     document.getElementById("not-enough-receive").style.visibility = "hidden";
+    // } 
+    else {
+      document.getElementById("total-change").style.visibility = "visible";
+      document.getElementById("not-enough-receive").style.visibility = "hidden";
+    }
+
+  } else {
+    document.getElementById("footer-submit").style.visibility = "hidden";
+    document.getElementById("total-change").style.visibility = "hidden";
+    document.getElementById("not-enough-receive").style.visibility = "hidden";
+
+    // console.log(total_receive);
+  }
+}
+
 
 // -1
 $('.show-cart').on("click", ".minus-item", function (event) {
   var product_id = Number($(this).data('product_id'));
   shoppingCart.removeItemFromCart(product_id);
   // console.log("call success minus");
-
+  calculate_change();
   displayCart();
 })
 // +1
@@ -383,7 +415,7 @@ $('.show-cart').on("click", ".plus-item", function (event) {
   var product_id = Number($(this).data('product_id'));
   shoppingCart.addItemToCart(product_id);
   // console.log("call success plus");
-
+  calculate_change();
   displayCart();
 })
 
@@ -393,6 +425,7 @@ $('.show-cart').on("click", ".delete-item", function (event) {
   var product_id = Number($(this).data('product_id'))
   shoppingCart.removeItemFromCartAll(product_id);
   // console.log("call success delete");
+  calculate_change();
   displayCart();
 })
 
@@ -401,6 +434,7 @@ $('.show-cart').on("change", ".item-count", function (event) {
   var product_id = Number($(this).data('product_id'));
   var count = Number($(this).val());
   shoppingCart.setCountForItem(product_id, count);
+  calculate_change();
   displayCart();
 });
 
