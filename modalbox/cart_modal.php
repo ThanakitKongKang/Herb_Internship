@@ -15,7 +15,7 @@
         }
     </style>
 </head>
-<?php 
+<?php
 $list_product_count = $pdo->prepare("SELECT COUNT(product_id) AS listProductCount FROM product");
 $list_product_count->execute();
 $rowListProductCount = $list_product_count->fetch();
@@ -36,11 +36,26 @@ $rowListProductCount = $list_product_count->fetch();
                 <table class="show-cart table">
 
                 </table>
-                <div class="row justify-content-end pr-5">ยอดรวม: <span class="total-cart px-1"></span> บาท</div>
+
+                <div style="font-size:1.25em">
+                    <div class="row justify-content-end pr-5">ยอดรวม : <span id="total-cart" class="total-cart px-1 border-1 text-primary"></span> บาท</div>
+                    <div class="row pr-5 justify-content-end">
+                        <div class="col-4 p-2">
+                            <input type='number' required min="1" step="0.25" id="total-receive" class='total-receive form-control' placeholder="จำนวนเงินที่รับ">
+                        </div>
+                        <div class="px-0 pt-2">บาท</div>
+                    </div>
+
+                    <div class="row justify-content-end pr-5" id="total-change" style="visibility:hidden">เงินที่ต้องทอน : <span class="total-change-span px-1 text-primary" id="total-change-span"></span> บาท</div>
+                    <div class="row justify-content-end pr-5" id="not-enough-receive" style="visibility:hidden">จำนวนเงินที่รับมาไม่พอ! ขาดอีก <span class="still-not-enough-span px-1 text-danger" id="still-not-enough"></span> บาท</div>
+
+                </div>
             </div>
             <div class="cart-button modal-footer">
+                <button type="button" onclick="" id="footer-submit" class="calculate-cart btn btn-primary" data-dismiss="modal" data-list_product_count="<?= $rowListProductCount['listProductCount'] ?>" style="visibility:hidden">ยืนยันการขายและพิมพ์ใบเสร็จ</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="calculate-cart btn btn-primary" data-dismiss="modal" data-list_product_count="<?=$rowListProductCount['listProductCount']?>">ยืนยันการขายและพิมพ์ใบเสร็จ</button>
+
+
             </div>
         </div>
     </div>
@@ -48,11 +63,41 @@ $rowListProductCount = $list_product_count->fetch();
 
 <script>
     $(document).ready(function() {
-        $(this).on("keypress", function(event) {
-            if (event.keyCode == 32) {
-                displayCart();
-                $('#cart').modal('hide');
+        $('#total-receive').on("keyup", function(event) {
+            var total_cart = Number(document.getElementById("total-cart").innerHTML);
+            var total_receive = Number(document.getElementById("total-receive").value);
+            if (total_receive !== 0 && total_receive !== null && total_receive >= 0) {
+                document.getElementById("footer-submit").style.visibility = "visible";
+                var change = document.getElementById("total-change-span").innerHTML = total_receive - total_cart;
+                if (change < 0) {
+                    document.getElementById("footer-submit").style.visibility = "hidden";
+                    document.getElementById("total-change").style.visibility = "hidden";
+                    document.getElementById("not-enough-receive").style.visibility = "visible";
+                    document.getElementById("still-not-enough").innerHTML = Math.abs(change);
+
+                }
+                // else if (change === 0) {
+                //     document.getElementById("not-enough-receive").style.visibility = "hidden";
+                // } 
+                else {
+                    document.getElementById("total-change").style.visibility = "visible";
+                    document.getElementById("not-enough-receive").style.visibility = "hidden";
+                }
+
+            } else {
+                document.getElementById("footer-submit").style.visibility = "hidden";
+                document.getElementById("total-change").style.visibility = "hidden";
+                document.getElementById("not-enough-receive").style.visibility = "hidden";
+
+                // console.log(total_receive);
             }
         });
+
+        // $(this).on("keypress", function(event) {
+        //     if (event.keyCode == 32) {
+        //         displayCart();
+        //         $('#cart').modal('hide');
+        //     }
+        // });
     });
 </script>

@@ -157,7 +157,7 @@ include_once($path);
                 scrollCollapse: true,
                 paging: false,
                 info: false,
-                // "deferRender": true,
+                "deferRender": true,
 
 
                 // "searching": false,
@@ -188,7 +188,7 @@ include_once($path);
                 scrollCollapse: true,
                 paging: false,
                 info: false,
-                // "deferRender": true,
+                "deferRender": true,
 
 
                 // "searching": false,
@@ -260,13 +260,13 @@ include_once($path);
             xmlhttp.send();
         })
 
-        $(this).on("keypress", function(event) {
-            if (event.keyCode == 32) {
-                displayCart();
-                $('#cart').modal('show');
-            }
+        // $(this).on("keypress", function(event) {
+        //     if (event.keyCode == 32) {
+        //         displayCart();
+        //         $('#cart').modal('show');
+        //     }
 
-        });
+        // });
 
         // $('input.code_filter').on('keyup', function() {
         //     filterCode();

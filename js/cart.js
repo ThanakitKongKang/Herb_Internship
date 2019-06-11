@@ -236,7 +236,6 @@ $('#product tbody').on("click", "th", function (event) {
 
 // Clear items
 $('.clear-cart').click(function () {
-  console.log("มา");
   shoppingCart.clearCart();
   displayCart();
 });
@@ -281,7 +280,7 @@ function displayCart() {
   // console.dir(cartArray);
 }
 
-// คิดเงิน ตัดสต็อก รีเฟรชตารางสินค้า
+// คิดเงิน ตัดสต็อก รีเฟรชตารางสินค้า ส่งข้อมูลให้ bill.php
 $('.cart-button').on("click", ".calculate-cart", function (event) {
 
   $.ajax({
@@ -333,6 +332,9 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   // xmlhttp.send();
 
   // window.setTimeout(function () { location.reload() }, 1000)
+
+  console.log(document.getElementById("total-recieve").value);
+  document.getElementById("total-receive").value = "";
 })
 
 // ajax refresh product table function
