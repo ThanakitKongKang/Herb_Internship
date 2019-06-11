@@ -16,7 +16,7 @@ include_once($path);
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">ชื่อผลิตภัณฑ์</label>
                 <div class="col-sm-6">
-                    <input type="text" required class="form-control" name="product_name" id="product_name" placeholder="ชื่อผลิตภัณฑ์">
+                    <input type="text" required class="form-control" name="product_name" id="product_name" placeholder="ชื่อผลิตภัณฑ์" pattern="[ก-๏\s]+" title="กรุณากรอกเป็นภาษาไทย" >
                 </div>
             </div>
             <!-- ประเภทสินค้า -->
@@ -44,10 +44,10 @@ include_once($path);
             <div class="form-group row">
                 <label for="potent" class="col-sm-2 col-form-label">ความแรงยา/ขนาดบรรจุ</label>
                 <div class="col-sm-3">
-                    <input type="text" required class="form-control" name="product_potent" id="product_potent" placeholder="ความแรง">
+                    <input type="text" required class="form-control" name="product_potent" id="product_potent" placeholder="ความแรง" pattern="^[0-9]+[\s][a-zA-Zก-๏]+$|ระบุไม่ได้" title="กรุณากรอกตามตัวอย่าง เช่น 250 mg หรือ 250 มิลลิกรัม">
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" required class="form-control" name="product_amount" id="product_amount" placeholder="ขนาดบรรจุ">
+                    <input type="text" required class="form-control" name="product_amount" id="product_amount" placeholder="ขนาดบรรจุ" pattern="^[0-9]+[\s][a-zA-Zก-๏]+$|ระบุไม่ได้" title="กรุณากรอกตามตัวอย่าง เช่น 50 เม็ด หรือ 200 แคปซูล">
                 </div>
 
             </div>
