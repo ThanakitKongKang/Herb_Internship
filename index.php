@@ -147,9 +147,8 @@ include_once($path);
     $(document).ready(function() {
 
         var window_height = Number($.cookie("window-height"));
-        // console.log("window_height : "+window_height);
-
-        if ($.cookie("window-height") !== null) {
+        if ($.cookie("window-height") !== undefined) {
+            // console.log("window-height is not undefined : " + $.cookie("window-height"));
             var table = $('#product').DataTable({
                 // scrollY: 500,
                 scrollY: window_height,
@@ -158,8 +157,6 @@ include_once($path);
                 paging: false,
                 info: false,
                 "deferRender": true,
-
-
                 // "searching": false,
 
                 "columnDefs": [{
@@ -179,7 +176,8 @@ include_once($path);
 
 
             });
-        } else {
+        } else if ($.cookie("window-height") == undefined) {
+            // console.log("window-height is undefined");
             var table = $('#product').DataTable({
                 scrollY: 500,
                 // scrollY: window_height,
@@ -188,8 +186,6 @@ include_once($path);
                 paging: false,
                 info: false,
                 "deferRender": true,
-
-
                 // "searching": false,
 
                 "columnDefs": [{
@@ -249,7 +245,6 @@ include_once($path);
             };
             xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
             xmlhttp.send();
-            // console.log("cookie : " + $.cookie("window-height"));
         })
 
         $('.refresh-table').on("click", function(event) {
