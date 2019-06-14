@@ -36,16 +36,10 @@ include_once($path);
         $listProduct = getListProduct($pdo); //call function
         ?>
         <!-- print -->
-
-
         <div class="my-3">
-            <!-- <div class="row">
-                <div class="col-2"><input type="text" class="code_filter form-control" id="code_filter" placeholder="รหัสสินค้า"></div>
-                <div class="col-3"><input type="text" class="name_filter form-control" id="name_filter" placeholder="ชื่อสินค้า"></div>
-            </div> -->
             <table class="table table-light table-striped table-responsive table-bordered table-hover" id="product" data-page-length='25'>
 
-                <thead class="thead-dark">
+                <thead class="thead-light">
                     <tr>
 
                         <th class="align-middle text-center">รหัสสินค้า</th>
@@ -57,7 +51,7 @@ include_once($path);
                             <!-- <span class="text-light" style="font-size:0.75em;">(บาท)<span> -->
                         </th>
                         <th class="align-middle text-center">สต็อก</th>
-                        <th class="align-middle text-center no-sort"><a class="btn refresh-table text-white" href="#"><i class="fas fa-sync" id="refresh-a"></i></a></th>
+                        <th class="align-middle text-center no-sort"><a class="btn refresh-table" href="#"><i class="fas fa-sync" id="refresh-a"></i></a></th>
                     </tr>
                 </thead>
 
@@ -107,12 +101,10 @@ include_once($path);
                 </div>
             </div>
         </div>
-
-
     </div>
     <?php
-    include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/modalbox/cart_modal.php"); ?>
-    <script src="./js/cart.js"></script>
+    include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/modalbox/addstock_cart_modal.php"); ?>
+    <script src="./js/addstock_cart.js"></script>
 
 
 </body>
@@ -131,33 +123,19 @@ include_once($path);
         }, 30000);
     }
 
-    // function filterCode() {
-    //     $('#product').DataTable().column(0).search(
-    //         $('#code_filter').val(),
-    //     ).draw();
-    // }
-
-    // function filterName() {
-    //     $('#product').DataTable().column(1).search(
-    //         $('#name_filter').val(),
-    //     ).draw();
-    // }
-
-
     $(document).ready(function() {
 
-        var window_height = Number($.cookie("window-height"));
-        if ($.cookie("window-height") !== undefined) {
-            // console.log("window-height is not undefined : " + $.cookie("window-height"));
+        var window_height = Number($.cookie("window-height-addstock"));
+        if ($.cookie("window-height-addstock") !== undefined) {
+    
             var table = $('#product').DataTable({
-                // scrollY: 500,
+  
                 scrollY: window_height,
                 scrollX: false,
                 scrollCollapse: true,
                 paging: false,
                 info: false,
                 "deferRender": true,
-                // "searching": false,
 
                 "columnDefs": [{
                         "targets": 'no-sort',
@@ -176,17 +154,16 @@ include_once($path);
 
 
             });
-        } else if ($.cookie("window-height") == undefined) {
-            // console.log("window-height is undefined");
+        } else if ($.cookie("window-height-addstock") == undefined) {
+
             var table = $('#product').DataTable({
                 scrollY: 500,
-                // scrollY: window_height,
                 scrollX: false,
                 scrollCollapse: true,
                 paging: false,
                 info: false,
                 "deferRender": true,
-                // "searching": false,
+           
 
                 "columnDefs": [{
                         "targets": 'no-sort',
@@ -206,8 +183,6 @@ include_once($path);
 
             });
         }
-
-
 
         $('.table-height-change').on("click", function(event) {
             table.destroy();
@@ -236,7 +211,7 @@ include_once($path);
                 }
 
             });
-            $.cookie("window-height", height);
+            $.cookie("window-height-addstock", height);
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -261,26 +236,6 @@ include_once($path);
             xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
             xmlhttp.send();
         })
-
-
-
-        // $(this).on("keypress", function(event) {
-        //     if (event.keyCode == 32) {
-        //         displayCart();
-        //         $('#cart').modal('show');
-        //     }
-
-        // });
-
-        // $('input.code_filter').on('keyup', function() {
-        //     filterCode();
-        // });
-        // $('input.name_filter').on('keyup', function() {
-        //     filterName();
-        // });
-
-        // document.getElementsByClassName("form-control form-control-sm").placeholder = "ค้นหารหัส หรือ ชื่อสินค้า";
-        // document.getElementByClass("product_filter").placeholder = "ค้นหารหัส หรือ ชื่อสินค้า";
     });
 
     $('.clear-cart').click(function() {
