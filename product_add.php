@@ -127,7 +127,7 @@ include_once($path);
                     $(':input', '#form_product_add')
                         .not(':button, :submit, :reset, :hidden')
                         .val('')
-                        .prop('checked', false)
+                        // .prop('checked', false)
                         .prop('selected', false);
                 })
                 .fail(function(data) {

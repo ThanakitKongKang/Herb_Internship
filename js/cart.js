@@ -230,7 +230,7 @@ var shoppingCart = (function () {
 
 $('#product tbody').on("click", "th", function (event) {
   event.preventDefault();
-  var product_id = Number($(this).data('product_id'));
+  var product_id = ($(this).data('product_id'));
   var product_name = $(this).data('product_name');
   var product_type = $(this).data('product_type');
   var product_potent = $(this).data('product_potent');
@@ -402,7 +402,7 @@ function calculate_change() {
 
 // -1
 $('.show-cart').on("click", ".minus-item", function (event) {
-  var product_id = Number($(this).data('product_id'));
+  var product_id = ($(this).data('product_id'));
   shoppingCart.removeItemFromCart(product_id);
   // console.log("call success minus");
 
@@ -411,7 +411,7 @@ $('.show-cart').on("click", ".minus-item", function (event) {
 })
 // +1
 $('.show-cart').on("click", ".plus-item", function (event) {
-  var product_id = Number($(this).data('product_id'));
+  var product_id = ($(this).data('product_id'));
   shoppingCart.addItemToCart(product_id);
   // console.log("call success plus");
 
@@ -422,7 +422,7 @@ $('.show-cart').on("click", ".plus-item", function (event) {
 // Delete item button
 
 $('.show-cart').on("click", ".delete-item", function (event) {
-  var product_id = Number($(this).data('product_id'))
+  var product_id = ($(this).data('product_id'))
   shoppingCart.removeItemFromCartAll(product_id);
   // console.log("call success delete");
 
@@ -432,7 +432,7 @@ $('.show-cart').on("click", ".delete-item", function (event) {
 
 // Item count input
 $('.show-cart').on("change", ".item-count", function (event) {
-  var product_id = Number($(this).data('product_id'));
+  var product_id = ($(this).data('product_id'));
   var count = Number($(this).val());
   shoppingCart.setCountForItem(product_id, count);
 
