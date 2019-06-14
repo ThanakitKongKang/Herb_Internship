@@ -227,7 +227,7 @@ function displayCart() {
       "</tr>";
   }
   if (shoppingCart2.totalCount() > 0) {
-    var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-primary btn-lg' data-toggle='modal' data-target='#cart' title='คลิกเพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> สินค้าที่เลือก (" + shoppingCart2.totalCount() + ")</button>";
+    var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-success btn-lg' data-toggle='modal' data-target='#cart' title='คลิกเพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> สินค้าที่เลือก (" + shoppingCart2.totalCount() + ")</button>";
     $('.cart-clickable').html(cart_clickable);
 
     var cart_clear_clickable = "<button style='float:right' class='btn btn-danger mx-1 btn-lg' title='ยกเลิกรายการสินค้าทั้งหมดที่เลือกไว้ในตะกร้า'><i class='far fa-window-close'></i> ยกเลิก</button>";
