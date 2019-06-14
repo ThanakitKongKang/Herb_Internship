@@ -293,6 +293,9 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
       displayCart();
       getListProductTable();
     }
+    else{
+      $('#cart').modal('show');
+    }
   })
 
 })
