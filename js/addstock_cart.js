@@ -251,7 +251,7 @@ function displayCart() {
 // คิดเงิน ตัดสต็อก รีเฟรชตารางสินค้า ส่งข้อมูลให้ bill.php
 $('.cart-button').on("click", ".calculate-cart", function (event) {
   Swal.fire({
-    title: 'ยืนยันการทำรายการ?',
+    title: 'ยืนยันการทำรายการและอัปเดตสต็อก?',
     // text: "You won't be able to revert this!",
     type: 'warning',
     showCancelButton: true,
@@ -285,7 +285,7 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
 
       Toast.fire({
         title: 'สำเร็จ !',
-        text: 'บันทึกรายการซื้อในฐานข้อมูล!',
+        text: 'รายการนำสินค้าเข้า ถูกบันทึกในฐานข้อมูล!',
         type: 'success',
         confirmButtonText: 'ตกลง',
       })

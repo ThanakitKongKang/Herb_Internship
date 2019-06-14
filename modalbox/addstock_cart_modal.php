@@ -27,7 +27,7 @@ $rowListProductCount = $list_product_count->fetch();
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ตะกร้าสินค้า</h5>
+                <h5 class="modal-title" id="exampleModalLabel">สินค้าที่นำเข้าสต็อก</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -40,7 +40,7 @@ $rowListProductCount = $list_product_count->fetch();
 
             </div>
             <div class="cart-button modal-footer">
-                <button type="button" onclick="" id="footer-submit" class="calculate-cart btn btn-primary" data-dismiss="modal" data-list_product_count="<?= $rowListProductCount['listProductCount'] ?>">ยืนยันการซื้อและอัปเดตสต็อก</button>
+                <button type="button" onclick="" id="footer-submit" class="calculate-cart btn btn-primary" data-dismiss="modal" data-list_product_count="<?= $rowListProductCount['listProductCount'] ?>">ดำเนินการต่อ</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
 
 
