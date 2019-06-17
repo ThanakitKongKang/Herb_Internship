@@ -44,13 +44,8 @@ var shoppingCart2 = (function () {
   obj.addItemToCart = function (product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
     for (var item in cart) {
       if (cart[item].product_id === product_id) {
-        Swal.fire({
-          title: 'สินค้าชิ้นนี้ถูกเลือกแล้ว',
-          // html: '<div>ไม่มี <span class="text-primary">' + product_name + ' ' + product_potent + '</span> ในสต็อก</div>',
-          type: 'warning',
-          confirmButtonText: 'ตกลง',
-          // timer: 1500
-        })
+        cart[item].count++;
+        saveCart();
         return;
       }
     }
@@ -221,7 +216,7 @@ function displayCart() {
       "<td name='name'>" + cartArray[i].product_name + "</td>" +
       "<td name='price'>" + cartArray[i].product_price + "</td>" +
       "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-product_id=" + cartArray[i].product_id + ">-</button>" +
-      "<input type='number' min='1' max=" + cartArray[i].product_stock + " class='item-count form-control' data-product_id='" + cartArray[i].product_id + "'data-product_stock='" + cartArray[i].product_stock + "' value='" + cartArray[i].count + "'>" +
+      "<input type='number' min='1' max='100000' class='item-count form-control' data-product_id='" + cartArray[i].product_id + "'data-product_stock='" + cartArray[i].product_stock + "' value='" + cartArray[i].count + "'>" +
       "<button class='plus-item btn btn-primary input-group-addon' data-product_id=" + cartArray[i].product_id + ">+</button></div></td>" +
       "<td><button class='delete-item btn btn-danger' data-product_id=" + cartArray[i].product_id + ">X</button></td>" +
       "</tr>";
@@ -293,7 +288,7 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
       displayCart();
       getListProductTable();
     }
-    else{
+    else {
       $('#cart').modal('show');
     }
   })

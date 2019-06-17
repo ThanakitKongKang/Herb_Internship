@@ -239,7 +239,7 @@ include_once($path);
     });
 
     $('.clear-cart').click(function() {
-        shoppingCart.clearCart();
+        shoppingCart2.clearCart();
         displayCart();
     });
 </script>
