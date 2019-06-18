@@ -83,7 +83,7 @@ var shoppingCart = (function () {
     calculate_change();
     for (var i in cart) {
       if (cart[i].product_id === product_id) {
-        if (count > cart[i].product_stock || count < 0) {
+        if (count > cart[i].product_stock) {
           Swal.fire({
             title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
             html: '<div>มี <span class="text-primary">' + cart[i].product_name + ' ' + cart[i].product_potent + '</span> ในสต็อก <span class="text-primary">' + cart[i].product_stock + ' </span>ชิ้น</div>',
@@ -92,7 +92,7 @@ var shoppingCart = (function () {
             // timer: 1500
           })
           return;
-        } else if (count === 0) {
+        } else if (count === 0 || count < 1) {
           cart.splice(item, 1);
           saveCart();
           if (shoppingCart.totalCount() === 0) {
