@@ -1,4 +1,3 @@
-
 $('#product tbody').on("click", "th", function (event) {
     event.preventDefault();
     var product_id = ($(this).data('product_id'));
@@ -39,8 +38,7 @@ $('#product tbody').on("click", "th", function (event) {
             "</label>" +
             "</div>" +
             "</div>";
-    }
-    else if (product_type == "NED") {
+    } else if (product_type == "NED") {
         output += "<div class='col-sm-9'>" +
             "<div class='form-check'>" +
             "<input required class='form-check-input' type='radio' name='product_type' id='product_type1' value='ED'>" +
@@ -166,8 +164,7 @@ $('.edit-footer').on("click", ".edit-button", function (event) {
                 confirmButtonText: 'ตกลง',
             })
             getListProductTable();
-        }
-        else {
+        } else {
             $('#editModal').modal('show');
         }
     })
@@ -186,16 +183,19 @@ function getListProductTable() {
     xmlhttp.send();
 }
 
-function checkName(value){
-    var re = /^[a-zA-Z0-9]+$/;
-    console.log(re.test(value));
-    if(re.test(value)){
+function checkName(value) {
+    var product_name = document.querySelector("#product_name");
+    console.log(product_name.checkValidity());
+    if (product_name.checkValidity()) {
         document.getElementById("product_name").style.backgroundColor = "green";
     }
+    document.getElementById("product_name");
 }
-function checkPotent(value){
+
+function checkPotent(value) {
     console.log("yeah2");
 }
-function checkAmount(value){
+
+function checkAmount(value) {
     console.log("yeah3");
 }
