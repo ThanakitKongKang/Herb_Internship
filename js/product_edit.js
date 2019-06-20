@@ -17,7 +17,7 @@ $('#product tbody').on("click", "th", function (event) {
         "<div class='form-group row'>" +
         "<label for='name' class=' col-sm-3 col-form-label'>ชื่อผลิตภัณฑ์</label>" +
         "<div class='col-sm-6'>" +
-        "<input type='text' onblur='checkName(this.value);' required class='product_name form-control' name='product_name' id='product_name' placeholder='ชื่อผลิตภัณฑ์' pattern='[ก-๏\s]+' title='กรุณากรอกเป็นภาษาไทย' value='" + product_name + "'>" +
+        "<input type='text' onblur='checkName();' required class='product_name form-control' name='product_name' id='product_name' placeholder='ชื่อผลิตภัณฑ์' pattern='[ก-๏\s]+' title='กรุณากรอกเป็นภาษาไทย' value='" + product_name + "'>" + "<span class='text-danger' id='check_name'></span>"+
         "</div>" +
         "</div>" +
         "<fieldset class='form-group'>" +
@@ -59,10 +59,11 @@ $('#product tbody').on("click", "th", function (event) {
         "<div class='form-group row'>" +
         "<label for='potent' class=' col-sm-3 col-form-label'>ความแรงยา/ขนาดบรรจุ</label>" +
         "<div class='col-sm-3'>" +
-        "<input type='text' required class='form-control' onblur='checkPotent(this.value);' name='product_potent' id='product_potent' title='ความแรง' value='" + product_potent + "' placeholder='ความแรง' pattern='^[0-9]+[\s][a-zA-Zก-๏]+$|ระบุไม่ได้' title='กรุณากรอกตามตัวอย่าง เช่น 250 mg หรือ 250 มิลลิกรัม'>" +
+        "<input type='text' required class='form-control' onblur='checkPotent();' name='product_potent' id='product_potent' title='ความแรง' value='" + product_potent + "' placeholder='ความแรง' pattern='[0-9]+[\\s][a-zA-Zก-๏]+$|ระบุไม่ได้' title='กรุณากรอกตามตัวอย่าง เช่น 250 mg หรือ 250 มิลลิกรัม' value='" + product_potent + "'>" +
+        "<span class='text-danger' id='check_potent'></span>"+
         "</div>" +
         "<div class='col-sm-3'>" +
-        "<input type='text' required class='form-control' onblur='checkAmount(this.value);' name='product_amount' id='product_amount' title='ขนาดบรรจุ' value='" + product_amount + "' placeholder='ขนาดบรรจุ' pattern='^[0-9]+[\s][a-zA-Zก-๏]+$|ระบุไม่ได้' title='กรุณากรอกตามตัวอย่าง เช่น 250 mg หรือ 250 มิลลิกรัม'>" +
+        "<input type='text' required class='form-control' onblur='checkAmount();' name='product_amount' id='product_amount' title='ขนาดบรรจุ' value='" + product_amount + "' placeholder='ขนาดบรรจุ' pattern='[0-9]+[\\s][a-zA-Zก-๏]+$|ระบุไม่ได้' title='กรุณากรอกตามตัวอย่าง เช่น 50 แคปซูล '>" + "<span class='text-danger' id='check_amount'></span>"+
         "</div>" +
         "</div>" +
 
@@ -183,19 +184,59 @@ function getListProductTable() {
     xmlhttp.send();
 }
 
-function checkName(value) {
+function checkName() {
     var product_name = document.querySelector("#product_name");
     console.log(product_name.checkValidity());
     if (product_name.checkValidity()) {
-        document.getElementById("product_name").style.backgroundColor = "green";
+        document.getElementById("product_name").style.backgroundColor = "LimeGreen";
+        document.getElementById("product_name").style.color = "white";
+        document.getElementById("footer-submit").style.visibility = "visible";
+        document.getElementById("check_name").innerHTML= "";
+    }
+    else {
+        document.getElementById("product_name").style.backgroundColor = "Tomato";
+        document.getElementById("product_name").style.color = "white";
+        document.getElementById("footer-submit").style.visibility = "hidden";
+        document.getElementById("check_name").innerHTML= "กรุณากรอกเป็นภาษาไทย";
+       
     }
     document.getElementById("product_name");
 }
-
-function checkPotent(value) {
-    console.log("yeah2");
+function checkPotent() {
+    console.log("checkPotent");
+    var product_potent = document.querySelector("#product_potent");
+    console.log(product_potent.value+" "+product_potent.checkValidity());
+    if (product_potent.checkValidity()) {
+        document.getElementById("product_potent").style.backgroundColor = "LimeGreen";
+        document.getElementById("product_potent").style.color = "white";
+        document.getElementById("footer-submit").style.visibility = "visible";
+        document.getElementById("check_potent").innerHTML= "";
+    }
+    else {
+        document.getElementById("product_potent").style.backgroundColor = "Tomato";
+        document.getElementById("product_potent").style.color = "white";
+        document.getElementById("footer-submit").style.visibility = "hidden";
+        document.getElementById("check_potent").innerHTML= "กรุณากรอกตามตัวอย่าง เช่น 250 mg หรือ 250 มิลลิกรัม";
+        
+    }
 }
 
-function checkAmount(value) {
-    console.log("yeah3");
+function checkAmount() {
+    console.log("checkAmount");
+    
+    var product_amount = document.querySelector("#product_amount");
+    console.log(product_amount.checkValidity());
+    if (product_amount.checkValidity()) {
+        document.getElementById("product_amount").style.backgroundColor = "LimeGreen";
+        document.getElementById("product_amount").style.color = "white";
+        document.getElementById("footer-submit").style.visibility = "visible";
+        document.getElementById("check_amount").innerHTML="";
+    }
+    else {
+        document.getElementById("product_amount").style.backgroundColor = "Tomato";
+        document.getElementById("product_amount").style.color = "white";
+        document.getElementById("footer-submit").style.visibility = "hidden";
+        document.getElementById("check_amount").innerHTML= "กรุณากรอกตามตัวอย่าง เช่น 50 แคปซูล";
+       
+    }
 }

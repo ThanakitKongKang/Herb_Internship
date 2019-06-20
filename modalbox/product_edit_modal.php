@@ -41,7 +41,7 @@ $rowListProductCount = $list_product_count->fetch();
 
             </div>
             <div class="edit-footer modal-footer">
-                <button type="button" onclick="" id="footer-submit" class="edit-button btn btn-primary text-white" data-dismiss="modal" data-list_product_count="<?= $rowListProductCount['listProductCount'] ?>">ยืนยันการทำรายการ</button>
+                <button type="button" onclick="" id="footer-submit"  class="edit-button btn btn-primary text-white" data-dismiss="modal" data-list_product_count="<?= $rowListProductCount['listProductCount'] ?>">ยืนยันการทำรายการ</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
 
 
