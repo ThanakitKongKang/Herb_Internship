@@ -432,8 +432,10 @@ $('.show-cart').on("click", ".delete-item", function (event) {
 
 // Item count input
 $('.show-cart').on("change", ".item-count", function (event) {
+  
   var product_id = ($(this).data('product_id'));
   var count = Number($(this).val());
+  count = parseInt(count);
   shoppingCart.setCountForItem(product_id, count);
 
   displayCart();

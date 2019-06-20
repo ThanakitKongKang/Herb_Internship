@@ -9,13 +9,13 @@ include_once($path);
     <title>Herb retail</title>
     <style>
         table tbody tr:hover {
-            color: #008397 !important;
+            color: #e9af00 !important;
         }
 
         table tbody button:active,
-        .add-to-cart:active {
-            color: #008397;
-            background-color: #86cfda !important;
+        .show-edit-modal:active {
+            color: #e9af00;
+            background-color: #e9af00 !important;
         }
 
         table tbody tr th {
@@ -39,7 +39,7 @@ include_once($path);
         <div class="my-3">
             <table class="table table-light table-striped table-responsive table-bordered table-hover" id="product" data-page-length='25'>
 
-                <thead class="table-info">
+                <thead class="table-warning">
                     <tr>
 
                         <th class="align-middle text-center">รหัสสินค้า</th>
@@ -75,7 +75,7 @@ include_once($path);
                     data-product_price="' . $rowListProduct['product_price'] . '"
                     data-product_price_discount="' . $rowListProduct['product_price_discount'] . '"
                     data-product_stock="' . $rowListProduct['product_stock'] . '">
-                        <a href="#" class="add-to-cart btn btn-info text-white" title="เลือกสินค้าชิ้นนี้" 
+                        <a href="#" class="show-edit-modal btn btn-warning text-white" title="แก้ไขสินค้าชิ้นนี้" 
                         data-product_id="' . $rowListProduct['product_id'] . '"
                         data-product_name="' . $rowListProduct['product_name'] . '"
                         data-product_type="' . $rowListProduct['product_type'] . '"
@@ -85,51 +85,27 @@ include_once($path);
                         data-product_price="' . $rowListProduct['product_price'] . '"
                         data-product_price_discount="' . $rowListProduct['product_price_discount'] . '"
                         data-product_stock="' . $rowListProduct['product_stock'] . '">
-                        <i class="fas fa-plus"></i></a></th>
+                        <i class="fas fa-edit"></i></a></th>
                     </tr>';
                     }
                     ?>
                 </tbody>
+
             </table>
-
-            <!-- ตะกร้า -->
-            <div class="row mt-1">
-                <div class="col">
-                    <span class="cart-clickable"></span>
-                    <span class="clear-cart cart-clear-clickable"></span>
-
-                </div>
-            </div>
         </div>
     </div>
     <?php
-    include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/modalbox/addstock_cart_modal.php"); ?>
-    <script src="./js/addstock_cart.js"></script>
-
-
+    include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/modalbox/product_edit_modal.php"); ?>
+    <script src="./js/product_edit.js"></script>
 </body>
 
 <script>
-    if (document.hasFocus()) {
-        setInterval(function() {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("tbodyData").innerHTML = this.responseText;
-                }
-            };
-            xmlhttp.open("GET", "./model/model_product_getListProductTable.php?page=product_add_stock", true);
-            xmlhttp.send();
-        }, 30000);
-    }
-
     $(document).ready(function() {
+        var window_height = Number($.cookie("window-height-editstock"));
+        if ($.cookie("window-height-editstock") !== undefined) {
 
-        var window_height = Number($.cookie("window-height-addstock"));
-        if ($.cookie("window-height-addstock") !== undefined) {
-    
             var table = $('#product').DataTable({
-  
+
                 scrollY: window_height,
                 scrollX: false,
                 scrollCollapse: true,
@@ -154,7 +130,7 @@ include_once($path);
 
 
             });
-        } else if ($.cookie("window-height-addstock") == undefined) {
+        } else if ($.cookie("window-height-editstock") == undefined) {
 
             var table = $('#product').DataTable({
                 scrollY: 500,
@@ -163,7 +139,7 @@ include_once($path);
                 paging: false,
                 info: false,
                 "deferRender": true,
-           
+
 
                 "columnDefs": [{
                         "targets": 'no-sort',
@@ -211,17 +187,17 @@ include_once($path);
                 }
 
             });
-            $.cookie("window-height-addstock", height);
+            $.cookie("window-height-editstock", height);
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     document.getElementById("tbodyData").innerHTML = this.responseText;
                 }
             };
-            xmlhttp.open("GET", "./model/model_product_getListProductTable.php?page=product_add_stock", true);
+            xmlhttp.open("GET", "./model/model_product_getListProductTable.php?page=product_edit", true);
             xmlhttp.send();
         })
-
+        
         $('.refresh-table').on("click", function(event) {
             document.getElementById("refresh-a").className = "fas fa-spinner";
             var xmlhttp = new XMLHttpRequest();
@@ -233,13 +209,9 @@ include_once($path);
 
                 }
             };
-            xmlhttp.open("GET", "./model/model_product_getListProductTable.php?page=product_add_stock", true);
+            xmlhttp.open("GET", "./model/model_product_getListProductTable.php?page=product_edit", true);
             xmlhttp.send();
         })
-    });
 
-    $('.clear-cart').click(function() {
-        shoppingCart2.clearCart();
-        displayCart();
     });
 </script>

@@ -303,7 +303,7 @@ function getListProductTable() {
       document.getElementById("tbodyData").innerHTML = this.responseText;
     }
   };
-  xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
+  xmlhttp.open("GET", "./model/model_product_getListProductTable.php?page=product_add_stock", true);
   xmlhttp.send();
 }
 
