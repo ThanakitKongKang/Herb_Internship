@@ -187,7 +187,11 @@ function getListProductTable() {
 }
 
 function checkName(value){
-    console.log("yeah");
+    var re = /^[a-zA-Z0-9]+$/;
+    console.log(re.test(value));
+    if(re.test(value)){
+        document.getElementById("product_name").style.backgroundColor = "green";
+    }
 }
 function checkPotent(value){
     console.log("yeah2");
