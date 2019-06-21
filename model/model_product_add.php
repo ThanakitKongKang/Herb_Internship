@@ -18,7 +18,8 @@ if ($newProduct_id == null) {
         $newProduct_id = "0" . $newProduct_id;
     }
 }
-$stmt = $pdo->prepare("INSERT INTO product VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+$product_status = "ขาย";
+$stmt = $pdo->prepare("INSERT INTO product VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
 $stmt->bindParam(1, $newProduct_id);
 $stmt->bindParam(2, $_POST['product_name']);
 $stmt->bindParam(3, $_POST['product_type']);
@@ -28,6 +29,7 @@ $stmt->bindParam(6, $_POST['product_price']);
 $stmt->bindParam(7, $_POST['product_price_discount']);
 $stmt->bindParam(8, $_POST['product_cost']);
 $stmt->bindParam(9, $_POST['product_stock']);
+$stmt->bindParam(10, $product_status);
 $stmt->execute();
 
 echo "<pre>".$newProduct_id."</pre>";

@@ -349,7 +349,6 @@ function checkStock(){
     var product_stock = $('#product_stock').val();
     product_stock = parseInt(product_stock);
     $('#product_stock').val(product_stock);
-    console.log(product_stock);
 }
 // ยืนยันการแก้ไข
 $('#modal-delete').on("click", function (event) {

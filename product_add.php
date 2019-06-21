@@ -71,7 +71,7 @@ include_once($path);
                 <div class="form-group row">
                     <label for="price" class="col-sm-2 col-form-label">จำนวนในสต็อก</label>
                     <div class="col-sm-3">
-                        <input type="number" min="1" required class="form-control" name="product_stock" id="product_stock" placeholder="จำนวนในสต็อก">
+                        <input type="number" min="1" onblur="checkStock()" required class="form-control" name="product_stock" id="product_stock" placeholder="จำนวนในสต็อก">
                     </div>
                 </div>
 
@@ -93,6 +93,11 @@ include_once($path);
 </body>
 
 <script>
+    function checkStock() {
+        var product_stock = $('#product_stock').val();
+        product_stock = parseInt(product_stock);
+        $('#product_stock').val(product_stock);
+    }
     // send.js
     $(document).ready(function() {
         $('#form_product_add').submit(function(e) {
