@@ -33,7 +33,7 @@ include_once($path);
     <div class="container">
         <?php
         include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/model/model_product.php");
-        $listProduct = getListProduct($pdo); //call function
+        $listProduct = getListProduct($pdo,"index"); //call function
         ?>
         <!-- print -->
 
@@ -81,16 +81,7 @@ include_once($path);
                     data-product_price="' . $rowListProduct['product_price'] . '"
                     data-product_price_discount="' . $rowListProduct['product_price_discount'] . '"
                     data-product_stock="' . $rowListProduct['product_stock'] . '">
-                        <a href="#" class="add-to-cart btn btn-success text-white" title="เพิ่มลงตะกร้า" 
-                        data-product_id="' . $rowListProduct['product_id'] . '"
-                        data-product_name="' . $rowListProduct['product_name'] . '"
-                        data-product_type="' . $rowListProduct['product_type'] . '"
-                        data-product_potent="' . $rowListProduct['product_potent'] . '"
-                        data-product_amount="' . $rowListProduct['product_amount'] . '"
-                        data-product_cost="' . $rowListProduct['product_cost'] . '"
-                        data-product_price="' . $rowListProduct['product_price'] . '"
-                        data-product_price_discount="' . $rowListProduct['product_price_discount'] . '"
-                        data-product_stock="' . $rowListProduct['product_stock'] . '">
+                        <a href="#" class="add-to-cart btn btn-success text-white" title="เพิ่มลงตะกร้า">
                         <i class="fas fa-plus"></i></a></th>
                     </tr>';
                     }

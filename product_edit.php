@@ -33,7 +33,7 @@ include_once($path);
     <div class="container">
         <?php
         include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/model/model_product.php");
-        $listProduct = getListProduct($pdo); //call function
+        $listProduct = getListProduct($pdo,"product_edit"); //call function
         ?>
         <!-- print -->
         <div class="my-3">
@@ -51,14 +51,18 @@ include_once($path);
                             <!-- <span class="text-light" style="font-size:0.75em;">(บาท)<span> -->
                         </th>
                         <th class="align-middle text-center">สต็อก</th>
+                        <th class="align-middle text-center">สถานะ</th>
                         <th class="align-middle text-center no-sort"><a class="btn refresh-table" href="#"><i class="fas fa-sync" id="refresh-a"></i></a></th>
+
                     </tr>
                 </thead>
 
                 <tbody id="tbodyData">
                     <?php
                     while ($rowListProduct = $listProduct->fetch()) {
-                        echo '<tr>
+                        $status ='';
+                        if ($rowListProduct['product_status'] == 'เลิกขาย') $status = "style='background-color:#f27474bf';";
+                        echo '<tr ' . $status . '>
                     <td class="text-center">' . $rowListProduct['product_id'] . '</td>
                     <td>' . $rowListProduct['product_name'] . '</td>
                     <td class="text-center">' . $rowListProduct['product_type'] . '</td>
@@ -66,6 +70,7 @@ include_once($path);
                     <td>' . $rowListProduct['product_amount'] . '</td>
                     <td class="text-center">' . $rowListProduct['product_price'] . '</td>
                     <td>' . $rowListProduct['product_stock'] . '</td>
+                    <td class="text-center">' . $rowListProduct['product_status'] . '</td>
                     <th data-product_id="' . $rowListProduct['product_id'] . '"
                     data-product_name="' . $rowListProduct['product_name'] . '"
                     data-product_type="' . $rowListProduct['product_type'] . '"
@@ -74,17 +79,9 @@ include_once($path);
                     data-product_cost="' . $rowListProduct['product_cost'] . '"
                     data-product_price="' . $rowListProduct['product_price'] . '"
                     data-product_price_discount="' . $rowListProduct['product_price_discount'] . '"
+                    data-product_status="' . $rowListProduct['product_status'] . '"
                     data-product_stock="' . $rowListProduct['product_stock'] . '">
-                        <a href="#" class="show-edit-modal btn btn-warning text-white" title="แก้ไขสินค้าชิ้นนี้" 
-                        data-product_id="' . $rowListProduct['product_id'] . '"
-                        data-product_name="' . $rowListProduct['product_name'] . '"
-                        data-product_type="' . $rowListProduct['product_type'] . '"
-                        data-product_potent="' . $rowListProduct['product_potent'] . '"
-                        data-product_amount="' . $rowListProduct['product_amount'] . '"
-                        data-product_cost="' . $rowListProduct['product_cost'] . '"
-                        data-product_price="' . $rowListProduct['product_price'] . '"
-                        data-product_price_discount="' . $rowListProduct['product_price_discount'] . '"
-                        data-product_stock="' . $rowListProduct['product_stock'] . '">
+                        <a href="#" class="show-edit-modal btn btn-warning text-white" title="แก้ไขสินค้าชิ้นนี้">
                         <i class="fas fa-edit"></i></a></th>
                     </tr>';
                     }
@@ -111,6 +108,7 @@ include_once($path);
                 scrollCollapse: true,
                 paging: false,
                 info: false,
+                "order": [ 7, 'asc' ],
                 "deferRender": true,
 
                 "columnDefs": [{
@@ -138,6 +136,7 @@ include_once($path);
                 scrollCollapse: true,
                 paging: false,
                 info: false,
+                "order": [ 7, 'asc' ],
                 "deferRender": true,
 
 
@@ -169,6 +168,7 @@ include_once($path);
                 scrollCollapse: true,
                 paging: false,
                 info: false,
+                "order": [ 7, 'asc' ],
                 "deferRender": true,
 
                 "columnDefs": [{
@@ -197,7 +197,7 @@ include_once($path);
             xmlhttp.open("GET", "./model/model_product_getListProductTable.php?page=product_edit", true);
             xmlhttp.send();
         })
-        
+
         $('.refresh-table').on("click", function(event) {
             document.getElementById("refresh-a").className = "fas fa-spinner";
             var xmlhttp = new XMLHttpRequest();
