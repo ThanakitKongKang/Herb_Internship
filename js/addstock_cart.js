@@ -263,7 +263,6 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
           'count': cartArray[i].count,
           'product_stock': cartArray[i].product_stock
         };
-
         $.ajax({
           type: 'POST',
           url: './model/model_addstock_detail_make.php', // the url where we want to POST

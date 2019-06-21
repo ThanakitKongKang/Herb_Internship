@@ -18,7 +18,7 @@
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="<?php if (basename($_SERVER['PHP_SELF']) == 'product_add.php'||basename($_SERVER['PHP_SELF']) == 'product_add_stock.php'||basename($_SERVER['PHP_SELF']) == 'product_edit.php') {
+                    <span class="<?php if (basename($_SERVER['PHP_SELF']) == 'product_add.php' || basename($_SERVER['PHP_SELF']) == 'product_add_stock.php' || basename($_SERVER['PHP_SELF']) == 'product_edit.php') {
                                         echo "text-dark";
                                     } ?>"><i class="fas fa-tasks"></i> จัดการสินค้า</span>
                 </a>
@@ -36,7 +36,22 @@
                                             } ?> " href="product_edit.php"><i class="fas fa-edit"></i> แก้ไขข้อมูลสินค้า</a>
                 </div>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="<?php if (basename($_SERVER['PHP_SELF']) == 'history_order.php' || basename($_SERVER['PHP_SELF']) == 'history_product_add_stock.php') {
+                                        echo "text-dark";
+                                    } ?>"><i class="fas fa-history"></i> ประวัติ</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'history_order.php') {
+                                                echo "active";
+                                            } ?> " href="history_order.php"><i class="fas fa-list-alt"></i> ประวัติการขายสินค้า</a>
 
+                    <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'history_product_add_stock.php') {
+                                                echo "active";
+                                            } ?> " href="history_product_add_stock.php"><i class="far fa-list-alt"></i> ประวัติการนำสินค้าเข้าสต็อก</a>
+                </div>
+            </li>
 
 
         </ul>
@@ -45,7 +60,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php' || basename($_SERVER['PHP_SELF']) == 'product_add_stock.php'|| basename($_SERVER['PHP_SELF']) == 'product_edit.php') {
+                        <span class="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php' || basename($_SERVER['PHP_SELF']) == 'product_add_stock.php' || basename($_SERVER['PHP_SELF']) == 'product_edit.php') {
                                             echo "text-dark";
                                         } ?>"><i class="far fa-window-maximize"></i> เปลี่ยนความสูงตาราง</span>
                     </a>
