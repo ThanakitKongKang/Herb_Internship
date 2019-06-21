@@ -6,7 +6,7 @@ include_once($path);
 ?>
 
 <head>
-    <title>Herb retail</title>
+    <title>เพิ่มสินค้าลงสต็อก</title>
     <style>
         table tbody tr:hover {
             color: #008397 !important;

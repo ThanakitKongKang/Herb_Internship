@@ -18,7 +18,7 @@
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="<?php if (basename($_SERVER['PHP_SELF']) == 'product_add.php'||basename($_SERVER['PHP_SELF']) == 'product_add_stock.php') {
+                    <span class="<?php if (basename($_SERVER['PHP_SELF']) == 'product_add.php'||basename($_SERVER['PHP_SELF']) == 'product_add_stock.php'||basename($_SERVER['PHP_SELF']) == 'product_edit.php') {
                                         echo "text-dark";
                                     } ?>"><i class="fas fa-tasks"></i> จัดการสินค้า</span>
                 </a>

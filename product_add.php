@@ -5,7 +5,10 @@ include_once($path);
 
 ?>
 
-<head></head>
+<head>
+    <title>เพิ่มสินค้า</title>
+
+</head>
 
 <body>
     <div class="container mt-5">
