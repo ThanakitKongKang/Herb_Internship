@@ -33,7 +33,7 @@ include_once($path);
                 <tbody id="tbodyData">
                     <?php
                     while ($rowOrder = $listOrderHistory->fetch()) {
-                        $sum = $rowOrder['order_price']*$rowOrder['order_count'];
+                        $sum = $rowOrder['order_price'] * $rowOrder['order_count'];
                         echo '<tr>
                     <td>' . $rowOrder['order_date'] . '</td>
                     <td  class="text-center">' . $rowOrder['order_id'] . '</td>
@@ -47,34 +47,37 @@ include_once($path);
                     ?>
                 </tbody>
             </table>
+         
         </div>
 </body>
 
 <script>
-     $(document).ready(function() {
+    $(document).ready(function() {
         table = $('#history_order').DataTable({
-                scrollX: false,
-                scrollCollapse: true,
-                paging: true,
-                info: false,
-                "order": [ 0, 'DESC' ],
-                "deferRender": true,
+            scrollX: false,
+            scrollCollapse: true,
+            paging: true,
+            info: false,
+            "order": [0, 'DESC'],
+            "deferRender": true,
 
-                "columnDefs": [{
-                        "targets": [4, 5, 6],
-                        "searchable": false,
-                    },
-                    {
-                        "targets": [2, 3],
-                        "orderable": false
-                    }
-
-                ],
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "ค้นหา"
+            "columnDefs": [{
+                    "targets": [4, 5, 6],
+                    "searchable": false,
+                },
+                {
+                    "targets": [2, 3],
+                    "orderable": false
                 }
 
-            });
+            ],
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "ค้นหา"
+            }
+
+        });
+
+
     });
 </script>

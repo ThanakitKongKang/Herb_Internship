@@ -3,6 +3,13 @@ $path = $_SERVER['DOCUMENT_ROOT'];
 $path .= "/herb_internship/head.php";
 include_once($path);
 
+date_default_timezone_set('Asia/Bangkok');
+$timezone = date_default_timezone_get();
+// $year = date('Y', time());
+// $month = date('m', time());
+// $day = date('d', time());
+$time = date('Y-m-d', time());
+
 ?>
 
 <body>
