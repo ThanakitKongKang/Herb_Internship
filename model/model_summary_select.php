@@ -101,9 +101,11 @@ ORDER BY `product_id` ASC");
 
 $sumCount = 0;
 $sumProfit = 0;
-
-echo "<table class='table table-hover table-light table-bordered'><thead class='thead-dark'><tr><th  class='text-center align-middle'>รหัสสินค้า</th><th class='align-middle'>ชื่อสินค้า</th><th  class='text-center align-middle'>จำนวนที่ขายได้</th><th>กำไร<br><span class='text-secondary' style='font-size:0.75em'>(บาท)</span></th></tr></thead><tbody>";
+$i = 0;
 while ($rowSummaryDay = $listSummaryDay->fetch()) {
+    if ($listSummaryDay->rowCount() > 0 && $i == 0) {
+        echo "<table class='table table-hover table-light table-bordered'><thead class='thead-dark'><tr><th  class='text-center align-middle'>รหัสสินค้า</th><th class='align-middle'>ชื่อสินค้า</th><th  class='text-center align-middle'>จำนวนที่ขายได้</th><th>กำไร<br><span class='text-secondary' style='font-size:0.75em'>(บาท)</span></th></tr></thead><tbody>";
+    }
     $sumCount += $rowSummaryDay['order_count'];
     $sumProfit += $rowSummaryDay['profit'];
     echo '<tr>
@@ -112,7 +114,12 @@ while ($rowSummaryDay = $listSummaryDay->fetch()) {
         <td class="text-center">' . $rowSummaryDay['order_count'] . '</td>
         <td>' . $rowSummaryDay['profit'] . '</td>
         </tr>';
+    $i++;
 }
-echo "</tbody></table>";
-echo "<h3 class='text-white mt-3'>จำนวนที่ขายได้รวม : " . $sumCount . " ชิ้น</h3>";
-echo "<h3 class='text-white'>กำไรรวม : " . $sumProfit . " บาท</h3>";
+if ($i != 0) {
+    echo "</tbody></table>";
+    echo "<h3 class='text-white mt-3'>จำนวนที่ขายได้รวม : <span style='text-shadow: 0px 0.5px 0.5px black;'>" . $sumCount . "</span> ชิ้น</h3>";
+    echo "<h3 class='text-white'>กำไรรวม : <span style='text-shadow: 0px 0.5px 0.5px black;'>" . $sumProfit . "</span> บาท</h3>";
+} else { 
+    echo "<h1 class='text-center'>ไม่พบข้อมูลการขาย</h1>";
+}
