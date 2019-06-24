@@ -52,7 +52,12 @@
                                             } ?> " href="history_product_add_stock.php"><i class="far fa-list-alt"></i> ประวัติการนำสินค้าเข้าสต็อก</a>
                 </div>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link 
+                <?php if (basename($_SERVER['PHP_SELF']) == 'summary.php') {
+                    echo "active";
+                } ?>" href="summary.php"><i class="fas fa-chart-pie"></i> สรุปผล <span class="sr-only">(current)</span></a>
+            </li>
 
         </ul>
 
@@ -88,19 +93,3 @@
 
     </div>
 </nav>
-
-<script>
-    function requestFullScreen(element) {
-        // Supports most browsers and their versions.
-        var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-
-        if (requestMethod) { // Native full screen.
-            requestMethod.call(element);
-        } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
-            var wscript = new ActiveXObject("WScript.Shell");
-            if (wscript !== null) {
-                wscript.SendKeys("{F11}");
-            }
-        }
-    }
-</script>

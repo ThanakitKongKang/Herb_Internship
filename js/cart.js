@@ -309,7 +309,9 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
     var formData = {
       'product_id': cartArray[i].product_id,
       'product_price': cartArray[i].product_price,
-      'count': cartArray[i].count
+      'count': cartArray[i].count,
+      'product_cost' : cartArray[i].product_cost
+
     };
 
     $.ajax({
