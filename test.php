@@ -14,5 +14,7 @@ include_once($path);
             console.log(this.value);
             alert("awdawd");
         });
+
     });
+    
 </script>

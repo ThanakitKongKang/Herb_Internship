@@ -37,7 +37,7 @@ include_once($path);
         ?>
         <!-- print -->
         <div class="my-3">
-            <table class="table table-light table-striped table-responsive table-bordered table-hover" id="product" data-page-length='25'>
+            <table class="table table-light table-striped table-responsive table-bordered table-hover" id="product">
 
                 <thead class="table-warning">
                     <tr>

@@ -33,7 +33,7 @@ include_once($path);
     <div class="container">
         <?php
         include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/model/model_product.php");
-        $listProduct = getListProduct($pdo,"index"); //call function
+        $listProduct = getListProduct($pdo, "index"); //call function
         ?>
         <!-- print -->
 
@@ -43,7 +43,7 @@ include_once($path);
                 <div class="col-2"><input type="text" class="code_filter form-control" id="code_filter" placeholder="รหัสสินค้า"></div>
                 <div class="col-3"><input type="text" class="name_filter form-control" id="name_filter" placeholder="ชื่อสินค้า"></div>
             </div> -->
-            <table class="table table-light table-striped table-responsive table-bordered table-hover" id="product" data-page-length='25'>
+            <table class="table table-light table-striped table-responsive table-bordered table-hover" id="product">
 
                 <thead class="thead-dark">
                     <tr>
