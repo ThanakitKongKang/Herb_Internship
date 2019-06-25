@@ -298,29 +298,28 @@ function displayCart() {
 
 // คิดเงิน ตัดสต็อก รีเฟรชตารางสินค้า ส่งข้อมูลให้ bill.php
 $('.cart-button').on("click", ".calculate-cart", function (event) {
+  var cartArray = shoppingCart.listCart();
+  for (var i in cartArray) {
+    var formData = {
+      'product_id': cartArray[i].product_id,
+      'product_price': cartArray[i].product_price,
+      'count': cartArray[i].count,
+      'product_cost': cartArray[i].product_cost
 
+    };
+  }
   $.ajax({
     type: 'POST',
     url: './model/model_order_history_make.php', // the url where we want to POST
     success: function () {
-      var cartArray = shoppingCart.listCart();
-      for (var i in cartArray) {
-        var formData = {
-          'product_id': cartArray[i].product_id,
-          'product_price': cartArray[i].product_price,
-          'count': cartArray[i].count,
-          'product_cost': cartArray[i].product_cost
+      $.ajax({
+        type: 'POST',
+        url: './model/model_order_detail_make.php', // the url where we want to POST
+        data: formData, // our data object
 
-        };
+      })
 
-        $.ajax({
-          type: 'POST',
-          url: './model/model_order_detail_make.php', // the url where we want to POST
-          data: formData, // our data object
 
-        })
-
-      }
     }
   })
 

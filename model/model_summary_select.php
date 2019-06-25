@@ -71,31 +71,49 @@ switch ($month) {
 // }
 if (isset($_GET['mode']) && $_GET['mode'] == 'date') {
     if (!isset($_GET['date2'])) {
-        $listSummaryDay = $pdo->prepare("SELECT order_detail.product_id,product.product_name,sum(order_count) as order_count,order_cost,sum(order_count*order_price - order_cost) as profit 
-FROM `order_detail`,`product`,order_history 
-WHERE product.product_id=order_detail.product_id 
-AND order_history.order_id = order_detail.order_id
-AND order_history.order_date LIKE ?
-GROUP by order_detail.product_id  
-ORDER BY `product_id` ASC");
+        $listSummaryDay = $pdo->prepare("SELECT order_detail.product_id,product.product_name,sum(order_count) as order_count,order_cost,ROUND(sum(order_count*order_price - order_cost),2) as profit
+        FROM `order_detail`,`product`,order_history 
+        WHERE product.product_id=order_detail.product_id 
+        AND order_history.order_id = order_detail.order_id
+        AND order_history.order_date LIKE ?
+        GROUP by order_detail.product_id  
+        ORDER BY `product_id` ASC");
 
         echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ <span class='text-warning'>" . $_GET['date1'] . "</span></h1>";
         $_GET['date1'] = $_GET['date1'] . '%';
         $listSummaryDay->bindParam(1, $_GET['date1']);
         $listSummaryDay->execute();
+
+        $stock_tracsaction = $pdo->prepare("SELECT product_id,SUM(stock) as stock
+        FROM stock_detail
+        WHERE stock_date LIKE ?
+        GROUP by product_id  ");
+        $stock_tracsaction->bindParam(1, $_GET['date1']);
+        $stock_tracsaction->execute();
     } else {
-        $listSummaryDay = $pdo->prepare("SELECT order_detail.product_id,product.product_name,sum(order_count) as order_count,order_cost,sum(order_count*order_price - order_cost) as profit 
-FROM `order_detail`,`product`,order_history 
-WHERE product.product_id=order_detail.product_id 
-AND order_history.order_id = order_detail.order_id
-AND order_history.order_date BETWEEN ? AND ?
-GROUP by order_detail.product_id  
-ORDER BY `product_id` ASC");
+        $listSummaryDay = $pdo->prepare("SELECT order_detail.product_id,product.product_name,sum(order_count) as order_count,order_cost,ROUND(sum(order_count*order_price - order_cost),2) as profit
+        FROM `order_detail`,`product`,order_history 
+        WHERE product.product_id=order_detail.product_id 
+        AND order_history.order_id = order_detail.order_id
+        AND order_history.order_date BETWEEN ? AND ?
+        GROUP by order_detail.product_id  
+        ORDER BY `product_id` ASC");
 
         echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการระหว่าง <span class='text-warning'>" . $_GET['date1'] . " <span class='text-white'>ถึง</span> " . $_GET['date2'] . "</span></h1>";
+        echo "<pre class='text-light text-center'>ตั้งแต่ " . $_GET['date1'] . " 00:00:00 ถึง " . $_GET['date2'] . " 23:59:59</pre>";
+        $_GET['date2'] = $_GET['date2'] . " 23:59:59.999";
         $listSummaryDay->bindParam(1, $_GET['date1']);
         $listSummaryDay->bindParam(2, $_GET['date2']);
         $listSummaryDay->execute();
+
+        $stock_tracsaction = $pdo->prepare("SELECT product_id,SUM(stock) as stock
+        FROM stock_detail
+        WHERE stock_date BETWEEN ? AND ?
+        GROUP by product_id  ");
+        $stock_tracsaction->bindParam(1, $_GET['date1']);
+        $stock_tracsaction->bindParam(2, $_GET['date2']);
+        $stock_tracsaction->execute();
+        //
     }
 }
 
@@ -111,15 +129,16 @@ while ($rowSummaryDay = $listSummaryDay->fetch()) {
     echo '<tr>
         <td class="text-center">' . $rowSummaryDay['product_id'] . '</td>
         <td>' . $rowSummaryDay['product_name'] . '</td>
-        <td class="text-center">' . $rowSummaryDay['order_count'] . '</td>
-        <td>' . $rowSummaryDay['profit'] . '</td>
+        <td class="text-center">' . $rowSummaryDay['order_count'] . '</td>';
+
+    echo  '<td>' . $rowSummaryDay['profit'] . '</td>
         </tr>';
     $i++;
 }
 if ($i != 0) {
     echo "</tbody></table>";
     echo "<h3 class='text-white mt-3'>จำนวนที่ขายได้รวม : <span style='text-shadow: 0px 0.5px 0.5px black;'>" . $sumCount . "</span> ชิ้น</h3>";
-    echo "<h3 class='text-white'>กำไรรวม : <span style='text-shadow: 0px 0.5px 0.5px black;'>" . $sumProfit . "</span> บาท</h3>";
-} else { 
+    echo "<h3 class='text-white' style='margin-bottom:10rem'>กำไรรวม : <span style='text-shadow: 0px 0.5px 0.5px black;'>" . $sumProfit . "</span> บาท</h3>";
+} else {
     echo "<h1 class='text-center'>ไม่พบข้อมูลการขาย</h1>";
 }

@@ -52,11 +52,22 @@
                                             } ?> " href="history_product_add_stock.php"><i class="far fa-list-alt"></i> ประวัติการนำสินค้าเข้าสต็อก</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link 
-                <?php if (basename($_SERVER['PHP_SELF']) == 'summary.php') {
-                    echo "active";
-                } ?>" href="summary.php"><i class="fas fa-chart-pie"></i> สรุปผล <span class="sr-only">(current)</span></a>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="<?php if (basename($_SERVER['PHP_SELF']) == 'summary.php' || basename($_SERVER['PHP_SELF']) == 'report_product_add_stock.php') {
+                                        echo "text-dark";
+                                    } ?>"><i class="fas fa-file-download"></i> รายงาน</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'summary.php') {
+                                                echo "active";
+                                            } ?> " href="summary.php"><i class="fas fa-chart-pie"></i> รายงานผลประกอบการ</a>
+
+                    <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'report_product_add_stock.php') {
+                                                echo "active";
+                                            } ?> " href="report_product_add_stock.php"><i class="fas fa-cart-arrow-down"></i> รายงานการเพิ่มสินค้าเข้าสต็อก</a>
+                </div>
             </li>
 
         </ul>
