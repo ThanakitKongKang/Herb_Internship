@@ -25,13 +25,15 @@ include_once($path);
 
         <div id="content">
 
-            <h1 class="text-center text-white" style="margin-top:20%;" id="text-date-choose">กรุณาเลือกวันที่เพื่อแสดงเนื้อหา</h1>
+            <!-- <h1 class="text-center text-white" style="margin-top:20%;" id="text-date-choose">กรุณาเลือกวันที่เพื่อแสดงเนื้อหา</h1> -->
         </div>
 
 </body>
 <script>
     $(document).ready(function() {
-        
+        please_choose = "<h1 class='text-center text-white' style='margin-top:20%;' id='text-date-choose'>กรุณาเลือกวันที่เพื่อแสดงเนื้อหา</h1>";
+        document.getElementById("content").innerHTML = please_choose;
+
         $('.buttons').on("change", "#date1", function(event) {
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
@@ -42,10 +44,16 @@ include_once($path);
 
             var date1 = document.getElementById("date1").value;
             var date2 = document.getElementById("date2").value;
-            if (date2 == "") {
+            if (date2 == "" && date1 != "") {
                 document.getElementById("date2").style.zIndex = 1;
                 document.getElementById("date2").style.backgroundColor = "#fff";
                 xmlhttp.open("GET", "./model/model_summary_select.php?mode=date&date1=" + date1, true);
+            } else if (date1 == "") {
+                document.getElementById("content").innerHTML = please_choose;
+                document.getElementById("date2").style.zIndex = -1;
+                document.getElementById("date2").style.backgroundColor = "#ccc";
+                document.getElementById("date2").value = "";
+
             } else {
                 xmlhttp.open("GET", "./model/model_summary_select.php?mode=date&date1=" + date1 + "&date2=" + date2, true);
             }
@@ -63,7 +71,12 @@ include_once($path);
             };
             var date1 = document.getElementById("date1").value;
             var date2 = document.getElementById("date2").value;
-            xmlhttp.open("GET", "./model/model_summary_select.php?mode=date&date1=" + date1 + "&date2=" + date2, true);
+            if (date2 != "") {
+                xmlhttp.open("GET", "./model/model_summary_select.php?mode=date&date1=" + date1 + "&date2=" + date2, true);
+
+            } else {
+                xmlhttp.open("GET", "./model/model_summary_select.php?mode=date&date1=" + date1, true);
+            }
             xmlhttp.send();
         })
 
