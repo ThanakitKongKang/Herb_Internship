@@ -15,7 +15,7 @@ include_once($path);
         <div class="my-3">
             <div class="row">
                 <div class="col d-flex buttons">
-                <button class="btn btn-success" id="print-button" style="visibility:hidden; "><i class="fas fa-file-export"></i> print</button>
+                <button class="btn btn-success" id="print-button" style="visibility:hidden;" onclick="printJS('content', 'html')"><i class="fas fa-file-export"></i> print</button>
                     <input id="date1" type="date" class="ml-auto form-control" style="width:17.5%">
                     <span class='text-white mt-2 ml-1'>ถึง</span>
                     <input id="date2" type="date" class="ml-2 form-control" style="width:17.5%;z-index:-1;background-color:#ccc">
@@ -28,7 +28,7 @@ include_once($path);
 
             <!-- <h1 class="text-center text-white" style="margin-top:20%;" id="text-date-choose">กรุณาเลือกวันที่เพื่อแสดงเนื้อหา</h1> -->
         </div>
-        <a href="print.php" target="_blank" style="visibility:hidden" id="go-print"></a>
+        <!-- <a href="print.php" target="_blank" style="visibility:hidden" id="go-print"></a> -->
 
 </body>
 <script>
@@ -112,11 +112,11 @@ include_once($path);
             document.getElementById("date1").focus();
         });
 
-        $('.buttons').on("click", "#print-button", function(event) {
-            var table_data = $('#content').html();
-            localStorage.setItem("content", table_data);
-            document.getElementById("go-print").click();
-        })
+        // $('.buttons').on("click", "#print-button", function(event) {
+        //     var table_data = $('#content').html();
+        //     localStorage.setItem("content", table_data);
+        //     document.getElementById("go-print").click();
+        // })
 
     });
 </script>

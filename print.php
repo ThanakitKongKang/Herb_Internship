@@ -22,7 +22,21 @@
         #content{
             position:absolute;
             /* top:5rem; */
-            left:20%;
+            left:10%;
+        }
+        h1{
+            font-size:1.5em;
+        }
+        h3{
+            font-size:1em;
+        }
+        td{
+            text-align: center;
+        }
+        table{
+            font-size:0.85em;
+            position:relative;
+            left:25%;
         }
     </style>
 </head>

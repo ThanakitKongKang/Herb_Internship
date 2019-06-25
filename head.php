@@ -51,6 +51,10 @@ session_start(); ?>
 
     <!-- cookie -->
     <script src="./js/jquery.cookie.js"></script>
+
+    <!-- printJS -->
+    <link rel="stylesheet" href="./css/print.min.css">
+    <script src="./js/print.min.js"></script>
     <style>
         @font-face {
             font-family: Kanit;

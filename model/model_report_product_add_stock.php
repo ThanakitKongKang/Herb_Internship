@@ -80,7 +80,7 @@ while ($rowStock = $listStock->fetch()) {
     }
     echo '<tr>
         <td class="text-center">' . $rowStock['product_id'] . '</td>
-        <td>' . $rowStock['product_name'] . '</td>
+        <td class="text-center">' . $rowStock['product_name'] . '</td>
         <td class="text-center">' . $rowStock['sum_stock'] . '</td>
         </tr>';
     $i++;
