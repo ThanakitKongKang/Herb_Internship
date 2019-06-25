@@ -7,6 +7,7 @@ $lastest_order_id = $get_order_id->fetch();
 if ($lastest_order_id['order_id'] == null) {
     $lastest_order_id['order_id'] = 1;
 }
+
 // add order_detail
 $make_order_detail = $pdo->prepare("INSERT INTO order_detail VALUES ( ?, ?, ?, ?, ?) ");
 $make_order_detail->bindParam(1, $lastest_order_id['order_id']);
@@ -15,11 +16,11 @@ $make_order_detail->bindParam(3, $_POST['count']);
 $make_order_detail->bindParam(4, $_POST['product_price']);
 $make_order_detail->bindParam(5, $_POST['product_cost']);
 $make_order_detail->execute();
-echo "<pre> product_id : ".$_POST['product_id']."</pre>";
-echo "<pre> count : ".$_POST['count']."</pre>";
-echo "<pre> product_price : ".$_POST['product_price']."</pre>";
-echo "<pre> product_cost : ".$_POST['product_cost']."</pre>";
-// echo $lastest_order_id['order_id'];
+echo "<pre> product_id : " . $_POST['product_id'] . "</pre>";
+echo "<pre> count : " . $_POST['count'] . "</pre>";
+echo "<pre> product_price : " . $_POST['product_price'] . "</pre>";
+echo "<pre> product_cost : " . $_POST['product_cost'] . "</pre>";
+echo "<pre> order_id : " . $lastest_order_id['order_id'] . " </pre>";
 
 // get product stock remain
 $get_product_stock = $pdo->prepare("SELECT product_stock FROM product WHERE product_id = ?");

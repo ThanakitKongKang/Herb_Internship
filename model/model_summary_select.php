@@ -45,30 +45,30 @@ switch ($month) {
 }
 
 
-if (isset($_GET['mode']) && $_GET['mode'] != 'date') {
-    $listSummaryDay = $pdo->prepare("SELECT order_detail.product_id,product.product_name,sum(order_count) as order_count,order_cost,sum(order_count*order_price - order_cost) as profit 
-FROM `order_detail`,`product`,order_history 
-WHERE product.product_id=order_detail.product_id 
-AND order_history.order_id = order_detail.order_id
-AND order_history.order_date LIKE ?
-GROUP by order_detail.product_id  
-ORDER BY `product_id` ASC");
-    if (isset($_GET['mode']) && $_GET['mode'] == 'day') {
-        $time = date('Y-m-d', time());
-        echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ ประจำ<span class='text-warning'>วันที่ " . $day . " เดือน " . $month . " ปี " . $year . "</span></h1>";
-    } else if (isset($_GET['mode']) && $_GET['mode'] == 'month') {
-        $time = date('Y-m', time());
-        echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ ประจำ<span class='text-warning'>เดือน" . $month . " ปี " . $year . "</span></h1>";
-    } else if (isset($_GET['mode']) && $_GET['mode'] == 'year') {
-        $time = date('Y', time());
-        echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ ประจำ<span class='text-warning'>ปี " . $year . "</span></h1>";
-    }
+// if (isset($_GET['mode']) && $_GET['mode'] != 'date') {
+//     $listSummaryDay = $pdo->prepare("SELECT order_detail.product_id,product.product_name,sum(order_count) as order_count,order_cost,sum(order_count*order_price - order_cost) as profit 
+// FROM `order_detail`,`product`,order_history 
+// WHERE product.product_id=order_detail.product_id 
+// AND order_history.order_id = order_detail.order_id
+// AND order_history.order_date LIKE ?
+// GROUP by order_detail.product_id  
+// ORDER BY `product_id` ASC");
+//     if (isset($_GET['mode']) && $_GET['mode'] == 'day') {
+//         $time = date('Y-m-d', time());
+//         echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ ประจำ<span class='text-warning'>วันที่ " . $day . " เดือน " . $month . " ปี " . $year . "</span></h1>";
+//     } else if (isset($_GET['mode']) && $_GET['mode'] == 'month') {
+//         $time = date('Y-m', time());
+//         echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ ประจำ<span class='text-warning'>เดือน" . $month . " ปี " . $year . "</span></h1>";
+//     } else if (isset($_GET['mode']) && $_GET['mode'] == 'year') {
+//         $time = date('Y', time());
+//         echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ ประจำ<span class='text-warning'>ปี " . $year . "</span></h1>";
+//     }
 
 
-    $time = $time . '%';
-    $listSummaryDay->bindParam(1, $time);
-    $listSummaryDay->execute();
-}
+//     $time = $time . '%';
+//     $listSummaryDay->bindParam(1, $time);
+//     $listSummaryDay->execute();
+// }
 if (isset($_GET['mode']) && $_GET['mode'] == 'date') {
     if (!isset($_GET['date2'])) {
         $listSummaryDay = $pdo->prepare("SELECT order_detail.product_id,product.product_name,sum(order_count) as order_count,order_cost,sum(order_count*order_price - order_cost) as profit 

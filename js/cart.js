@@ -302,25 +302,29 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   $.ajax({
     type: 'POST',
     url: './model/model_order_history_make.php', // the url where we want to POST
+    success: function () {
+      var cartArray = shoppingCart.listCart();
+      for (var i in cartArray) {
+        var formData = {
+          'product_id': cartArray[i].product_id,
+          'product_price': cartArray[i].product_price,
+          'count': cartArray[i].count,
+          'product_cost': cartArray[i].product_cost
+
+        };
+
+        $.ajax({
+          type: 'POST',
+          url: './model/model_order_detail_make.php', // the url where we want to POST
+          data: formData, // our data object
+
+        })
+
+      }
+    }
   })
 
-  var cartArray = shoppingCart.listCart();
-  for (var i in cartArray) {
-    var formData = {
-      'product_id': cartArray[i].product_id,
-      'product_price': cartArray[i].product_price,
-      'count': cartArray[i].count,
-      'product_cost' : cartArray[i].product_cost
 
-    };
-
-    $.ajax({
-      type: 'POST',
-      url: './model/model_order_detail_make.php', // the url where we want to POST
-      data: formData, // our data object
-    })
-
-  }
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -434,7 +438,7 @@ $('.show-cart').on("click", ".delete-item", function (event) {
 
 // Item count input
 $('.show-cart').on("change", ".item-count", function (event) {
-  
+
   var product_id = ($(this).data('product_id'));
   var count = Number($(this).val());
   count = parseInt(count);
