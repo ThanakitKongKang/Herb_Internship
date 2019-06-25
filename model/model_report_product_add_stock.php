@@ -76,7 +76,7 @@ if (isset($_GET['mode']) && $_GET['mode'] == 'date') {
 $i = 0;
 while ($rowStock = $listStock->fetch()) {
     if ($listStock->rowCount() > 0 && $i == 0) {
-        echo "<table class='table table-hover table-light table-bordered'><thead class='thead-dark'><tr><th  class='text-center align-middle'>รหัสสินค้า</th><th class='align-middle'>ชื่อสินค้า</th><th  class='text-center align-middle'>จำนวนที่นำเข้า</th></tr></thead><tbody>";
+        echo "<table border='1' class='table table-hover table-light table-bordered'><thead class='thead-dark'><tr><th  class='text-center align-middle'>รหัสสินค้า</th><th class='align-middle'>ชื่อสินค้า</th><th  class='text-center align-middle'>จำนวนที่นำเข้า</th></tr></thead><tbody>";
     }
     echo '<tr>
         <td class="text-center">' . $rowStock['product_id'] . '</td>
