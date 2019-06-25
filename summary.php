@@ -71,13 +71,25 @@ include_once($path);
             };
             var date1 = document.getElementById("date1").value;
             var date2 = document.getElementById("date2").value;
-            if (date2 != "") {
+
+            const c_date1 = new Date(date1);
+            const c_date2 = new Date(date2);
+            const diffTime = c_date2.getTime() - c_date1.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            // console.log(diffDays);
+
+            if (date2 != "" && diffDays > 0) {
                 xmlhttp.open("GET", "./model/model_summary_select.php?mode=date&date1=" + date1 + "&date2=" + date2, true);
+                xmlhttp.send();
+
+            } else if (diffDays < 0) {
+                document.getElementById("content").innerHTML = "<h1 class='text-center text-danger' style='margin-top:20%;' id='text-date-choose'>มีข้อผิดพลาด! วันที่ไม่ถูกต้อง</h1>";
 
             } else {
                 xmlhttp.open("GET", "./model/model_summary_select.php?mode=date&date1=" + date1, true);
+                xmlhttp.send();
             }
-            xmlhttp.send();
+            
         })
 
         $('#text-date-choose').on('click', function() {
