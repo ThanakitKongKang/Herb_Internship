@@ -26,6 +26,7 @@ include_once($path);
                         <th class="align-middle text-center">จำนวน</th>
                         <th class="align-middle text-center">ราคาต่อชิ้น</th>
                         <th class="align-middle text-center">รวม</th>
+                        <th class="align-middle text-center">ชื่อผู้ขาย</th>
 
                     </tr>
                 </thead>
@@ -42,6 +43,7 @@ include_once($path);
                     <td>' . $rowOrder['order_count'] . '</td>
                     <td class="text-center">' . $rowOrder['order_price'] . ' บาท</td>
                     <td>' . $sum . ' บาท</td>
+                    <td class="text-center">' . $rowOrder['user'] . '</td>
                     </tr>';
                     }
                     ?>

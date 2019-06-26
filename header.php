@@ -101,6 +101,7 @@
 
 
         <?php
+        $_SESSION["username"]="someone";
         if (isset($_SESSION["username"])) { ?>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown" style="float:right;">

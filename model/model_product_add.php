@@ -1,5 +1,6 @@
 <?php
 include "connect.php";
+session_start();
 $lastProduct = $pdo->prepare("SELECT * FROM product ORDER BY product_id DESC LIMIT 1");
 $lastProduct->execute();
 $rowLastProduct = $lastProduct->fetch();

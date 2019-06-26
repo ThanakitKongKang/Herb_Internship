@@ -338,19 +338,19 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
 
     })
   }
-  // ส่งข้อมูลไปพรินต์ terminal POS ให้ลูกค้า
-  $.ajax({
-    type: 'POST',
-    url: './print/escpos-php-development/example/interface/windows-usb-for-customer.php', 
-    data: { cartArray, total, total_receive, change,customer_name },
-  })
+  // // ส่งข้อมูลไปพรินต์ terminal POS ให้ลูกค้า
+  // $.ajax({
+  //   type: 'POST',
+  //   url: './print/escpos-php-development/example/interface/windows-usb-for-customer.php', 
+  //   data: { cartArray, total, total_receive, change,customer_name },
+  // })
 
-  // ส่งข้อมูลไปพรินต์เป็นสำเนาเก็บไว้ให้โรงพยาบาล
-  $.ajax({
-    type: 'POST',
-    url: './print/escpos-php-development/example/interface/windows-usb-for-hospital.php', 
-    data: { cartArray, total, total_receive, change,customer_name },
-  })
+  // // ส่งข้อมูลไปพรินต์เป็นสำเนาเก็บไว้ให้โรงพยาบาล
+  // $.ajax({
+  //   type: 'POST',
+  //   url: './print/escpos-php-development/example/interface/windows-usb-for-hospital.php', 
+  //   data: { cartArray, total, total_receive, change,customer_name },
+  // })
 
   const Toast = Swal.mixin({
     toast: true,

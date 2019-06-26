@@ -1,7 +1,6 @@
 <?php
 include "connectHOS.php";
 session_start();
-
 $checkUsername = $pdo->prepare("SELECT * FROM user_info WHERE username = ?");
 $checkUsername->bindParam(1, $_POST["username"]);
 $checkUsername->execute();

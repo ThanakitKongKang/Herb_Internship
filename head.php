@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<?php include "./model/connect.php";
-session_start(); ?>
+<?php 
+include "./model/connect.php"; ?>
 <html>
 
 <head>

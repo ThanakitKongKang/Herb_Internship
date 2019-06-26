@@ -1,5 +1,6 @@
 <?php
 include "connect.php";
+session_start();
 // get lastest order_id from order_history
 $get_order_id = $pdo->prepare("SELECT * FROM order_history ORDER BY order_id DESC LIMIT 1");
 $get_order_id->execute();
@@ -27,16 +28,18 @@ $update_product_stock->execute();
 
 
 // add order_detail
-$make_order_detail = $pdo->prepare("INSERT INTO order_detail VALUES ( ?, ?, ?, ?, ?) ");
+$make_order_detail = $pdo->prepare("INSERT INTO order_detail VALUES ( ?, ?, ?, ?, ?, ?) ");
 $make_order_detail->bindParam(1, $lastest_order_id['order_id']);
 $make_order_detail->bindParam(2, $_POST['product_id']);
 $make_order_detail->bindParam(3, $_POST['count']);
 $make_order_detail->bindParam(4, $_POST['product_price']);
 $make_order_detail->bindParam(5, $_POST['product_cost']);
+$make_order_detail->bindParam(6, $_SESSION["username"]);
 $make_order_detail->execute();
 echo "<pre> product_id : " . $_POST['product_id'] . "</pre>";
 echo "<pre> count : " . $_POST['count'] . "</pre>";
 echo "<pre> product_price : " . $_POST['product_price'] . "</pre>";
 echo "<pre> product_cost : " . $_POST['product_cost'] . "</pre>";
+echo "<pre> user : " .$_SESSION["username"] . " </pre>";
 echo "<pre> order_id : " . $lastest_order_id['order_id'] . " </pre>";
 

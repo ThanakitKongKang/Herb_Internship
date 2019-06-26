@@ -23,7 +23,7 @@ include_once($path);
                         <th class="align-middle text-center">รหัสสินค้า</th>
                         <th class="align-middle text-center">ชื่อสินค้า</th>
                         <th class="align-middle text-center">จำนวนที่เพิ่ม</th>
-
+                        <th class="align-middle text-center">ชื่อผู้ขาย</th>
                     </tr>
                 </thead>
 
@@ -35,6 +35,7 @@ include_once($path);
                     <td  class="text-center">' . $rowStock['product_id'] . '</td>
                     <td>' . $rowStock['product_name'] . '</td>
                     <td class="text-center">' . $rowStock['stock'] . ' ชิ้น</td>
+                    <td class="text-center">' . $rowStock['user'] . '</td>
                     </tr>';
                     }
                     ?>
