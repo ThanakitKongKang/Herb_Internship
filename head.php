@@ -82,3 +82,9 @@ session_start(); ?>
 <body>
 
     <?php include('header.php'); ?>
+    <?php if (!isset($_SESSION["username"]) && basename($_SERVER['PHP_SELF']) != 'login.php') {
+        echo "<meta http-equiv='refresh' content='0;url=login.php'>";
+        die();
+    }
+
+    ?>

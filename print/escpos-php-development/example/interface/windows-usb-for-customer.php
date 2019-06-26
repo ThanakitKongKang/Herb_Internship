@@ -12,6 +12,46 @@ use Mike42\Escpos\PrintBuffers\ImagePrintBuffer;
 use Mike42\Escpos\CapabilityProfiles\DefaultCapabilityProfile;
 use Mike42\Escpos\CapabilityProfiles\SimpleCapabilityProfile;
 
+
+function bahtText(float $amount): string
+{
+    [$integer, $fraction] = explode('.', number_format(abs($amount), 2, '.', ''));
+
+    $baht = convert($integer);
+    $satang = convert($fraction);
+
+    $output = $amount < 0 ? 'ลบ' : '';
+    $output .= $baht ? $baht . 'บาท' : '';
+    $output .= $satang ? $satang . 'สตางค์' : 'ถ้วน';
+
+    return $baht . $satang === '' ? 'ศูนย์บาทถ้วน' : $output;
+}
+
+function convert(string $number): string
+{
+    $values = ['', 'หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า', 'หก', 'เจ็ด', 'แปด', 'เก้า'];
+    $places = ['', 'สิบ', 'ร้อย', 'พัน', 'หมื่น', 'แสน', 'ล้าน'];
+    $exceptions = ['หนึ่งสิบ' => 'สิบ', 'สองสิบ' => 'ยี่สิบ', 'สิบหนึ่ง' => 'สิบเอ็ด'];
+
+    $output = '';
+
+    foreach (str_split(strrev($number)) as $place => $value) {
+        if ($place % 6 === 0 && $place > 0) {
+            $output = $places[6] . $output;
+        }
+
+        if ($value !== '0') {
+            $output = $values[$value] . $places[$place % 6] . $output;
+        }
+    }
+
+    foreach ($exceptions as $search => $replace) {
+        $output = str_replace($search, $replace, $output);
+    }
+
+    return $output;
+}
+
 function addSpaces($string = '', $valid_string_length = 0)
 {
     if (strlen($string) < $valid_string_length) {
@@ -34,8 +74,6 @@ try {
     $printer->setEmphasis(true);
     $printer->text(addSpaces('Item', 20) . addSpaces('QtyxPrice', 20) . addSpaces('Total', 8) . "\n");
     $printer->setEmphasis(false);
-
-
 
     //header here
     echo "<h3 style='text-align:center;'>CP ALL,สาขา ปตท. อรรณนพพรเมืองพล(13192)</h3>";
@@ -103,6 +141,12 @@ try {
 
         $printer->feed();
     }
+
+    $printer->text("สินค้า".$i." ชิ้น");
+    $printer->text("ยอดสุทธิ".$_POST['total']." บาท");
+    $printer->text("รับมา".$_POST['total_receive']." บาท");
+    $printer->text("เงินทอน".$_POST['change']." บาท");
+
     echo "</tbody></table>";
 
     echo "<h4>ยอดสุทธิ " . $i . " ชิ้น</h4>";
@@ -136,47 +180,6 @@ try {
     // $printer -> close();
 } catch (Exception $e) {
     echo "Couldn't print to this printer: " . $e->getMessage() . "\n";
-}
-
-
-
-function bahtText(float $amount): string
-{
-    [$integer, $fraction] = explode('.', number_format(abs($amount), 2, '.', ''));
-
-    $baht = convert($integer);
-    $satang = convert($fraction);
-
-    $output = $amount < 0 ? 'ลบ' : '';
-    $output .= $baht ? $baht . 'บาท' : '';
-    $output .= $satang ? $satang . 'สตางค์' : 'ถ้วน';
-
-    return $baht . $satang === '' ? 'ศูนย์บาทถ้วน' : $output;
-}
-
-function convert(string $number): string
-{
-    $values = ['', 'หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า', 'หก', 'เจ็ด', 'แปด', 'เก้า'];
-    $places = ['', 'สิบ', 'ร้อย', 'พัน', 'หมื่น', 'แสน', 'ล้าน'];
-    $exceptions = ['หนึ่งสิบ' => 'สิบ', 'สองสิบ' => 'ยี่สิบ', 'สิบหนึ่ง' => 'สิบเอ็ด'];
-
-    $output = '';
-
-    foreach (str_split(strrev($number)) as $place => $value) {
-        if ($place % 6 === 0 && $place > 0) {
-            $output = $places[6] . $output;
-        }
-
-        if ($value !== '0') {
-            $output = $values[$value] . $places[$place % 6] . $output;
-        }
-    }
-
-    foreach ($exceptions as $search => $replace) {
-        $output = str_replace($search, $replace, $output);
-    }
-
-    return $output;
 }
 
 // echo "<pre>".bahtText(0)."</pre>";

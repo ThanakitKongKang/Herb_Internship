@@ -70,8 +70,10 @@
                 </div>
             </li>
 
-        </ul>
 
+
+
+        </ul>
         <?php if (basename($_SERVER['PHP_SELF']) == 'index.php' || basename($_SERVER['PHP_SELF']) == 'product_add_stock.php' || basename($_SERVER['PHP_SELF']) == 'product_edit.php') { ?>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
@@ -97,10 +99,26 @@
             </ul>
         <?php } ?>
 
+
+        <?php
+        if (isset($_SESSION["username"])) { ?>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown" style="float:right;">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span><i class="fas fa-user-tie"></i> <?= $_SESSION["username"] ?></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item text-danger" href="./model/model_user_logout.php" id="logout-button"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</a>
+
+                    </div>
+                </li>
+            </ul>
+        <?php } ?>
+
         <!-- <form class="form-inline my-2 my-lg-0 mr-auto">
-            <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form> -->
+                <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+            </form> -->
 
     </div>
 </nav>

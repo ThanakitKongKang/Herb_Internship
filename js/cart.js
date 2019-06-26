@@ -96,6 +96,7 @@ var shoppingCart = (function () {
           cart.splice(item, 1);
           saveCart();
           if (shoppingCart.totalCount() === 0) {
+            document.getElementById("customer-name").value = "";
             document.getElementById("total-receive").value = "";
             document.getElementById("total-change").style.visibility = "hidden";
             document.getElementById("not-enough-receive").style.visibility = "hidden";
@@ -118,6 +119,7 @@ var shoppingCart = (function () {
         if (cart[item].count === 0) {
           cart.splice(item, 1);
           if (shoppingCart.totalCount() === 0) {
+            document.getElementById("customer-name").value = "";
             document.getElementById("total-receive").value = "";
             document.getElementById("total-change").style.visibility = "hidden";
             document.getElementById("not-enough-receive").style.visibility = "hidden";
@@ -138,6 +140,7 @@ var shoppingCart = (function () {
       if (cart[item].product_id === product_id) {
         cart.splice(item, 1);
         if (shoppingCart.totalCount() === 0) {
+          document.getElementById("customer-name").value = "";
           document.getElementById("total-receive").value = "";
           document.getElementById("total-change").style.visibility = "hidden";
           document.getElementById("not-enough-receive").style.visibility = "hidden";
@@ -251,6 +254,7 @@ $('#product tbody').on("click", "th", function (event) {
 $('.clear-cart').click(function () {
   shoppingCart.clearCart();
   displayCart();
+  document.getElementById("customer-name").value = "";
   document.getElementById("total-receive").value = "";
   document.getElementById("total-change").style.visibility = "hidden";
   document.getElementById("not-enough-receive").style.visibility = "hidden";
@@ -296,24 +300,25 @@ function displayCart() {
   // console.dir(cartArray);
 }
 
-// คิดเงิน ตัดสต็อก รีเฟรชตารางสินค้า ส่งข้อมูลให้ bill.php
+// คิดเงิน ตัดสต็อก รีเฟรชตารางสินค้า ส่งข้อมูลให้ windows-usb.php
 $('.cart-button').on("click", ".calculate-cart", function (event) {
 
-  // ข้อมูลจำนวนเงิน รวม รับ ทอน
+  // ข้อมูลจำนวนเงิน รวม รับ ทอน ชื่อผู้ซื้อ
   var total = shoppingCart.totalCart();
   var total_receive = Number(document.getElementById("total-receive").value);
   var change = document.getElementById("total-change-span").innerHTML = total_receive - total;
   var cartArray = shoppingCart.listCart();
-  
+  var customer_name = document.getElementById("customer-name").value;
+
   console.log(total);
   console.log(total_receive);
   console.log(change);
   console.dir(cartArray);
 
-
+  // สร้าง Order_history
   $.ajax({
     type: 'POST',
-    url: './model/model_order_history_make.php', // the url where we want to POST
+    url: './model/model_order_history_make.php',
   })
 
   for (var i in cartArray) {
@@ -322,21 +327,29 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
       'product_price': cartArray[i].product_price,
       'count': cartArray[i].count,
       'product_cost': cartArray[i].product_cost
-
     };
 
+    // loop สร้าง order_detail
     $.ajax({
       type: 'POST',
-      url: './model/model_order_detail_make.php', // the url where we want to POST
-      data: formData, // our data object
+      url: './model/model_order_detail_make.php',
+      data: formData,
 
 
     })
   }
+  // ส่งข้อมูลไปพรินต์ terminal POS ให้ลูกค้า
   $.ajax({
     type: 'POST',
-    url: './print/escpos-php-development/example/interface/windows-usb.php', // the url where we want to POST
-    data: { cartArray, total, total_receive, change }, // our data object
+    url: './print/escpos-php-development/example/interface/windows-usb-for-customer.php', 
+    data: { cartArray, total, total_receive, change,customer_name },
+  })
+
+  // ส่งข้อมูลไปพรินต์เป็นสำเนาเก็บไว้ให้โรงพยาบาล
+  $.ajax({
+    type: 'POST',
+    url: './print/escpos-php-development/example/interface/windows-usb-for-hospital.php', 
+    data: { cartArray, total, total_receive, change,customer_name },
   })
 
   const Toast = Swal.mixin({
@@ -370,6 +383,7 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   // window.setTimeout(function () { location.reload() }, 1000)
 
   // console.log(document.getElementById("total-receive").value);
+  document.getElementById("customer-name").value = "";
   document.getElementById("total-receive").value = "";
   document.getElementById("total-change").style.visibility = "hidden";
   document.getElementById("not-enough-receive").style.visibility = "hidden";

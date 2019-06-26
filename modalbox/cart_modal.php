@@ -33,9 +33,25 @@
                 <div style="font-size:1.25em">
                     <div class="row justify-content-end pr-5">ยอดรวม : <span id="total-cart" class="total-cart px-1 border-1 text-primary"></span> บาท</div>
                     <div class="row pr-5 justify-content-end">
-                        <div class="col-4 p-2">
-                            <input type='number' required min="1" step="0.25" id="total-receive" class='total-receive form-control' placeholder="จำนวนเงินที่รับ">
+
+                        <div class='col-4 p-2'>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fas fa-user-tie"></i></div>
+                                </div>
+                                <input type='text' id="customer-name" class='customer-name form-control' placeholder="ชื่อผู้ซื้อ">
+                            </div>
                         </div>
+
+                        <div class="col-4 p-2">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fas fa-coins"></i></div>
+                                </div>
+                                <input type='number' required min="1" step="0.25" id="total-receive" class='total-receive form-control' placeholder="จำนวนเงินที่รับ">
+                            </div>
+                        </div>
+
                         <div class="px-0 pt-2">บาท</div>
                     </div>
 
@@ -47,8 +63,6 @@
             <div class="cart-button modal-footer">
                 <button type="button" onclick="" id="footer-submit" class="calculate-cart btn btn-primary" data-dismiss="modal" style="visibility:hidden">ยืนยันการขายและพิมพ์ใบเสร็จ</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-
-
             </div>
         </div>
     </div>
@@ -60,11 +74,11 @@
             calculate_change();
         });
 
-    //     if (document.hasFocus()) {
-    //     setInterval(function() {
-    //         calculate_change();
-    //     }, 1000);
-    // }
+        //     if (document.hasFocus()) {
+        //     setInterval(function() {
+        //         calculate_change();
+        //     }, 1000);
+        // }
 
     });
 </script>
