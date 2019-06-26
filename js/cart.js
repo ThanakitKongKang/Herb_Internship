@@ -298,7 +298,24 @@ function displayCart() {
 
 // คิดเงิน ตัดสต็อก รีเฟรชตารางสินค้า ส่งข้อมูลให้ bill.php
 $('.cart-button').on("click", ".calculate-cart", function (event) {
+
+  // ข้อมูลจำนวนเงิน รวม รับ ทอน
+  var total = shoppingCart.totalCart();
+  var total_receive = Number(document.getElementById("total-receive").value);
+  var change = document.getElementById("total-change-span").innerHTML = total_receive - total;
   var cartArray = shoppingCart.listCart();
+  
+  console.log(total);
+  console.log(total_receive);
+  console.log(change);
+  console.dir(cartArray);
+
+
+  $.ajax({
+    type: 'POST',
+    url: './model/model_order_history_make.php', // the url where we want to POST
+  })
+
   for (var i in cartArray) {
     var formData = {
       'product_id': cartArray[i].product_id,
@@ -307,22 +324,20 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
       'product_cost': cartArray[i].product_cost
 
     };
+
+    $.ajax({
+      type: 'POST',
+      url: './model/model_order_detail_make.php', // the url where we want to POST
+      data: formData, // our data object
+
+
+    })
   }
   $.ajax({
     type: 'POST',
-    url: './model/model_order_history_make.php', // the url where we want to POST
-    success: function () {
-      $.ajax({
-        type: 'POST',
-        url: './model/model_order_detail_make.php', // the url where we want to POST
-        data: formData, // our data object
-
-      })
-
-
-    }
+    url: './print/escpos-php-development/example/interface/windows-usb.php', // the url where we want to POST
+    data: { cartArray, total, total_receive, change }, // our data object
   })
-
 
   const Toast = Swal.mixin({
     toast: true,

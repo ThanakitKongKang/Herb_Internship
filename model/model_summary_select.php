@@ -77,19 +77,13 @@ if (isset($_GET['mode']) && $_GET['mode'] == 'date') {
         AND order_history.order_id = order_detail.order_id
         AND order_history.order_date LIKE ?
         GROUP by order_detail.product_id  
-        ORDER BY `product_id` ASC");
+        ORDER BY `profit` DESC");
 
         echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ <span class='text-warning'>" . $_GET['date1'] . "</span></h1>";
         $_GET['date1'] = $_GET['date1'] . '%';
         $listSummaryDay->bindParam(1, $_GET['date1']);
         $listSummaryDay->execute();
 
-        $stock_tracsaction = $pdo->prepare("SELECT product_id,SUM(stock) as stock
-        FROM stock_detail
-        WHERE stock_date LIKE ?
-        GROUP by product_id  ");
-        $stock_tracsaction->bindParam(1, $_GET['date1']);
-        $stock_tracsaction->execute();
     } else {
         $listSummaryDay = $pdo->prepare("SELECT order_detail.product_id,product.product_name,sum(order_count) as order_count,order_cost,ROUND(sum(order_count*order_price - order_cost),2) as profit
         FROM `order_detail`,`product`,order_history 
@@ -97,7 +91,7 @@ if (isset($_GET['mode']) && $_GET['mode'] == 'date') {
         AND order_history.order_id = order_detail.order_id
         AND order_history.order_date BETWEEN ? AND ?
         GROUP by order_detail.product_id  
-        ORDER BY `product_id` ASC");
+        ORDER BY `profit` DESC");
 
         echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการระหว่าง <span class='text-warning'>" . $_GET['date1'] . " <span class='text-white'>ถึง</span> " . $_GET['date2'] . "</span></h1>";
         echo "<pre class='text-light text-center'>ตั้งแต่ " . $_GET['date1'] . " 00:00:00 ถึง " . $_GET['date2'] . " 23:59:59</pre>";
@@ -105,15 +99,6 @@ if (isset($_GET['mode']) && $_GET['mode'] == 'date') {
         $listSummaryDay->bindParam(1, $_GET['date1']);
         $listSummaryDay->bindParam(2, $_GET['date2']);
         $listSummaryDay->execute();
-
-        $stock_tracsaction = $pdo->prepare("SELECT product_id,SUM(stock) as stock
-        FROM stock_detail
-        WHERE stock_date BETWEEN ? AND ?
-        GROUP by product_id  ");
-        $stock_tracsaction->bindParam(1, $_GET['date1']);
-        $stock_tracsaction->bindParam(2, $_GET['date2']);
-        $stock_tracsaction->execute();
-        //
     }
 }
 

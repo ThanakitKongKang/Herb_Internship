@@ -50,7 +50,8 @@ if (isset($_GET['mode']) && $_GET['mode'] == 'date') {
         FROM stock_detail,product
         WHERE product.product_id=stock_detail.product_id 
         AND stock_date LIKE ?
-        GROUP by stock_detail.product_id");
+        GROUP by stock_detail.product_id
+        ORDER BY sum_stock");
 
         echo "<h1 class='text-center text-white my-3'>สรุปผลการนำเข้าสินค้า <span class='text-warning'>" . $_GET['date1'] . "</span></h1>";
         $_GET['date1'] = $_GET['date1'] . '%';
@@ -62,7 +63,8 @@ if (isset($_GET['mode']) && $_GET['mode'] == 'date') {
         FROM stock_detail,product
         WHERE product.product_id=stock_detail.product_id 
         AND stock_date BETWEEN ? AND ?
-        GROUP by stock_detail.product_id");
+        GROUP by stock_detail.product_id
+        ORDER BY sum_stock");
 
         echo "<h1 class='text-center text-white my-3'>สรุปการนำเข้าสินค้าระหว่าง <span class='text-warning'>" . $_GET['date1'] . " <span class='text-white'>ถึง</span> " . $_GET['date2'] . "</span></h1>";
         echo "<pre class='text-light text-center'>ตั้งแต่ " . $_GET['date1'] . " 00:00:00 ถึง " . $_GET['date2'] . " 23:59:59</pre>";
