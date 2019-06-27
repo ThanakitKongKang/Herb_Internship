@@ -1,6 +1,5 @@
 <?php
 include "connect.php";
-session_start();
 
 
 if (isset($_GET["page"]) && $_GET["page"] == "product_add_stock") {

@@ -1,8 +1,7 @@
-<?php  //include from root php's style
+<?php
 $path = $_SERVER['DOCUMENT_ROOT'];
 $path .= "/herb_internship/head.php";
-include_once($path);
-
+include($path);
 ?>
 
 <head>

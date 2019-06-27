@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php 
-include "./model/connect.php"; ?>
+include "./model/connect.php"; 
+?>
 <html>
 
 <head>
@@ -57,7 +58,7 @@ include "./model/connect.php"; ?>
     <script src="./js/print.min.js"></script>
     <style>
         @font-face {
-            font-family: Kanit;
+            font-family: 'Kanit';
             src: url("./_etc/Kanit-Regular.ttf");
         }
 

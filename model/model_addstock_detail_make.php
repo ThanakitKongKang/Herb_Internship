@@ -1,6 +1,5 @@
 <?php
 include "connect.php";
-session_start();
 // get lastest order_id from order_history
 date_default_timezone_set('Asia/Bangkok');
 $timezone = date_default_timezone_get();

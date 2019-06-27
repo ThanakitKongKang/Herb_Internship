@@ -1,6 +1,5 @@
 <?php
 include "connect.php";
-session_start();
 // get lastest order_id from order_history
 $get_order_id = $pdo->prepare("SELECT * FROM order_history ORDER BY order_id DESC LIMIT 1");
 $get_order_id->execute();

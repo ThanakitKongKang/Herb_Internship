@@ -1,6 +1,5 @@
 <?php
 include "connect.php";
-session_start();
 date_default_timezone_set('Asia/Bangkok');
 $timezone = date_default_timezone_get();
 echo "The current server timezone is: " . $timezone;

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 //connect local
 $connect = new mysqli("localhost", "root", "", "herb");
 

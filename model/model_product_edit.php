@@ -1,6 +1,5 @@
 <?php
 include "connect.php";
-session_start();
 $stmt = $pdo->prepare("UPDATE product SET product_name = ?, product_type = ?, product_potent = ?, product_amount = ?, product_price = ?, product_price_discount = ?, product_cost = ?, product_stock = ?, product_status = ? WHERE product_id = ?");
 $stmt->bindParam(1, $_POST['product_name']);
 $stmt->bindParam(2, $_POST['product_type']);
