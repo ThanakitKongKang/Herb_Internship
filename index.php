@@ -135,7 +135,29 @@ include($path);
 
 
     $(document).ready(function() {
+        <?php
+        if (isset($_POST['login-success'])) {
+            ?>
+            setTimeout(function() {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
 
+                Toast.fire({
+                    title: 'สำเร็จ !',
+                    text: 'คุณได้ทำการเข้าสู่ระบบ!',
+                    type: 'success',
+                    confirmButtonText: 'ตกลง',
+                })
+            }, 500);
+
+
+        <?php
+    }
+    ?>
         var window_height = Number($.cookie("window-height"));
         if ($.cookie("window-height") !== undefined) {
             // console.log("window-height is not undefined : " + $.cookie("window-height"));

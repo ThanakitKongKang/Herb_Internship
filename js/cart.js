@@ -321,12 +321,13 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
     url: './model/model_order_history_make.php',
   })
 
+
   for (var i in cartArray) {
     var formData = {
       'product_id': cartArray[i].product_id,
       'product_price': cartArray[i].product_price,
       'count': cartArray[i].count,
-      'product_cost': cartArray[i].product_cost
+      'product_cost': cartArray[i].product_cost,
     };
 
     // loop สร้าง order_detail

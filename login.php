@@ -12,6 +12,12 @@ include_once($path);
 </head>
 
 <body>
+
+    <?php if (isset($_SESSION["user_name"])) {
+        echo "<meta http-equiv='refresh' content='0;url=index.php'>";
+        die();
+    } ?>
+
     <form>
         <input type="text" placeholder="ชื่อผู้ใช้" name="username" id="username">
         <input type="password" placeholder="รหัสผ่าน" name="password" id="password">
@@ -19,13 +25,17 @@ include_once($path);
         <button type="button" id="login-button">เข้าสู่ระบบ</button>
         <div id="message" class="text-center"></div>
     </form>
+
+    <form id="change-page" method="post" action="index.php" style="visibility:hidden">
+        <input type="hidden" name="login-success" value="1">
+    </form>
 </body>
 
 <script>
     $(document).ready(function() {
         $('#login-button').click(function() {
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
+            username = document.getElementById("username").value;
+            password = document.getElementById("password").value;
             // console.log(username);
             // console.log(password);
 
@@ -33,6 +43,9 @@ include_once($path);
 
             var xmlhttp = new XMLHttpRequest();
             var response = 0;
+            xmlhttp.open("POST", "./model/model_user_checkLogin.php", true);
+            xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     response = this.responseText;
@@ -43,11 +56,11 @@ include_once($path);
                         document.getElementById("message").innerHTML = "รหัสผ่านผิด โปรดลองใหม่อีกครั้ง";
                         document.getElementById("message").style.color = "red";
                     } else if (response == 3) {
-                        window.location = "index.php";
+                        document.getElementById("change-page").submit();
                     }
                 }
             };
-            xmlhttp.open("POST", "./model/model_user_checkLogin.php", true);
+
             xmlhttp.send(params);
 
         });

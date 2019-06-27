@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<?php 
-include "./model/connect.php"; 
+<?php
+include "./model/connect.php";
 ?>
 <html>
 
@@ -73,6 +73,9 @@ include "./model/connect.php";
 
         body {
             background-image: url("./_etc/background.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
         }
     </style>
 
@@ -83,7 +86,7 @@ include "./model/connect.php";
 <body>
 
     <?php include('header.php'); ?>
-    <?php if (!isset($_SESSION["username"]) && basename($_SERVER['PHP_SELF']) != 'login.php') {
+    <?php if (!isset($_SESSION["user_name"]) && basename($_SERVER['PHP_SELF']) != 'login.php') {
         echo "<meta http-equiv='refresh' content='0;url=login.php'>";
         die();
     }

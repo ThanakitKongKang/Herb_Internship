@@ -15,7 +15,7 @@ include_once($path);
         include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/model/model_order_history_select.php");
         ?>
         <div class="my-3">
-            <table class="table table-light table-striped table-bordered table-hover" id="history_order" data-page-length='10'>
+            <table style='position:relative;left:12.5%' class="table table-responsive table-hover" id="history_order" data-page-length='10'>
 
                 <thead class="thead-dark">
                     <tr>
@@ -31,18 +31,18 @@ include_once($path);
                     </tr>
                 </thead>
 
-                <tbody id="tbodyData">
+                <tbody id="tbodyData" class='bg-light'>
                     <?php
                     while ($rowOrder = $listOrderHistory->fetch()) {
                         $sum = $rowOrder['order_price'] * $rowOrder['order_count'];
                         echo '<tr>
-                    <td>' . $rowOrder['order_date'] . '</td>
+                    <td class="text-center">' . $rowOrder['order_date'] . '</td>
                     <td  class="text-center">' . $rowOrder['order_id'] . '</td>
                     <td class="text-center">' . $rowOrder['product_id'] . '</td>
                     <td>' . $rowOrder['product_name'] . '</td>
-                    <td>' . $rowOrder['order_count'] . '</td>
-                    <td class="text-center">' . $rowOrder['order_price'] . ' บาท</td>
-                    <td>' . $sum . ' บาท</td>
+                    <td class="text-right">' . $rowOrder['order_count'] . '</td>
+                    <td class="text-right">' . $rowOrder['order_price'] . ' บาท</td>
+                    <td class="text-right">' . $sum . ' บาท</td>
                     <td class="text-center">' . $rowOrder['user'] . '</td>
                     </tr>';
                     }

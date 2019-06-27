@@ -69,38 +69,42 @@ switch ($month) {
 //     $listSummaryDay->bindParam(1, $time);
 //     $listSummaryDay->execute();
 // }
-if (isset($_GET['mode']) && $_GET['mode'] == 'date') {
-    if (!isset($_GET['date2'])) {
-        $listSummaryDay = $pdo->prepare("SELECT order_detail.product_id,product.product_name,sum(order_count) as order_count,order_cost,ROUND(sum(order_count*order_price - order_cost),2) as profit
+    if (isset($_GET['mode']) && $_GET['mode'] == 'date') {
+        if (!isset($_GET['date2'])) {
+            $listSummaryDay = $pdo->prepare("SELECT order_detail.product_id,product.product_name,sum(order_count) as order_count,order_cost,ROUND(sum(order_count*order_price - order_cost),2) as profit
         FROM `order_detail`,`product`,order_history 
         WHERE product.product_id=order_detail.product_id 
         AND order_history.order_id = order_detail.order_id
         AND order_history.order_date LIKE ?
+        AND product.product_type = ?
         GROUP by order_detail.product_id  
         ORDER BY `profit` DESC");
 
-        echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ <span class='text-warning'>" . $_GET['date1'] . "</span></h1>";
-        $_GET['date1'] = $_GET['date1'] . '%';
-        $listSummaryDay->bindParam(1, $_GET['date1']);
-        $listSummaryDay->execute();
-
-    } else {
-        $listSummaryDay = $pdo->prepare("SELECT order_detail.product_id,product.product_name,sum(order_count) as order_count,order_cost,ROUND(sum(order_count*order_price - order_cost),2) as profit
+            echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ <span class='text-warning'>" . $_GET['date1'] . "</span></h1>";
+            $_GET['date1'] = $_GET['date1'] . '%';
+            $listSummaryDay->bindParam(1, $_GET['date1']);
+            $listSummaryDay->bindParam(2, $_GET['page']);
+            $listSummaryDay->execute();
+        } else {
+            $listSummaryDay = $pdo->prepare("SELECT order_detail.product_id,product.product_name,sum(order_count) as order_count,order_cost,ROUND(sum(order_count*order_price - order_cost),2) as profit
         FROM `order_detail`,`product`,order_history 
         WHERE product.product_id=order_detail.product_id 
         AND order_history.order_id = order_detail.order_id
         AND order_history.order_date BETWEEN ? AND ?
+        AND product.product_type = ?
         GROUP by order_detail.product_id  
         ORDER BY `profit` DESC");
 
-        echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการระหว่าง <span class='text-warning'>" . $_GET['date1'] . " <span class='text-white'>ถึง</span> " . $_GET['date2'] . "</span></h1>";
-        echo "<pre class='text-light text-center'>ตั้งแต่ " . $_GET['date1'] . " 00:00:00 ถึง " . $_GET['date2'] . " 23:59:59</pre>";
-        $_GET['date2'] = $_GET['date2'] . " 23:59:59.999";
-        $listSummaryDay->bindParam(1, $_GET['date1']);
-        $listSummaryDay->bindParam(2, $_GET['date2']);
-        $listSummaryDay->execute();
+            echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการระหว่าง <span class='text-warning'>" . $_GET['date1'] . " <span class='text-white'>ถึง</span> " . $_GET['date2'] . "</span></h1>";
+            echo "<pre class='text-light text-center'>ตั้งแต่ " . $_GET['date1'] . " 00:00:00 ถึง " . $_GET['date2'] . " 23:59:59</pre>";
+            $_GET['date2'] = $_GET['date2'] . " 23:59:59.999";
+            $listSummaryDay->bindParam(1, $_GET['date1']);
+            $listSummaryDay->bindParam(2, $_GET['date2']);
+            $listSummaryDay->bindParam(3, $_GET['page']);
+            $listSummaryDay->execute();
+        }
     }
-}
+
 
 $sumCount = 0;
 $sumProfit = 0;

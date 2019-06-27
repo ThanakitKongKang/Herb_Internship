@@ -33,12 +33,12 @@ $make_order_detail->bindParam(2, $_POST['product_id']);
 $make_order_detail->bindParam(3, $_POST['count']);
 $make_order_detail->bindParam(4, $_POST['product_price']);
 $make_order_detail->bindParam(5, $_POST['product_cost']);
-$make_order_detail->bindParam(6, $_SESSION["username"]);
+$make_order_detail->bindParam(6, $_SESSION["user"]);
 $make_order_detail->execute();
 echo "<pre> product_id : " . $_POST['product_id'] . "</pre>";
 echo "<pre> count : " . $_POST['count'] . "</pre>";
 echo "<pre> product_price : " . $_POST['product_price'] . "</pre>";
 echo "<pre> product_cost : " . $_POST['product_cost'] . "</pre>";
-echo "<pre> user : " .$_SESSION["username"] . " </pre>";
+echo "<pre> user : " .$_SESSION["user"] . " </pre>";
 echo "<pre> order_id : " . $lastest_order_id['order_id'] . " </pre>";
 
