@@ -309,6 +309,9 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   var change = document.getElementById("total-change-span").innerHTML = total_receive - total;
   var cartArray = shoppingCart.listCart();
   var customer_name = document.getElementById("customer-name").value;
+  if(customer_name == ""){
+    customer_name = "ไม่ระบุ";
+  }
   var user = $(this).data("user");
 
   console.log(total_receive + " - " + total + " : " + change);
@@ -372,19 +375,7 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   displayCart();
 
   getListProductTable();
-  // use non-function call to force-refreshing
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function () {
-  //   if (this.readyState == 4 && this.status == 200) {
-  //     document.getElementById("tbodyData").innerHTML = this.responseText;
-  //   }
-  // };
-  // xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
-  // xmlhttp.send();
 
-  // window.setTimeout(function () { location.reload() }, 1000)
-
-  // console.log(document.getElementById("total-receive").value);
   document.getElementById("customer-name").value = "";
   document.getElementById("total-receive").value = "";
   document.getElementById("total-change").style.visibility = "hidden";
