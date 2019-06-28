@@ -142,11 +142,13 @@ try {
         $printer->feed();
     }
 
-    $printer->text("สินค้า".$i." ชิ้น");
-    $printer->text("ยอดสุทธิ".$_POST['total']." บาท");
-    $printer->text("รับมา".$_POST['total_receive']." บาท");
-    $printer->text("เงินทอน".$_POST['change']." บาท");
-
+    $printer->text("สินค้า".$i." ชิ้น\n");
+    $printer->text("ยอดสุทธิ".$_POST['total']." บาท\n");
+    $printer->text("รับมา".$_POST['total_receive']." บาท\n");
+    $printer->text("เงินทอน".$_POST['change']." บาท\n");
+    $printer->text("ชื่อผู้ซื้อ".$_POST['customer_name']."\n");
+    $printer->text("ชื่อผู้ขาย".$_POST['user']."\n");
+    
     echo "</tbody></table>";
 
     echo "<h4>ยอดสุทธิ " . $i . " ชิ้น</h4>";

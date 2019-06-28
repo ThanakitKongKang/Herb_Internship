@@ -26,9 +26,6 @@ include_once($path);
         <div id="message" class="text-center"></div>
     </form>
 
-    <form id="change-page" method="post" action="index.php" style="visibility:hidden">
-        <input type="hidden" name="login-success" value="1">
-    </form>
 </body>
 
 <script>
@@ -56,7 +53,7 @@ include_once($path);
                         document.getElementById("message").innerHTML = "รหัสผ่านผิด โปรดลองใหม่อีกครั้ง";
                         document.getElementById("message").style.color = "red";
                     } else if (response == 3) {
-                        document.getElementById("change-page").submit();
+                        window.location = "index.php";
                     }
                 }
             };

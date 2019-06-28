@@ -8,6 +8,11 @@ include_once($path);
 <head>
 
     <title>รายงานการเพิ่มสินค้าเข้าสต็อก</title>
+    <style>
+        .table th,.table td{
+            padding : 0rem 1rem 0rem 1rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,7 +20,7 @@ include_once($path);
         <div class="my-3">
             <div class="row">
                 <div class="col d-flex buttons">
-                <button class="btn btn-success" id="print-button" style="visibility:hidden;" onclick="printJS('content', 'html')"><i class="fas fa-file-export"></i> print</button>
+                <button class="btn btn-success" id="print-button" style="visibility:hidden;" onclick="printJS({ printable: 'content', type: 'html', style: 'td {text-align: center;}' })"><i class="fas fa-file-export"></i> print</button>
                     <input id="date1" type="date" class="ml-auto form-control" style="width:17.5%">
                     <span class='text-white mt-2 ml-1'>ถึง</span>
                     <input id="date2" type="date" class="ml-2 form-control" style="width:17.5%;z-index:-1;background-color:#ccc">

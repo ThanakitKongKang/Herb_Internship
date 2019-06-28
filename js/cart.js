@@ -309,11 +309,12 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   var change = document.getElementById("total-change-span").innerHTML = total_receive - total;
   var cartArray = shoppingCart.listCart();
   var customer_name = document.getElementById("customer-name").value;
+  var user = $(this).data("user");
 
-  console.log(total);
-  console.log(total_receive);
-  console.log(change);
+  console.log(total_receive + " - " + total + " : " + change);
   console.dir(cartArray);
+  console.log("ผู้ซื้อ : " + customer_name);
+  console.log("ผู้ขาย : " + user);
 
   // สร้าง Order_history
   $.ajax({
@@ -342,15 +343,15 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   // // ส่งข้อมูลไปพรินต์ terminal POS ให้ลูกค้า
   // $.ajax({
   //   type: 'POST',
-  //   url: './print/escpos-php-development/example/interface/windows-usb-for-customer.php', 
-  //   data: { cartArray, total, total_receive, change,customer_name },
+  //   url: './print/escpos-php-development/example/interface/windows-usb-for-customer.php',
+  //   data: { cartArray, total, total_receive, change, customer_name, user },
   // })
 
   // // ส่งข้อมูลไปพรินต์เป็นสำเนาเก็บไว้ให้โรงพยาบาล
   // $.ajax({
   //   type: 'POST',
-  //   url: './print/escpos-php-development/example/interface/windows-usb-for-hospital.php', 
-  //   data: { cartArray, total, total_receive, change,customer_name },
+  //   url: './print/escpos-php-development/example/interface/windows-usb-for-hospital.php',
+  //   data: { cartArray, total, total_receive, change, customer_name, user },
   // })
 
   const Toast = Swal.mixin({

@@ -80,7 +80,7 @@ switch ($month) {
         GROUP by order_detail.product_id  
         ORDER BY `profit` DESC");
 
-            echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ <span class='text-warning'>" . $_GET['date1'] . "</span></h1>";
+            echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ ".$_GET['page']." <span class='text-warning'>" . $_GET['date1'] . "</span></h1>";
             $_GET['date1'] = $_GET['date1'] . '%';
             $listSummaryDay->bindParam(1, $_GET['date1']);
             $listSummaryDay->bindParam(2, $_GET['page']);
@@ -95,7 +95,7 @@ switch ($month) {
         GROUP by order_detail.product_id  
         ORDER BY `profit` DESC");
 
-            echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการระหว่าง <span class='text-warning'>" . $_GET['date1'] . " <span class='text-white'>ถึง</span> " . $_GET['date2'] . "</span></h1>";
+            echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ ".$_GET['page']." ระหว่าง <span class='text-warning'>" . $_GET['date1'] . " <span class='text-white'>ถึง</span> " . $_GET['date2'] . "</span></h1>";
             echo "<pre class='text-light text-center'>ตั้งแต่ " . $_GET['date1'] . " 00:00:00 ถึง " . $_GET['date2'] . " 23:59:59</pre>";
             $_GET['date2'] = $_GET['date2'] . " 23:59:59.999";
             $listSummaryDay->bindParam(1, $_GET['date1']);
@@ -116,7 +116,7 @@ while ($rowSummaryDay = $listSummaryDay->fetch()) {
     $sumCount += $rowSummaryDay['order_count'];
     $sumProfit += $rowSummaryDay['profit'];
     echo '<tr><td class="text-center">' . $rowSummaryDay['product_id'] . '</td><td>' . $rowSummaryDay['product_name'] . '</td><td class="text-center">' . $rowSummaryDay['order_count'] . '</td>';
-    echo  '<td>' . $rowSummaryDay['profit'] . '</td></tr>';
+    echo  '<td style="text-align:right">' . $rowSummaryDay['profit'] . '</td></tr>';
     $i++;
 }
 if ($i != 0) {

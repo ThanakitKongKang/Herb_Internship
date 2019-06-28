@@ -56,7 +56,7 @@ include($path);
                             <!-- <span class="text-light" style="font-size:0.75em;">(บาท)<span> -->
                         </th>
                         <th class="align-middle text-center">สต็อก</th>
-                        <th class="align-middle text-center no-sort"><a class="btn refresh-table text-white" href="#"><i class="fas fa-sync" id="refresh-a"></i></a></th>
+                        <th class="align-middle text-center no-sort" title="คลิกหรือ F5 เพื่อรีเฟรชตาราง"><a class="btn refresh-table text-white" href="#"><i class="fas fa-sync" id="refresh-a"></i></a></th>
                     </tr>
                 </thead>
 
@@ -108,16 +108,24 @@ include($path);
 </body>
 
 <script>
+    function refresh() {
+        document.getElementById("refresh-a").className = "fas fa-spinner";
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("tbodyData").innerHTML = this.responseText;
+                document.getElementById("refresh-a").className = "fas fa-sync";
+
+
+            }
+        };
+        xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
+        xmlhttp.send();
+    }
+
     if (document.hasFocus()) {
         setInterval(function() {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("tbodyData").innerHTML = this.responseText;
-                }
-            };
-            xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
-            xmlhttp.send();
+            refresh();
         }, 30000);
     }
 
@@ -133,31 +141,16 @@ include($path);
     //     ).draw();
     // }
 
+    function disableF5(e) {
+        if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) {
+            e.preventDefault();
+            refresh();
+        }
+    };
 
     $(document).ready(function() {
-        <?php
-        if (isset($_POST['login-success'])) {
-            ?>
-            setTimeout(function() {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
+        $(document).on("keydown", disableF5);
 
-                Toast.fire({
-                    title: 'สำเร็จ !',
-                    text: 'คุณได้ทำการเข้าสู่ระบบ!',
-                    type: 'success',
-                    confirmButtonText: 'ตกลง',
-                })
-            }, 500);
-
-
-        <?php
-    }
-    ?>
         var window_height = Number($.cookie("window-height"));
         if ($.cookie("window-height") !== undefined) {
             // console.log("window-height is not undefined : " + $.cookie("window-height"));
@@ -249,29 +242,11 @@ include($path);
 
             });
             $.cookie("window-height", height);
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("tbodyData").innerHTML = this.responseText;
-                }
-            };
-            xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
-            xmlhttp.send();
+            refresh();
         })
 
         $('.refresh-table').on("click", function(event) {
-            document.getElementById("refresh-a").className = "fas fa-spinner";
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("tbodyData").innerHTML = this.responseText;
-                    document.getElementById("refresh-a").className = "fas fa-sync";
-
-
-                }
-            };
-            xmlhttp.open("GET", "./model/model_product_getListProductTable.php", true);
-            xmlhttp.send();
+            refresh();
         })
 
 

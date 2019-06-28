@@ -8,6 +8,12 @@ include_once($path);
 <head>
 
     <title>รายงานผลประกอบการ ED</title>
+    <style>
+        .table th,
+        .table td {
+            padding: 0rem 1rem 0rem 1rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -16,7 +22,7 @@ include_once($path);
             <div class="row">
 
                 <div class="col d-flex buttons">
-                    <button class="btn btn-success" id="print-button" style="visibility:hidden;" onclick="printJS('content', 'html')"><i class="fas fa-file-export"></i> print</button>
+                    <button class="btn btn-success" id="print-button" style="visibility:hidden;" onclick="printJS({ printable: 'content', type: 'html', style: 'td {text-align: center;}' })"><i class="fas fa-file-export"></i> print</button>
                     <input id="date1" type="date" class="ml-auto form-control" style="width:17.5%">
                     <span class='text-white mt-2 ml-1'>ถึง</span>
                     <input id="date2" type="date" class="ml-2 form-control" style="width:17.5%;z-index:-1;background-color:#ccc">
@@ -56,7 +62,7 @@ include_once($path);
                 document.getElementById("print-button").style.visibility = "visible";
                 document.getElementById("date2").style.zIndex = 1;
                 document.getElementById("date2").style.backgroundColor = "#fff";
-                xmlhttp.open("GET", "./model/model_summary_select.php?page=ed&mode=date&date1=" + date1, true);
+                xmlhttp.open("GET", "./model/model_summary_select.php?page=ED&mode=date&date1=" + date1, true);
                 xmlhttp.send();
             } else if (date1 == "") {
                 document.getElementById("content").innerHTML = please_choose;
@@ -70,7 +76,7 @@ include_once($path);
                 document.getElementById("content").innerHTML = "<h1 class='text-center text-danger' style='margin-top:20%;' id='text-date-choose'>มีข้อผิดพลาด! วันที่ไม่ถูกต้อง</h1>";
 
             } else {
-                xmlhttp.open("GET", "./model/model_summary_select.php?page=ed&mode=date&date1=" + date1 + "&date2=" + date2, true);
+                xmlhttp.open("GET", "./model/model_summary_select.php?page=ED&mode=date&date1=" + date1 + "&date2=" + date2, true);
                 xmlhttp.send();
             }
 
@@ -96,7 +102,7 @@ include_once($path);
 
             if (date2 != "" && diffDays > 0) {
                 document.getElementById("print-button").style.visibility = "visible";
-                xmlhttp.open("GET", "./model/model_summary_select.php?page=ed&mode=date&date1=" + date1 + "&date2=" + date2, true);
+                xmlhttp.open("GET", "./model/model_summary_select.php?page=ED&mode=date&date1=" + date1 + "&date2=" + date2, true);
                 xmlhttp.send();
 
             } else if (diffDays < 0) {
@@ -104,7 +110,7 @@ include_once($path);
                 document.getElementById("content").innerHTML = "<h1 class='text-center text-danger' style='margin-top:20%;' id='text-date-choose'>มีข้อผิดพลาด! วันที่ไม่ถูกต้อง</h1>";
 
             } else {
-                xmlhttp.open("GET", "./model/model_summary_select.php?page=ed&mode=date&date1=" + date1, true);
+                xmlhttp.open("GET", "./model/model_summary_select.php?page=ED&mode=date&date1=" + date1, true);
                 xmlhttp.send();
             }
 
