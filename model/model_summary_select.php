@@ -111,7 +111,7 @@ $sumProfit = 0;
 $i = 0;
 while ($rowSummaryDay = $listSummaryDay->fetch()) {
     if ($listSummaryDay->rowCount() > 0 && $i == 0) {
-        echo "<table border='1' class='table table-hover table-light table-bordered'><thead class='thead-dark'><tr><th  class='text-center align-middle'>รหัสสินค้า</th><th class='align-middle'>ชื่อสินค้า</th><th  class='text-center align-middle'>จำนวนที่ขายได้</th><th>กำไร<br><span class='text-secondary' style='font-size:0.75em'>(บาท)</span></th></tr></thead><tbody>";
+        echo "<table border='1' class='table table-hover table-light table-bordered' ><thead class='thead-dark'><tr><th  class='text-center align-middle'>รหัสสินค้า</th><th class='align-middle'>ชื่อสินค้า</th><th  class='text-center align-middle'>จำนวนที่ขายได้</th><th>กำไร<br><span class='text-secondary' style='font-size:0.75em'>(บาท)</span></th></tr></thead><tbody>";
     }
     $sumCount += $rowSummaryDay['order_count'];
     $sumProfit += $rowSummaryDay['profit'];

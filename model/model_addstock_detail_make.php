@@ -4,7 +4,7 @@ include "connect.php";
 date_default_timezone_set('Asia/Bangkok');
 $timezone = date_default_timezone_get();
 // echo "The current server timezone is: " . $timezone;
-$date = date('Y/m/d h:i:s', time());
+$date = date('Y/m/d H:i:s', time());
 // echo "<br>The current time is: " . $date;
 
 // add stock_detail
