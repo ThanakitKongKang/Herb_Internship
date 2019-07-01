@@ -95,7 +95,7 @@ switch ($month) {
         GROUP by order_detail.product_id  
         ORDER BY `profit` DESC");
 
-            echo "<h1 class='text-center text-white my-3'>สรุปผลประกอบการ ".$_GET['page']." ระหว่าง <span class='text-warning'>" . $_GET['date1'] . " <span class='text-white'>ถึง</span> " . $_GET['date2'] . "</span></h1>";
+            echo "<h2 class='text-center text-white my-3'>สรุปผลประกอบการ ".$_GET['page']." ระหว่าง <span class='text-warning'>" . $_GET['date1'] . " <span class='text-white'>ถึง</span> " . $_GET['date2'] . "</span></h2>";
             echo "<pre class='text-light text-center'>ตั้งแต่ " . $_GET['date1'] . " 00:00:00 ถึง " . $_GET['date2'] . " 23:59:59</pre>";
             $_GET['date2'] = $_GET['date2'] . " 23:59:59.999";
             $listSummaryDay->bindParam(1, $_GET['date1']);
