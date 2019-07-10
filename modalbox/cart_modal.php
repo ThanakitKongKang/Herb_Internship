@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="cart-button modal-footer">
-                <button type="button" onclick="" data-user="<?=$_SESSION['user']?>" id="footer-submit" class="calculate-cart btn btn-primary" data-dismiss="modal" style="visibility:hidden">ยืนยันการขายและพิมพ์ใบเสร็จ</button>
+                <button type="button" onclick="" data-user="<?=$_SESSION['user_name']?>" id="footer-submit" class="calculate-cart btn btn-primary" data-dismiss="modal" style="visibility:hidden">ยืนยันการขายและพิมพ์ใบเสร็จ</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
             </div>
         </div>

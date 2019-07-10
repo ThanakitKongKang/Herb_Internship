@@ -3,16 +3,18 @@ require('pdf_js.php');
 
 class PDF_AutoPrint extends PDF_JavaScript
 {
-    function AutoPrint($printer = '')
+    function AutoPrint($printer='')
     {
         // Open the print dialog
-        if ($printer) {
+        if($printer)
+        {
             $printer = str_replace('\\', '\\\\', $printer);
             $script = "var pp = getPrintParams();";
             $script .= "pp.interactive = pp.constants.interactionLevel.full;";
             $script .= "pp.printerName = '$printer'";
             $script .= "print(pp);";
-        } else
+        }
+        else
             $script = 'print(true);';
         $this->IncludeJS($script);
     }
@@ -67,7 +69,6 @@ function addSpaces($string = '', $valid_string_length = 0)
 
     return $string;
 }
-
 // Instanciation of inherited class
 $pdf = new PDF_AutoPrint('P', 'mm', array(139.7, 177.8));
 
@@ -77,8 +78,68 @@ $pdf->AddFont('THSarabunNew', 'b', 'THSarabunNew Bold.php'); //bold
 $pdf->SetFont('THSarabunNew', 'b', 14);
 $pdf->AddFont('THSarabunNew reg', '', 'THSarabunNew.php'); //bold
 
+
+
+
+
+// assume this as user's cart
+// post data
+$cartArray = array(
+    array(
+        "product_name" => 'กุมภาพันธ์กุมภาพันธ์',
+        "count" => 1,
+        "product_price" => 11,
+        "total" => 11,
+    ),
+    array(
+        "product_name" => 'กุมภาพันธ์กุมภาพันธ์',
+        "count" => 1,
+        "product_price" => 11,
+        "total" => 11,
+    ),
+    array(
+        "product_name" => 'กุมภาพันธ์กุมภาพันธ์',
+        "count" => 1,
+        "product_price" => 11,
+        "total" => 11,
+    ),
+    array(
+        "product_name" => 'กุมภาพันธ์กุมภาพันธ์',
+        "count" => 1,
+        "product_price" => 11,
+        "total" => 11,
+    ),
+    array(
+        "product_name" => 'กุมภาพันธ์กุมภาพันธ์',
+        "count" => 1,
+        "product_price" => 11,
+        "total" => 11,
+    ),
+    array(
+        "product_name" => 'item2',
+        "count" => 2,
+        "product_price" => 2122,
+        "total" => 44,
+    ),
+    array(
+        "product_name" => 'item3',
+        "count" => 3,
+        "product_price" => 33,
+        "total" => 99,
+    ),
+);
+// post data
+$customer_name = "น.ส.ธัญสิตา เคนโสม";
+$total = 55555.00;
+$user = "นายศักดิ์ดา นาหก";
+
+
+
+
+
 date_default_timezone_set('Asia/Bangkok');
 $timezone = date_default_timezone_get();
+// $day = day('Y/m/d H:i:s', time());
 $day = date('d', time());
 
 if (strlen($day) == 1) {
@@ -133,20 +194,17 @@ $pdf->Cell(35, 0, iconv('UTF-8', 'TIS-620', $monthDisplay), 0, 0);
 $pdf->Cell(35, 0, iconv('UTF-8', 'TIS-620', $yearDisplay), 0, 0);
 $pdf->Cell(30, 0, iconv('UTF-8', 'TIS-620', $time), 0, 1);
 
-$customer_name = substr($_COOKIE['customer_name'], 1, -1);
-
-$pdf->Cell(65, 15, iconv('UTF-8', 'TIS-620', ''), 0, 0);
+$pdf->Cell(65, 15, iconv('UTF-8', 'TIS-620', ""), 0, 0);
 $pdf->Cell(30, 15, iconv('UTF-8', 'TIS-620', $customer_name), 0, 1);
 $pdf->Ln(3);
-$pdf->Cell(70, 5, iconv('UTF-8', 'TIS-620', ''), 0, 0);
+$pdf->Cell(70, 5, iconv('UTF-8', 'TIS-620', ""), 0, 0);
 $pdf->SetFont('THSarabunNew', 'b', 12);
 $pdf->Cell(10, 5, iconv('UTF-8', 'TIS-620', "จำนวน"), 0, 0);
 $pdf->Cell(10, 5, iconv('UTF-8', 'TIS-620', "ราคา"), 0, 1);
 $pdf->SetFont('THSarabunNew', 'b', 14);
-$cartArray = json_decode($_COOKIE['cartArray'], true);
-
-// print("<pre>" . print_r($cartArray, true) . "</pre>");
 // product print
+// print("<pre>".print_r($cartArray,true)."</pre>");
+
 foreach ($cartArray as $cart) {
 
     $name_lines = str_split($cart['product_name'], 70);
@@ -202,19 +260,16 @@ foreach ($cartArray as $cart) {
 $pdf->SetY(-50);
 $pdf->SetFont('THSarabunNew', 'b', 16);
 $pdf->Cell(92, 5, iconv('UTF-8', 'TIS-620', ""), 0, 0);
-$total_number = number_format($_COOKIE['total'], 2);
+$total_number = number_format($total, 2);
 $pdf->Cell(10, 10, iconv('UTF-8', 'TIS-620', $total_number), 0, 1);
 $pdf->Cell(50, 5, iconv('UTF-8', 'TIS-620', ""), 0, 0);
-$pdf->Cell(10, 10, iconv('UTF-8', 'TIS-620', "=" . bahtText($_COOKIE['total'])) . "=", 0, 1);
+$pdf->Cell(10, 10, iconv('UTF-8', 'TIS-620', "=" . bahtText($total)) . "=", 0, 1);
 
 $pdf->setAutoPageBreak(false);
 $pdf->SetFont('THSarabunNew', 'b', 12);
 $pdf->SetY(-15);
 $pdf->Cell(80, 0, iconv('UTF-8', 'TIS-620', ""), 0, 0);
-
-$user = substr($_COOKIE['user'], 1, -1);
-
-$pdf->Cell(10, 0, iconv('UTF-8', 'TIS-620', "(" . $user . ")"), 0, 1);
+$pdf->Cell(10, 0, iconv('UTF-8', 'TIS-620', "(".$user.")"), 0, 1);
 
 $pdf->AutoPrint();
 $pdf->Output();
