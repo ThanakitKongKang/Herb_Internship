@@ -217,4 +217,8 @@ $user = substr($_COOKIE['user'], 1, -1);
 $pdf->Cell(10, 0, iconv('UTF-8', 'TIS-620', "(" . $user . ")"), 0, 1);
 
 $pdf->AutoPrint();
-$pdf->Output();
+$last_order_id = substr($_COOKIE['last_order_id'], 1, -1);
+// $path = $_SERVER['DOCUMENT_ROOT'] . "/invoice_files/invoice_id_" . $last_order_id . ".pdf";
+// $pdf->Output('F', $path, true);
+
+$pdf->Output('F', '../../../../invoice_files/invoice_id_' . $last_order_id . '.pdf', true);

@@ -358,7 +358,27 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   $.cookie("change", change);
   $.cookie("customer_name", customer_name);
   $.cookie("user", user);
-  window.open('./print/escpos-php-development/example/interface/windows-usb-for-phon.php');
+
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      last_order_id = this.responseText;
+      $.cookie("last_order_id", last_order_id);
+      
+      $.ajax({
+        url: './print/escpos-php-development/example/interface/windows-usb-for-phon.php',
+      })
+      window.open('./invoice_files/invoice_id_' + last_order_id + '.pdf');
+      // console.log($.cookie("last_order_id"));
+    }
+  };
+
+  xmlhttp.open("GET", "./model/model_invoice_get_order_id.php", true);
+  xmlhttp.send();
+
+
+
+
 
   // $.ajax({
   //   type: 'POST',
