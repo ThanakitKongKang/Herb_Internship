@@ -40,6 +40,12 @@ var shoppingCart = (function () {
   // =============================
   var obj = {};
 
+  // cart array length
+  obj.cartLength = function () {
+    var cartArray = shoppingCart.listCart();
+    return cartArray.length;
+  }
+
   // Add to cart
   obj.addItemToCart = function (product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
     if (product_stock === 0) {
@@ -52,8 +58,10 @@ var shoppingCart = (function () {
       })
       return;
     }
+    var isNotInCart = 0;
     for (var item in cart) {
       if (cart[item].product_id === product_id) {
+
         if (cart[item].count === cart[item].product_stock || cart[item].product_stock === 0) {
           Swal.fire({
             title: 'ผิดพลาด สินค้าในสต็อกไม่พอ!',
@@ -70,8 +78,22 @@ var shoppingCart = (function () {
         }
         return;
       }
-    }
 
+      else {
+        isNotInCart += 1;
+        if (isNotInCart === 10 && shoppingCart.cartLength() === 10) {
+          Swal.fire({
+            title: 'ผิดพลาด!',
+            html: '<div>ไม่สามารถเลือกสินค้าที่<span class="text-danger">แตกต่างกัน เกิน 10 รายการ</span> ได้!</div>',
+            type: 'error',
+            confirmButtonText: 'ลองอีกครั้ง',
+            // timer: 1500
+          })
+          return;
+        }
+
+      }
+    }
 
     var item = new Item(product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count);
     cart.push(item);
@@ -278,7 +300,7 @@ function displayCart() {
       "</tr>";
   }
   if (shoppingCart.totalCount() > 0) {
-    var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-primary btn-lg' data-toggle='modal' data-target='#cart' title='คลิกเพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> ตะกร้า (" + shoppingCart.totalCount() + ")</button>";
+    var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-primary btn-lg' data-toggle='modal' data-target='#cart' title='คลิกเพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> " + shoppingCart.cartLength() + "รายการ (" + shoppingCart.totalCount() + " ชิ้น)</button>";
     $('.cart-clickable').html(cart_clickable);
 
     var cart_clear_clickable = "<button style='float:right' class='btn btn-danger mx-1 btn-lg' title='ยกเลิกรายการสินค้าทั้งหมดที่เลือกไว้ในตะกร้า'><i class='far fa-window-close'></i> ยกเลิก</button>";
@@ -364,11 +386,13 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
     if (this.readyState == 4 && this.status == 200) {
       last_order_id = this.responseText;
       $.cookie("last_order_id", last_order_id);
-      
+
       $.ajax({
         url: './print/escpos-php-development/example/interface/windows-usb-for-phon.php',
+        success: function () {
+          window.open('./invoice_files/invoice_id_' + last_order_id + '.pdf');
+        }
       })
-      window.open('./invoice_files/invoice_id_' + last_order_id + '.pdf');
       // console.log($.cookie("last_order_id"));
     }
   };
