@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('pdf_js.php');
 
 class PDF_AutoPrint extends PDF_JavaScript
@@ -126,27 +127,33 @@ switch ($monthDisplay) {
         $monthDisplay = "ธันวาคม";
         break;
 }
-$pdf->Ln(24);
+$pdf->Ln(22);
 $pdf->SetMargins(3, 0);
-$pdf->Cell(20, 0, iconv('UTF-8', 'TIS-620', "  " . $day), 0, 0);
-$pdf->Cell(35, 0, iconv('UTF-8', 'TIS-620', $monthDisplay), 0, 0);
+$pdf->Cell(20, 0, iconv('UTF-8', 'TIS-620', "      " . $day), 0, 0);
+$pdf->Cell(35, 0, iconv('UTF-8', 'TIS-620', "   " . $monthDisplay), 0, 0);
 $pdf->Cell(35, 0, iconv('UTF-8', 'TIS-620', $yearDisplay), 0, 0);
 $pdf->Cell(30, 0, iconv('UTF-8', 'TIS-620', $time), 0, 1);
 
-$customer_name = substr($_COOKIE['customer_name'], 1, -1);
+// $customer_name = substr($_POST['customer_name'], 1, -1);
+$customer_name = $_POST['customer_name'];
 
 $pdf->Cell(65, 15, iconv('UTF-8', 'TIS-620', ''), 0, 0);
-$pdf->Cell(30, 15, iconv('UTF-8', 'TIS-620', $customer_name), 0, 1);
-$pdf->Ln(3);
+$pdf->Cell(30, 10, iconv('UTF-8', 'TIS-620', $customer_name), 0, 1);
+$pdf->Ln(10);
 $pdf->Cell(70, 5, iconv('UTF-8', 'TIS-620', ''), 0, 0);
 $pdf->SetFont('THSarabunNew', 'b', 12);
 $pdf->Cell(10, 5, iconv('UTF-8', 'TIS-620', "จำนวน"), 0, 0);
 $pdf->Cell(10, 5, iconv('UTF-8', 'TIS-620', "ราคา"), 0, 1);
 $pdf->SetFont('THSarabunNew', 'b', 14);
-$cartArray = json_decode($_COOKIE['cartArray'], true);
+$pdf->Ln(4);
 
+$cartArray = array();
+$cartArray = $_POST["cartArray"];
+
+// $cartArray = json_decode($_POST['cartArray'], true);
 // print("<pre>" . print_r($cartArray, true) . "</pre>");
 // product print
+
 foreach ($cartArray as $cart) {
 
     $name_lines = str_split($cart['product_name'], 70);
@@ -155,7 +162,7 @@ foreach ($cartArray as $cart) {
         $name_lines[$k] = addSpaces($l, 20);
     }
 
-    $qtyx_price = str_split($cart['count'] . "        " . $cart['product_price'], 15);
+    $qtyx_price = str_split($cart['count'] . "        " . number_format((float) $cart['product_price'], 2, '.', ''), 15);
     foreach ($qtyx_price as $k => $l) {
         $l = trim($l);
         $qtyx_price[$k] = addSpaces($l, 20);
@@ -189,35 +196,36 @@ foreach ($cartArray as $cart) {
         if (isset($total_price[$i])) {
             $localtt .= ($total_price[$i]);
         }
-
-        $pdf->Cell(62, 5, iconv('UTF-8', 'TIS-620', $localname), 0, 0);
-        $pdf->SetFont('THSarabunNew reg', '', 10);
-        $pdf->Cell(20, 5, iconv('UTF-8', 'TIS-620', $localqtp), 0, 0);
-        $pdf->SetFont('THSarabunNew', 'b', 14);
-        $pdf->Cell(10, 5, iconv('UTF-8', 'TIS-620', $localtt), 0, 1);
+        $pdf->SetFont('THSarabunNew reg', '', 12);
+        $pdf->Cell(63.5, 4, iconv('UTF-8', 'TIS-620', $localname), 0, 0);
+        $pdf->Cell(20, 4, iconv('UTF-8', 'TIS-620', $localqtp), 0, 0);
+        $pdf->Cell(10, 4, iconv('UTF-8', 'TIS-620', $localtt), 0, 1);
     }
 }
 
 
-$pdf->SetY(-50);
+$pdf->SetY(-55);
 $pdf->SetFont('THSarabunNew', 'b', 16);
 $pdf->Cell(92, 5, iconv('UTF-8', 'TIS-620', ""), 0, 0);
-$total_number = number_format($_COOKIE['total'], 2);
+$total_number = number_format($_POST['total'], 2);
 $pdf->Cell(10, 10, iconv('UTF-8', 'TIS-620', $total_number), 0, 1);
-$pdf->Cell(50, 5, iconv('UTF-8', 'TIS-620', ""), 0, 0);
-$pdf->Cell(10, 10, iconv('UTF-8', 'TIS-620', "=" . bahtText($_COOKIE['total'])) . "=", 0, 1);
+$pdf->Cell(60, 5, iconv('UTF-8', 'TIS-620', ""), 0, 0);
+$pdf->Cell(10, 10, iconv('UTF-8', 'TIS-620', "=" . bahtText($_POST['total'])) . "=", 0, 1);
 
 $pdf->setAutoPageBreak(false);
 $pdf->SetFont('THSarabunNew', 'b', 12);
-$pdf->SetY(-15);
-$pdf->Cell(80, 0, iconv('UTF-8', 'TIS-620', ""), 0, 0);
+$pdf->SetY(-20);
+$pdf->Cell(90, 0, iconv('UTF-8', 'TIS-620', ""), 0, 0);
 
-$user = substr($_COOKIE['user'], 1, -1);
+// $user = substr($_POST['user'], 1, -1);
+$user = $_POST['user'];
 
 $pdf->Cell(10, 0, iconv('UTF-8', 'TIS-620', "(" . $user . ")"), 0, 1);
 
 $pdf->AutoPrint();
-$last_order_id = substr($_COOKIE['last_order_id'], 1, -1);
+// $last_order_id = substr($_POST['last_order_id'], 1, -1);
+$last_order_id = $_POST['last_order_id'];
+
 // $path = $_SERVER['DOCUMENT_ROOT'] . "/invoice_files/invoice_id_" . $last_order_id . ".pdf";
 // $pdf->Output('F', $path, true);
 

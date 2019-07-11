@@ -300,7 +300,7 @@ function displayCart() {
       "</tr>";
   }
   if (shoppingCart.totalCount() > 0) {
-    var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-primary btn-lg' data-toggle='modal' data-target='#cart' title='คลิกเพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> " + shoppingCart.cartLength() + "รายการ (" + shoppingCart.totalCount() + " ชิ้น)</button>";
+    var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-primary btn-lg' data-toggle='modal' data-target='#cart' title='คลิกเพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> " + shoppingCart.cartLength() + " รายการ (" + shoppingCart.totalCount() + " ชิ้น)</button>";
     $('.cart-clickable').html(cart_clickable);
 
     var cart_clear_clickable = "<button style='float:right' class='btn btn-danger mx-1 btn-lg' title='ยกเลิกรายการสินค้าทั้งหมดที่เลือกไว้ในตะกร้า'><i class='far fa-window-close'></i> ยกเลิก</button>";
@@ -373,22 +373,35 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   // })
 
   // ส่งข้อมูลไปพรินต์
-  $.cookie.json = true;
-  $.cookie("cartArray", cartArray);
-  $.cookie("total", total);
-  $.cookie("total_receive", total_receive);
-  $.cookie("change", change);
-  $.cookie("customer_name", customer_name);
-  $.cookie("user", user);
+  // $.cookie.json = true;
+  // sessionStorage.setItem("cartArray", JSON.stringify(cartArray));
+  // $.cookie("cartArray", cartArray);
+  // $.cookie("total", total);
+  // $.cookie("total_receive", total_receive);
+  // $.cookie("change", change);
+  // $.cookie("customer_name", customer_name);
+  // $.cookie("user", user);
 
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      last_order_id = this.responseText;
-      $.cookie("last_order_id", last_order_id);
+        last_order_id = this.responseText;
+      // $.cookie("last_order_id", last_order_id);
+
+      var data = {
+        'cartArray': cartArray,
+        'total':total,
+        'total_receive':total_receive,
+        'change':change,
+        'customer_name':customer_name,
+        'user':user,
+        'last_order_id' : last_order_id
+      };
 
       $.ajax({
+        type: 'POST',
         url: './print/escpos-php-development/example/interface/windows-usb-for-phon.php',
+        data: data,
         success: function () {
           window.open('./invoice_files/invoice_id_' + last_order_id + '.pdf');
         }
