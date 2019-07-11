@@ -1,5 +1,4 @@
 <?php
-session_start();
 require('pdf_js.php');
 
 class PDF_AutoPrint extends PDF_JavaScript
