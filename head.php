@@ -72,7 +72,7 @@ include "./model/connect.php";
         }
 
         body {
-            background-image: url("./_etc/background.jpg");
+            background-image: url("./_etc/background.webp");
             background-repeat: no-repeat;
             background-attachment: fixed;
 
