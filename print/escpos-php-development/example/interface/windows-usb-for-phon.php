@@ -161,7 +161,7 @@ foreach ($cartArray as $cart) {
         $name_lines[$k] = addSpaces($l, 20);
     }
 
-    $qtyx_price = str_split($cart['count'] . "        " . number_format((float) $cart['product_price'], 2, '.', ''), 15);
+    $qtyx_price = str_split($cart['count'] . "      " . number_format((float) $cart['product_price'], 2, '.', ''), 15);
     foreach ($qtyx_price as $k => $l) {
         $l = trim($l);
         $qtyx_price[$k] = addSpaces($l, 20);
