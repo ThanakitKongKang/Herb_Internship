@@ -6,8 +6,7 @@ include_once($path);
 ?>
 
 <head>
-    <title>เพิ่มสินค้า <?=$title_credit?></title>
-
+    <title>เพิ่มสินค้า <?= $title_credit ?></title>
 </head>
 
 <body>
@@ -20,11 +19,11 @@ include_once($path);
                 <div class="form-group row">
                     <label for="name" class="col-sm-2 col-form-label">ชื่อผลิตภัณฑ์</label>
                     <div class="col-sm-6">
-                        <input type="text" required class="form-control" name="product_name" id="product_name" placeholder="ชื่อผลิตภัณฑ์" pattern="[ก-๏\s]+" title="กรุณากรอกเป็นภาษาไทย">
+                        <input type="text" required class="form-control" name="product_name" id="product_name" placeholder="ชื่อผลิตภัณฑ์" pattern="[ก-๏\s]+" oninvalid="this.setCustomValidity('กรุณากรอกเป็นภาษาไทย')" oninput="this.setCustomValidity('')">
                     </div>
                 </div>
                 <!-- ประเภทสินค้า -->
-                <fieldset class="form-group" pattern="[ก-ฮ]+">
+                <fieldset class="form-group">
                     <div class="row">
                         <legend class="col-form-label col-sm-2 pt-0">ประเภทสินค้า</legend>
                         <div class="col-sm-10">
@@ -48,10 +47,14 @@ include_once($path);
                 <div class="form-group row">
                     <label for="potent" class="col-sm-2 col-form-label">ความแรงยา/ขนาดบรรจุ</label>
                     <div class="col-sm-3">
-                        <input type="text" required class="form-control" name="product_potent" id="product_potent" placeholder="ความแรง" pattern="^[0-9]+[\s][a-zA-Zก-๏]+$|ระบุไม่ได้" title="กรุณากรอกตามตัวอย่าง เช่น 250 mg หรือ 250 มิลลิกรัม">
+                        <input type="text" required class="form-control" name="product_potent" id="product_potent" placeholder="ความแรง" pattern="(^[0-9]+[\s][a-zA-Zก-๏]+$)|ระบุไม่ได้"
+                        oninvalid="this.setCustomValidity('กรุณากรอกตามตัวอย่าง เช่น 250 mg หรือ 250 มิลลิกรัม')" oninput="this.setCustomValidity('')"
+                        >
                     </div>
                     <div class="col-sm-3">
-                        <input type="text" required class="form-control" name="product_amount" id="product_amount" placeholder="ขนาดบรรจุ" pattern="^[0-9]+[\s][a-zA-Zก-๏]+$|ระบุไม่ได้" title="กรุณากรอกตามตัวอย่าง เช่น 250 mg หรือ 250 มิลลิกรัม">
+                        <input type="text" required class="form-control" name="product_amount" id="product_amount" placeholder="ขนาดบรรจุ" pattern="^[0-9]+[\s][a-zA-Zก-๏]+$|ระบุไม่ได้"
+                        oninvalid="this.setCustomValidity('กรุณากรอกตามตัวอย่าง เช่น 50 แคปซูล หรือ 150 เม็ด')" oninput="this.setCustomValidity('')"
+                        >
                     </div>
 
                 </div>
@@ -74,7 +77,7 @@ include_once($path);
                 <div class="form-group row">
                     <label for="price" class="col-sm-2 col-form-label">จำนวนในสต็อก</label>
                     <div class="col-sm-3">
-                        <input type="number" min="1" onblur="checkStock()" required class="form-control" name="product_stock" id="product_stock" placeholder="จำนวนในสต็อก">
+                        <input type="number" min="1" onblur="checkInteger()" required class="form-control" name="product_stock" id="product_stock" placeholder="จำนวนในสต็อก">
                     </div>
                 </div>
 
@@ -96,13 +99,16 @@ include_once($path);
 </body>
 
 <script>
-    function checkStock() {
+    function checkInteger() {
         var product_stock = $('#product_stock').val();
         product_stock = parseInt(product_stock);
         $('#product_stock').val(product_stock);
     }
-    // send.js
+
+
     $(document).ready(function() {
+
+        // data sending function
         $('#form_product_add').submit(function(e) {
             e.preventDefault();
             var product_name = $('input[name=product_name]').val();
@@ -141,7 +147,7 @@ include_once($path);
                 .fail(function(data) {
                     Swal.fire({
                         title: 'ผิดพลาด !',
-                        text: 'เพิ่มสินค้า ' + pname + ' ไม่สำเร็จ!',
+                        text: 'เพิ่มสินค้า ' + product_name + ' ไม่สำเร็จ!',
                         type: 'error',
                         confirmButtonText: 'ลองอีกครั้ง',
                         timer: 1500
