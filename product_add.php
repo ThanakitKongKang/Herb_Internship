@@ -12,7 +12,7 @@ include_once($path);
 
 <body>
     <div class="container mt-5">
-        <h2 class="text-center shadow-sm p-3 mb-1 bg-white rounded">เพิ่มสินค้า</h2>
+        <h2 class="text-center shadow-sm p-3 mb-1 bg-white rounded">เพิ่มรายการสินค้าใหม่</h2>
 
         <form id="form_product_add" method="post">
             <div class="bg-light p-5 rounded">

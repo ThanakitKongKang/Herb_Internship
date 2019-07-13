@@ -26,11 +26,11 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'product_add.php') {
                                                     echo "active";
-                                                } ?> " href="product_add.php"><i class="fas fa-plus"></i> เพิ่มสินค้าลงฐานข้อมูล</a>
+                                                } ?> " href="product_add.php"><i class="fas fa-plus"></i> เพิ่มรายการสินค้าลงฐานข้อมูล</a>
 
                         <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'product_add_stock.php') {
                                                     echo "active";
-                                                } ?> " href="product_add_stock.php"><i class="fas fa-sync"></i> อัปเดตจำนวนสินค้าในสต็อก</a>
+                                                } ?> " href="product_add_stock.php"><i class="fas fa-sync"></i> เพิ่มสินค้าลงสต็อก</a>
 
                         <a class="dropdown-item <?php if (basename($_SERVER['PHP_SELF']) == 'product_edit.php') {
                                                     echo "active";
