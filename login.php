@@ -7,7 +7,7 @@ include_once($path);
 
 
 <head>
-    <title>เข้าสู่ระบบ</title>
+    <title>เข้าสู่ระบบ <?=$title_credit?></title>
     <link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 

@@ -6,7 +6,7 @@ include_once($path);
 ?>
 
 <head>
-    <title>แก้ไขสินค้า</title>
+    <title>แก้ไขสินค้า <?=$title_credit?></title>
     <style>
         table tbody tr:hover {
             color: #e9af00 !important;

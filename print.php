@@ -4,7 +4,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>print</title>
+    <title>print <?=$title_credit?></title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
     <link rel="icon" href="_etc/herb.ico">

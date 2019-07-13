@@ -6,7 +6,7 @@ include_once($path);
 ?>
 
 <head>
-    <title>เพิ่มสินค้า</title>
+    <title>เพิ่มสินค้า <?=$title_credit?></title>
 
 </head>
 

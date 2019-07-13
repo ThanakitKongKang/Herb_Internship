@@ -81,12 +81,12 @@
             <?php if (basename($_SERVER['PHP_SELF']) == 'index.php' || basename($_SERVER['PHP_SELF']) == 'product_add_stock.php' || basename($_SERVER['PHP_SELF']) == 'product_edit.php') { ?>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a title="เปลี่ยนความสูงของตารางในหน้านี้" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="<?php if (basename($_SERVER['PHP_SELF']) == 'index.php' || basename($_SERVER['PHP_SELF']) == 'product_add_stock.php' || basename($_SERVER['PHP_SELF']) == 'product_edit.php') {
                                                 echo "text-dark";
                                             } ?>"><i class="far fa-window-maximize"></i> เปลี่ยนความสูงตาราง</span>
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                        <div class="dropdown-menu text-right" style="min-width:8rem" aria-labelledby="navbarDropdownMenuLink2">
                             <a class="dropdown-item table-height-change" href="#.php" data-height="200">200 px</a>
                             <a class="dropdown-item table-height-change" href="#.php" data-height="300">300 px</a>
                             <a class="dropdown-item table-height-change" href="#.php" data-height="400">400 px</a>

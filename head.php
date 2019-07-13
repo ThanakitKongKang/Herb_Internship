@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 include "./model/connect.php";
+$title_credit = "Herb internship project by CS KKU internship students"
 ?>
 <html>
 
@@ -9,7 +10,7 @@ include "./model/connect.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="_etc/herb.ico">
+    <link rel="icon" href="_etc/herb.ico" type="image/x-icon">
     <!-- bootstrap -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> -->
     <link rel="stylesheet" type="text/css" media="screen" href="./css/bootstrap.min.css">

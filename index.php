@@ -5,7 +5,7 @@ include($path);
 ?>
 
 <head>
-    <title>หน้าหลัก</title>
+    <title>หน้าหลัก <?=$title_credit?></title>
     <style>
         table tbody tr:hover {
             color: green !important;

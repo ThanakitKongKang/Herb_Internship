@@ -6,7 +6,7 @@ include_once($path);
 ?>
 
 <head>
-    <title>ประวัติการนำสินค้าเข้าสต็อก</title>
+    <title>ประวัติการนำสินค้าเข้าสต็อก <?=$title_credit?></title>
 </head>
 
 <body>

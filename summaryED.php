@@ -7,7 +7,7 @@ include_once($path);
 
 <head>
 
-    <title>รายงานผลประกอบการ ED</title>
+    <title>รายงานผลประกอบการ ED <?=$title_credit?></title>
     <style>
         .table th,
         .table td {

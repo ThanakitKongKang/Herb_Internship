@@ -7,7 +7,7 @@ include_once($path);
 
 <head>
 
-    <title>รายงานการเพิ่มสินค้าเข้าสต็อก</title>
+    <title>รายงานการเพิ่มสินค้าเข้าสต็อก <?=$title_credit?></title>
     <style>
         .table th,.table td{
             padding : 0rem 1rem 0rem 1rem;

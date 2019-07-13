@@ -7,7 +7,7 @@ include_once($path);
 
 <head>
 
-    <title>รายงานผลประกอบการ NED</title>
+    <title>รายงานผลประกอบการ NED <?=$title_credit?></title>
     <style>
         .table th,.table td{
             padding : 0rem 1rem 0rem 1rem;
