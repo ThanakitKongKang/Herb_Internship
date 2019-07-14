@@ -94,7 +94,7 @@ $('#product tbody').on("click", "th", function (event) {
         "<div class='col-sm-3'>" +
         "<input type='number' min='1' onblur='checkStock();' required class='form-control' name='product_stock' id='product_stock' value='" + product_stock + "' placeholder='จำนวนในสต็อก'>" +
         "</div>" +
-        "</div>"+
+        "</div>" +
         "<fieldset class='form-group'>" +
         "<div class='row'>" +
         "<legend class='col-form-label col-sm-3 pt-0'>สถานะสินค้า</legend>";
@@ -212,7 +212,7 @@ $('.edit-footer').on("click", ".edit-button", function (event) {
             "<pre class='" + text[4] + "'>" + old_product_cost + " --> " + product_cost + "</pre>" +
             "<pre class='" + text[5] + "'>" + old_product_price + " --> " + product_price + "</pre>" +
             "<pre class='" + text[6] + "'>" + old_product_price_discount + " --> " + product_price_discount + "</pre>" +
-            "<pre class='" + text[7] + "'>" + old_product_stock + " --> " + product_stock + "</pre>"+
+            "<pre class='" + text[7] + "'>" + old_product_stock + " --> " + product_stock + "</pre>" +
             "<pre class='" + text[8] + "'>" + old_product_status + " --> " + product_status + "</pre>",
         type: 'warning',
         showCancelButton: true,
@@ -345,7 +345,7 @@ function checkAmount() {
     }
 }
 
-function checkStock(){
+function checkStock() {
     var product_stock = $('#product_stock').val();
     product_stock = parseInt(product_stock);
     $('#product_stock').val(product_stock);
@@ -372,27 +372,37 @@ $('#modal-delete').on("click", function (event) {
             var formData = {
                 'product_id': product_id
             };
-
             $.ajax({
                 type: 'POST',
                 url: './model/model_product_delete.php', // the url where we want to POST
-                data: formData, // our data object
-            })
+                data: formData, // our data object,
+                success: function (data) {
+                    if (data == 2) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
 
-
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
+                        Toast.fire({
+                            title: 'สำเร็จ !',
+                            text: 'ท่านได้ทำรายการลบสินค้า ' + product_id,
+                            type: 'success',
+                            confirmButtonText: 'ตกลง',
+                        })
+                    } else if (data == 1) {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'ผิดพลาด',
+                            html: '<pre>ไม่สามารถลบรายการสินค้านี้ได้!</pre><pre>เนื่องจากมีรายการสินค้านี้ในประวัติการซื้อขาย</pre>',
+                        })
+                    }
+                }
             });
 
-            Toast.fire({
-                title: 'สำเร็จ !',
-                text: 'ท่านได้ทำรายการลบสินค้า ' + product_id,
-                type: 'success',
-                confirmButtonText: 'ตกลง',
-            })
+
+
             $('#editModal').modal('hide');
             getListProductTable();
         } else {

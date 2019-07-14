@@ -6,7 +6,17 @@ include_once($path);
 ?>
 
 <head>
-    <title>ประวัติการขาย <?=$title_credit?></title>
+    <title>ประวัติการขาย <?= $title_credit ?></title>
+    <style>
+        td,th {
+            white-space: nowrap !important;
+            word-wrap: break-word;
+        }
+
+        table {
+            table-layout: fixed;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,7 +25,7 @@ include_once($path);
         include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/model/model_order_history_select.php");
         ?>
         <div class="my-3">
-            <table style='position:relative;left:10%' class="table table-responsive table-hover" id="history_order" data-page-length='10'>
+            <table style='position:relative;left:10%;' class="table table-responsive table-hover" id="history_order" data-page-length='10'>
 
                 <thead class="thead-dark">
                     <tr>
@@ -37,7 +47,7 @@ include_once($path);
                         $sum = $rowOrder['order_price'] * $rowOrder['order_count'];
                         echo '<tr>
                     <td class="text-center">' . $rowOrder['order_date'] . '</td>
-                    <td  class="text-center">' . $rowOrder['order_id'] . '</td>
+                    <td  class="text-center">ord' . $rowOrder['order_id'] . '</td>
                     <td class="text-center">' . $rowOrder['product_id'] . '</td>
                     <td>' . $rowOrder['product_name'] . '</td>
                     <td class="text-right">' . $rowOrder['order_count'] . '</td>
@@ -49,7 +59,7 @@ include_once($path);
                     ?>
                 </tbody>
             </table>
-         
+
         </div>
 </body>
 
