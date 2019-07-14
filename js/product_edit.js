@@ -395,7 +395,7 @@ $('#modal-delete').on("click", function (event) {
                         Swal.fire({
                             type: 'error',
                             title: 'ผิดพลาด',
-                            html: '<pre>ไม่สามารถลบรายการสินค้านี้ได้!</pre><pre>เนื่องจากมีรายการสินค้านี้ในประวัติการซื้อขาย</pre>',
+                            html: '<pre>ไม่สามารถลบรายการสินค้า <span class="text-primary">'+old_product_name+'</span> ได้!</pre><pre>เนื่องจากมีรายการสินค้านี้ในประวัติการซื้อขาย</pre>',
                         })
                     }
                 }
