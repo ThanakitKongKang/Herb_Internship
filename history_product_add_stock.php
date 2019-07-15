@@ -7,6 +7,10 @@ include_once($path);
 
 <head>
     <title>ประวัติการนำสินค้าเข้าสต็อก <?= $title_credit ?></title>
+    <script src="./js/history_page/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
+    <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="./js/history_page/jquery-ui-1.10.0.custom.min.css" />
+    <script data-require="jqueryui@*" data-semver="1.10.0" src="./js/history_page/jquery-ui.js"></script>
+    <script src="./js/history_page/jquery.dataTables.js" data-semver="1.9.4" data-require="datatables@*"></script>
     <style>
         td,
         th {
@@ -17,15 +21,52 @@ include_once($path);
         table {
             table-layout: fixed;
         }
+
+        .paginate_active {
+            padding: 0.5rem;
+            background-color: #efefef;
+            text-decoration: none;
+            border-style: ridge;
+            border: 1px solid #dee2e6 !important;
+        }
+
+        .paginate_button {
+            padding: 0.5rem;
+            background-color: white;
+            text-decoration: none;
+            border-style: ridge;
+            border: 1px solid #dee2e6 !important;
+        }
+
+        .paginate_button:hover,
+        .paginate_active:hover {
+            cursor: pointer;
+
+            text-decoration: none;
+
+        }
+
+        .ui-datepicker-trigger {
+
+            padding-top: 2px;
+            padding-bottom: 6px;
+            border-top-width: 5px;
+
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <?php
-        include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/model/model_product_add_stock_history_select.php");
+        include($_SERVER['DOCUMENT_ROOT'] . "/model/model_product_add_stock_history_select.php");
         ?>
         <div class="my-3">
+            <p id="date_filter">
+                <span id="date-label-from" class="date-label">จากวันที่: </span><input class="date_range_filter date form-control mx-0" type="text" id="datepicker_from" style="width:15%;display:inline" />
+                <span id="date-label-to" class="date-label">ถึงวันที่:<input class="date_range_filter date form-control mx-0" type="text" id="datepicker_to" style="width:15%;display:inline" />
+            </p>
+
             <table style="position:relative;left:20%" class="table table-responsive table-hover" id="history_order" data-page-length='10'>
 
                 <thead class="thead-dark">
@@ -65,7 +106,7 @@ include_once($path);
             info: false,
             "order": [0, 'DESC'],
             "deferRender": true,
-
+            "sPaginationType": "full_numbers",
             "columnDefs": [{
                     "targets": [3],
                     "searchable": false,
@@ -81,5 +122,56 @@ include_once($path);
             }
 
         });
+        $("#datepicker_from").datepicker({
+            showOn: "button",
+            // buttonImage: "images/calendar.gif",
+            buttonImageOnly: false,
+            "onSelect": function(date) {
+                minDateFilter = new Date(date).getTime();
+                table.fnDraw();
+            }
+        }).keyup(function() {
+            minDateFilter = new Date(this.value).getTime();
+            table.fnDraw();
+        });
+
+        $("#datepicker_to").datepicker({
+            showOn: "button",
+            // buttonImage: "_etc/herb.ico",
+            buttonImageOnly: false,
+            "onSelect": function(date) {
+                maxDateFilter = new Date(date).getTime();
+                table.fnDraw();
+            }
+        }).keyup(function() {
+            maxDateFilter = new Date(this.value).getTime();
+            table.fnDraw();
+        });
+
+        // Date range filter
+        minDateFilter = "";
+        maxDateFilter = "";
+
+        $.fn.dataTableExt.afnFiltering.push(
+            function(oSettings, aData, iDataIndex) {
+                if (typeof aData._date == 'undefined') {
+                    aData._date = new Date(aData[0]).getTime();
+                }
+
+                if (minDateFilter && !isNaN(minDateFilter)) {
+                    if (aData._date < minDateFilter) {
+                        return false;
+                    }
+                }
+
+                if (maxDateFilter && !isNaN(maxDateFilter)) {
+                    if (aData._date > maxDateFilter) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        );
     });
 </script>

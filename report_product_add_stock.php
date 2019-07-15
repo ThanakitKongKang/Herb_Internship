@@ -138,7 +138,8 @@ include_once($path);
             var input = document.getElementById("search-value").value;
             var input, filter, table, tr, td, i, txtValue;
             table = document.getElementById("the-table");
-            tr = table.getElementsB
+            tr = table.getElementsByTagName("tr");
+
             for (i = 0; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[1];
                 if (td) {
