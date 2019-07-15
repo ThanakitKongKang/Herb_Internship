@@ -59,6 +59,7 @@ include_once($path);
 
 <script>
     $(document).ready(function() {
+
         table = $('#history_order').DataTable({
             scrollX: false,
             scrollCollapse: true,
@@ -82,6 +83,7 @@ include_once($path);
             }
 
         });
+        sumThis();
         $("#datepicker_from").datepicker({
             showOn: "button",
             // buttonImage: "images/calendar.gif",
@@ -89,16 +91,7 @@ include_once($path);
             "onSelect": function(date) {
                 minDateFilter = new Date(date).getTime();
                 table.fnDraw();
-                var input, table2, tr, td, i;
-                var count = 0;
-                table2 = document.getElementById("history_order");
-                tr = table2.getElementsByTagName("tr");
-                for (i = 1; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[3];
-                    if (td != undefined)
-                        count = count + Number(td.innerHTML);
-                }
-                document.getElementById("footer").innerHTML = "<tr><td colspan='3'>รวมทั้งสิ้น</td><td class='text-right'>" + count + "</td><td></td></tr>";
+                sumThis();
             }
         }).keyup(function() {
             minDateFilter = new Date(this.value).getTime();
@@ -112,22 +105,26 @@ include_once($path);
             "onSelect": function(date) {
                 maxDateFilter = new Date(date).getTime();
                 table.fnDraw();
-                var input, table2, tr, td, i;
-                var count = 0;
-                table2 = document.getElementById("history_order");
-                tr = table2.getElementsByTagName("tr");
-                for (i = 1; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[3];
-                    if (td != undefined)
-                        count = count + Number(td.innerHTML);
-                }
-                document.getElementById("footer").innerHTML = "<tr><td colspan='3'>รวมทั้งสิ้น</td><td class='text-right'>" + count + "</td><td></td></tr>";
-
+                sumThis();
             }
         }).keyup(function() {
             maxDateFilter = new Date(this.value).getTime();
             table.fnDraw();
         });
+
+        function sumThis() {
+            var input, table2, tr, td, i;
+            var count = 0;
+            table2 = document.getElementById("history_order");
+            tr = table2.getElementsByTagName("tr");
+            for (i = 1; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[3];
+                if (td != undefined)
+                    count = count + Number(td.innerHTML);
+            }
+            document.getElementById("footer").innerHTML = "<tr><td colspan='3'>รวมทั้งสิ้น</td><td class='text-right'>" + count + "</td><td></td></tr>";
+
+        }
 
         // Date range filter
         minDateFilter = "";

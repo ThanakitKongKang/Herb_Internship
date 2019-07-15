@@ -94,6 +94,7 @@ include_once($path);
                 searchPlaceholder: "ค้นหา"
             }
         });
+        sumThis();
         $("#datepicker_from").datepicker({
             showOn: "button",
             // buttonImage: "images/calendar.gif",
@@ -101,21 +102,7 @@ include_once($path);
             "onSelect": function(date) {
                 minDateFilter = new Date(date).getTime();
                 table.fnDraw();
-                var input, table2, tr, td1, td2, i;
-                var sum = 0,
-                    count = 0;
-                table2 = document.getElementById("history_order");
-                tr = table2.getElementsByTagName("tr");
-                for (i = 1; i < tr.length; i++) {
-                    td1 = tr[i].getElementsByTagName("td")[5];
-                    if (td1 != undefined)
-                        count = count + Number(td1.innerHTML);
-                    td2 = tr[i].getElementsByTagName("td")[7];
-                    if (td2 != undefined)
-                        sum = sum + Number(td2.innerHTML);
-                }
-                document.getElementById("footer").innerHTML = "<tr><td colspan='5'>รวมทั้งสิ้น</td><td class='text-right'>" + count + "</td><td></td><td class='text-right'>" + sum + "</td><td></td></tr>";
-
+                sumThis();
             }
         }).keyup(function() {
             minDateFilter = new Date(this.value).getTime();
@@ -129,25 +116,30 @@ include_once($path);
             "onSelect": function(date) {
                 maxDateFilter = new Date(date).getTime();
                 table.fnDraw();
-                var input, table2, tr, td1, td2, i;
-                var sum = 0,
-                    count = 0;
-                table2 = document.getElementById("history_order");
-                tr = table2.getElementsByTagName("tr");
-                for (i = 1; i < tr.length; i++) {
-                    td1 = tr[i].getElementsByTagName("td")[5];
-                    if (td1 != undefined)
-                        count = count + Number(td1.innerHTML);
-                    td2 = tr[i].getElementsByTagName("td")[7];
-                    if (td2 != undefined)
-                        sum = sum + Number(td2.innerHTML);
-                }
+                sumThis();
             }
         }).keyup(function() {
             maxDateFilter = new Date(this.value).getTime();
             table.fnDraw();
         });
 
+        function sumThis() {
+            var input, table2, tr, td1, td2, i;
+            var sum = 0,
+                count = 0;
+            table2 = document.getElementById("history_order");
+            tr = table2.getElementsByTagName("tr");
+            for (i = 1; i < tr.length; i++) {
+                td1 = tr[i].getElementsByTagName("td")[5];
+                if (td1 != undefined)
+                    count = count + Number(td1.innerHTML);
+                td2 = tr[i].getElementsByTagName("td")[7];
+                if (td2 != undefined)
+                    sum = sum + Number(td2.innerHTML);
+            }
+            document.getElementById("footer").innerHTML = "<tr><td colspan='5'>รวมทั้งสิ้น</td><td class='text-right'>" + count + "</td><td></td><td class='text-right'>" + sum + "</td><td></td></tr>";
+
+        }
         // Date range filter
         minDateFilter = "";
         maxDateFilter = "";
