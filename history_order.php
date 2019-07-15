@@ -31,9 +31,9 @@ include_once($path);
                 </p>
             </div>
             <table style='position:relative;left:5%;' class="table table-responsive table-hover" id="history_order" data-page-length='100'>
-          
+
                 <thead class="thead-dark">
-                <tr id="footer" class="bg-dark text-white mb-2"></tr>
+                    <tr id="footer" class="bg-dark text-white mb-2"></tr>
                     <tr>
                         <th class="align-middle text-center">เวลาที่ขาย</th>
                         <th class="align-middle text-center">รหัสออร์เดอร์</th>
@@ -46,7 +46,7 @@ include_once($path);
                         <th class="align-middle text-center">ชื่อผู้ขาย</th>
 
                     </tr>
-                   
+
                 </thead>
 
                 <tbody id="tbodyData" class='bg-light'>
@@ -226,35 +226,41 @@ include_once($path);
             var min = Number(document.getElementById("order_id_input").min);
             var max = Number(document.getElementById("order_id_input").max);
             var order_id_input = Number(document.getElementById("order_id_input").value);
-
-            if (order_id_input < min) {
-                Swal.fire({
-                    type: 'error',
-                    title: 'ผิดพลาด',
-                    html: '<pre>เลขออร์เดอร์ต่ำสุดคือ <span class="text-primary">1</span> ไม่สามารถกรอก <span class="text-danger">' + order_id_input + '</span> ได้</pre>',
-                })
-                order_id_input = min;
-                document.getElementById("order_id_input").value = order_id_input;
-            } else if (order_id_input > max) {
-                Swal.fire({
-                    type: 'error',
-                    title: 'ผิดพลาด',
-                    html: '<pre>เลขออร์เดอร์สูงสุดคือ  <span class="text-primary">' + max + '</span> ไม่สามารถกรอก <span class="text-danger">' + order_id_input + '</span> ได้</pre>',
-                })
-                order_id_input = max;
-                document.getElementById("order_id_input").value = order_id_input;
-            }
-
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("ord_info").innerHTML = this.responseText;
-                    // $('#orderCancel').modal('show');
+            if (max > 0) {
+                if (order_id_input < min) {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'ผิดพลาด',
+                        html: '<pre>เลขออร์เดอร์ต่ำสุดคือ <span class="text-primary">1</span> ไม่สามารถกรอก <span class="text-danger">' + order_id_input + '</span> ได้</pre>',
+                    })
+                    order_id_input = min;
+                    document.getElementById("order_id_input").value = order_id_input;
+                } else if (order_id_input > max) {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'ผิดพลาด',
+                        html: '<pre>เลขออร์เดอร์สูงสุดคือ  <span class="text-primary">' + max + '</span> ไม่สามารถกรอก <span class="text-danger">' + order_id_input + '</span> ได้</pre>',
+                    })
+                    order_id_input = max;
+                    document.getElementById("order_id_input").value = order_id_input;
                 }
-            };
-            xmlhttp.open("GET", "./model/model_get_order_detail_by_order_id.php?ord=" + order_id_input, true);
-            xmlhttp.send();
 
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("ord_info").innerHTML = this.responseText;
+                        // $('#orderCancel').modal('show');
+                    }
+                };
+                xmlhttp.open("GET", "./model/model_get_order_detail_by_order_id.php?ord=" + order_id_input, true);
+                xmlhttp.send();
+            } else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'ผิดพลาด',
+                    text: 'ขณะนี้ยังไม่มีรายการขาย'
+                })
+            }
         }
 
         $('.order-cancel-btn').on('click', function(event) {

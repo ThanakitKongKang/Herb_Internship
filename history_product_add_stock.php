@@ -29,6 +29,7 @@ include_once($path);
             <table style="position:relative;left:20%" class="table table-responsive table-hover" id="history_order" data-page-length='10'>
 
                 <thead class="thead-dark">
+                    <tr id="footer" class="bg-dark text-white mb-2"></tr>
                     <tr>
                         <th class="align-middle text-center">วันที่เพิ่ม</th>
                         <th class="align-middle text-center">รหัสสินค้า</th>
@@ -51,7 +52,6 @@ include_once($path);
                     }
                     ?>
                 </tbody>
-                <tfoot id="footer" class="bg-dark text-white"></tfoot>
             </table>
         </div>
     </div>
@@ -66,6 +66,10 @@ include_once($path);
             scrollCollapse: true,
             paging: true,
             info: false,
+            aLengthMenu: [
+                [10, 25, 50, 100, 200, -1],
+                [10, 25, 50, 100, 200, "All"]
+            ],
             "order": [0, 'DESC'],
             "deferRender": true,
             "sPaginationType": "full_numbers",
