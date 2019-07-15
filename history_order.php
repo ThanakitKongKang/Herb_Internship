@@ -9,10 +9,10 @@ include_once($path);
     <title>ประวัติการขาย <?= $title_credit ?></title>
     <script src="./js/history_page/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
     <link rel="stylesheet" href="./css/history_page/main.css" />
+
     <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="./js/history_page/jquery-ui-1.10.0.custom.min.css" />
     <script data-require="jqueryui@*" data-semver="1.10.0" src="./js/history_page/jquery-ui.js"></script>
     <script src="./js/history_page/jquery.dataTables.js" data-semver="1.9.4" data-require="datatables@*"></script>
-
 </head>
 
 <body>
@@ -22,14 +22,18 @@ include_once($path);
         ?>
         <div class="my-3">
             <div class="row justify-content-end">
+                <div class="mr-auto">
+                    <button class="btn btn-danger" id="order_cancel">ยกเลิกออร์เดอร์</button>
+                </div>
                 <p id="date_filter" class="text-white">
                     <span id="date-label-from" class="date-label">จากวันที่ : </span><input class="date_range_filter date form-control mx-0" type="text" id="datepicker_from" style="width:25%;display:inline" />
                     <span id="date-label-to" class="date-label">ถึงวันที่ : <input class="date_range_filter date form-control mx-0" type="text" id="datepicker_to" style="width:25%;display:inline" />
                 </p>
             </div>
-            <table style='position:relative;left:5%;' class="table table-responsive table-hover" id="history_order" data-page-length='10'>
-
+            <table style='position:relative;left:5%;' class="table table-responsive table-hover" id="history_order" data-page-length='100'>
+          
                 <thead class="thead-dark">
+                <tr id="footer" class="bg-dark text-white mb-2"></tr>
                     <tr>
                         <th class="align-middle text-center">เวลาที่ขาย</th>
                         <th class="align-middle text-center">รหัสออร์เดอร์</th>
@@ -42,6 +46,7 @@ include_once($path);
                         <th class="align-middle text-center">ชื่อผู้ขาย</th>
 
                     </tr>
+                   
                 </thead>
 
                 <tbody id="tbodyData" class='bg-light'>
@@ -62,11 +67,13 @@ include_once($path);
                     }
                     ?>
                 </tbody>
-                <tfoot id="footer" class="bg-dark text-white"></tfoot>
+                <!-- <tfoot id="footer" class="bg-light text-primary"></tfoot> -->
             </table>
 
         </div>
     </div>
+    <?php
+    include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/modalbox/order_cancel.php"); ?>
 </body>
 
 <script>
@@ -76,6 +83,10 @@ include_once($path);
             scrollCollapse: true,
             paging: true,
             info: false,
+            aLengthMenu: [
+                [10, 25, 50, 100, 200, -1],
+                [10, 25, 50, 100, 200, "All"]
+            ],
             "order": [0, 'DESC'],
             "deferRender": true,
             "sPaginationType": "full_numbers",
@@ -123,10 +134,6 @@ include_once($path);
             table.fnDraw();
         });
 
-        // $("select.country").change(function() {
-        //     var selectedCountry = $(this).children("option:selected").val();
-        //     alert("You have selected the country - " + selectedCountry);
-        // });
 
         function sumThis() {
             var input, table2, tr, td1, td2, i;
@@ -183,5 +190,121 @@ include_once($path);
                 return true;
             }
         );
+        $("#history_order_length").children("label").children("select").on('change', function(event) {
+            sumThis();
+        });
+
+        $(".paginate_button").on('click', function(event) {
+            sumThis();
+        });
+
+        $("#history_order_paginate").children("span").on('click', function(event) {
+            sumThis();
+        });
+
+        $('#order_cancel').on('click', function(event) {
+            jQuery.noConflict();
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("order_id_input").max = this.responseText;
+                    $('#orderCancel').modal('show');
+                }
+            };
+            xmlhttp.open("GET", "./model/model_invoice_get_order_id.php", true);
+            xmlhttp.send();
+        });
+        $('#order_id_input').on('keyup', function(event) {
+            getOrder();
+        });
+        $('#order_id_input').on('change', function(event) {
+            getOrder();
+        });
+
+
+        function getOrder() {
+            var min = Number(document.getElementById("order_id_input").min);
+            var max = Number(document.getElementById("order_id_input").max);
+            var order_id_input = Number(document.getElementById("order_id_input").value);
+
+            if (order_id_input < min) {
+                Swal.fire({
+                    type: 'error',
+                    title: 'ผิดพลาด',
+                    html: '<pre>เลขออร์เดอร์ต่ำสุดคือ <span class="text-primary">1</span> ไม่สามารถกรอก <span class="text-danger">' + order_id_input + '</span> ได้</pre>',
+                })
+                order_id_input = min;
+                document.getElementById("order_id_input").value = order_id_input;
+            } else if (order_id_input > max) {
+                Swal.fire({
+                    type: 'error',
+                    title: 'ผิดพลาด',
+                    html: '<pre>เลขออร์เดอร์สูงสุดคือ  <span class="text-primary">' + max + '</span> ไม่สามารถกรอก <span class="text-danger">' + order_id_input + '</span> ได้</pre>',
+                })
+                order_id_input = max;
+                document.getElementById("order_id_input").value = order_id_input;
+            }
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("ord_info").innerHTML = this.responseText;
+                    // $('#orderCancel').modal('show');
+                }
+            };
+            xmlhttp.open("GET", "./model/model_get_order_detail_by_order_id.php?ord=" + order_id_input, true);
+            xmlhttp.send();
+
+        }
+
+        $('.order-cancel-btn').on('click', function(event) {
+            var order_id_input = Number(document.getElementById("order_id_input").value);
+            var book_iv = document.getElementById("book_iv").innerHTML;
+            Swal.fire({
+                title: 'ยืนยันการยกเลิกออร์เดอร์?',
+                html: "<div>ท่านต้องการจะยกเลิกออร์เดอร์ที่ <span class='text-danger'>" + order_id_input + " <span class='text-dark'>เล่ม</span> [" + book_iv + "]</span> ใช่หรือไม่?</div>",
+                type: 'warning',
+                showCancelButton: true,
+                showCloseButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก'
+            }).then((result) => {
+                if (result.value) {
+
+                    var formData = {
+                        'ord': order_id_input
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: './model/model_order_cancel.php', // the url where we want to POST
+                        data: formData, // our data object,
+
+                        success: function(data) {
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+
+                            Toast.fire({
+                                title: 'สำเร็จ !',
+                                text: 'ท่านได้ทำรายการยกเลิกออร์เดอร์ที่ ' + order_id_input,
+                                type: 'success',
+                                confirmButtonText: 'ตกลง',
+                            })
+
+                        }
+                    });
+
+                    $('#orderCancel').modal('hide');
+                } else {
+                    $('#orderCancel').modal('show');
+                }
+            })
+        });
     });
 </script>

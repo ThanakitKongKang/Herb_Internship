@@ -77,6 +77,7 @@ switch ($month) {
         AND order_history.order_id = order_detail.order_id
         AND order_history.order_date LIKE ?
         AND product.product_type = ?
+        AND order_history.status = 'uncancelled'
         GROUP by order_detail.product_id  
         ORDER BY `profit` DESC");
 
@@ -92,6 +93,7 @@ switch ($month) {
         AND order_history.order_id = order_detail.order_id
         AND order_history.order_date BETWEEN ? AND ?
         AND product.product_type = ?
+        AND order_history.status = 'uncancelled'
         GROUP by order_detail.product_id  
         ORDER BY `profit` DESC");
 

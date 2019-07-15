@@ -86,7 +86,7 @@
                                                 echo "text-dark";
                                             } ?>"><i class="far fa-window-maximize"></i> เปลี่ยนความสูงตาราง</span>
                         </a>
-                        <div class="dropdown-menu text-right" style="min-width:8rem" aria-labelledby="navbarDropdownMenuLink2">
+                        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink2">
                             <a class="dropdown-item table-height-change" href="#.php" data-height="200">200 px</a>
                             <a class="dropdown-item table-height-change" href="#.php" data-height="300">300 px</a>
                             <a class="dropdown-item table-height-change" href="#.php" data-height="400">400 px</a>
