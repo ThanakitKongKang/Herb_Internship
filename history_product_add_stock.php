@@ -51,7 +51,7 @@ include_once($path);
                     }
                     ?>
                 </tbody>
-                <tfoot id="footer" class="bg-dark text-white" style="font-size:1.25em"></tfoot>
+                <tfoot id="footer" class="bg-dark text-white"></tfoot>
             </table>
         </div>
     </div>
@@ -60,7 +60,8 @@ include_once($path);
 <script>
     $(document).ready(function() {
 
-        table = $('#history_order').DataTable({
+        var table = $('#history_order').DataTable({
+
             scrollX: false,
             scrollCollapse: true,
             paging: true,
@@ -83,6 +84,7 @@ include_once($path);
             }
 
         });
+
         sumThis();
         $("#datepicker_from").datepicker({
             showOn: "button",
@@ -117,11 +119,14 @@ include_once($path);
             var count = 0;
             table2 = document.getElementById("history_order");
             tr = table2.getElementsByTagName("tr");
+
+
             for (i = 1; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[3];
                 if (td != undefined)
                     count = count + Number(td.innerHTML);
             }
+
             document.getElementById("footer").innerHTML = "<tr><td colspan='3'>รวมทั้งสิ้น</td><td class='text-right'>" + count + "</td><td></td></tr>";
 
         }

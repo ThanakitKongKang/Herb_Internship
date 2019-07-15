@@ -62,7 +62,7 @@ include_once($path);
                     }
                     ?>
                 </tbody>
-                <tfoot id="footer" class="bg-dark text-white" style="font-size:1.25em"></tfoot>
+                <tfoot id="footer" class="bg-dark text-white"></tfoot>
             </table>
 
         </div>
@@ -123,6 +123,11 @@ include_once($path);
             table.fnDraw();
         });
 
+        // $("select.country").change(function() {
+        //     var selectedCountry = $(this).children("option:selected").val();
+        //     alert("You have selected the country - " + selectedCountry);
+        // });
+
         function sumThis() {
             var input, table2, tr, td1, td2, i;
             var sum = 0,
@@ -137,6 +142,19 @@ include_once($path);
                 if (td2 != undefined)
                     sum = sum + Number(td2.innerHTML);
             }
+
+            // var page_length = $("#history_order_length").children("label").children("select").children("option:selected").val();
+
+            // var sum2 = 0,
+            //     count2 = 0;
+            // for (i = 1; i < page_length; i++) {
+            //     td1 = tr[i].getElementsByTagName("td")[5];
+            //     if (td1 != undefined)
+            //         count2 = count2 + Number(td1.innerHTML);
+            //     td2 = tr[i].getElementsByTagName("td")[7];
+            //     if (td2 != undefined)
+            //         sum2 = sum2 + Number(td2.innerHTML);
+            // }
             document.getElementById("footer").innerHTML = "<tr><td colspan='5'>รวมทั้งสิ้น</td><td class='text-right'>" + count + "</td><td></td><td class='text-right'>" + sum + "</td><td></td></tr>";
 
         }
