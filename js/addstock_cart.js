@@ -40,6 +40,12 @@ var shoppingCart2 = (function () {
   // =============================
   var obj = {};
 
+  // cart array length
+  obj.cartLength = function () {
+    var cartArray = shoppingCart2.listCart();
+    return cartArray.length;
+  }
+
   // Add to cart
   obj.addItemToCart = function (product_id, product_name, product_type, product_potent, product_amount, product_cost, product_price, product_price_discount, product_stock, count) {
     for (var item in cart) {
@@ -222,7 +228,7 @@ function displayCart() {
       "</tr>";
   }
   if (shoppingCart2.totalCount() > 0) {
-    var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-success btn-lg' data-toggle='modal' data-target='#cart' title='คลิกเพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> สินค้าที่เลือก (" + shoppingCart2.totalCount() + ")</button>";
+    var cart_clickable = "<button type='button' style='float:right' class='display-cart btn btn-success btn-lg' data-toggle='modal' data-target='#cart' title='คลิกเพื่อแสดงตะกร้าสินค้า'><i class='fas fa-shopping-cart'></i> " + shoppingCart2.cartLength() + " รายการ (" + shoppingCart2.totalCount() + " ชิ้น)</button>";
     $('.cart-clickable').html(cart_clickable);
 
     var cart_clear_clickable = "<button style='float:right' class='btn btn-danger mx-1 btn-lg' title='ยกเลิกรายการสินค้าทั้งหมดที่เลือกไว้ในตะกร้า'><i class='far fa-window-close'></i> ยกเลิก</button>";
