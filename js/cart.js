@@ -255,6 +255,7 @@ var shoppingCart = (function () {
 
 $('#product tbody').on("click", "th", function (event) {
   event.preventDefault();
+  window.scrollTo(0,document.body.scrollHeight);
   var product_id = ($(this).data('product_id'));
   var product_name = $(this).data('product_name');
   var product_type = $(this).data('product_type');
@@ -331,6 +332,9 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   var change = document.getElementById("total-change-span").innerHTML = total_receive - total;
   var cartArray = shoppingCart.listCart();
   var customer_name = document.getElementById("customer-name").value;
+  var book_id = document.getElementById("book-id").value;
+  var iv_id = document.getElementById("iv-id").value;
+
   if (customer_name == "") {
     customer_name = "ไม่ระบุ";
   }
@@ -340,11 +344,19 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   console.dir(cartArray);
   console.log("ผู้ซื้อ : " + customer_name);
   console.log("ผู้ขาย : " + user);
+  console.log("เล่มที่ : " + book_id);
+  console.log("เลขที่ : " + iv_id);
+
+  var bookNo = {
+    'book_id' : book_id,
+    'iv_id' : iv_id,
+  };
 
   // สร้าง Order_history
   $.ajax({
     type: 'POST',
     url: './model/model_order_history_make.php',
+    data:bookNo,
   })
 
 
@@ -353,7 +365,7 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
       'product_id': cartArray[i].product_id,
       'product_price': cartArray[i].product_price,
       'count': cartArray[i].count,
-      'product_cost': cartArray[i].product_cost,
+      'product_cost': cartArray[i].product_cost
     };
 
     // loop สร้าง order_detail
@@ -361,8 +373,6 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
       type: 'POST',
       url: './model/model_order_detail_make.php',
       data: formData,
-
-
     })
   }
   // // ส่งข้อมูลไปพรินต์ terminal POS
@@ -413,24 +423,6 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
   xmlhttp.open("GET", "./model/model_invoice_get_order_id.php", true);
   xmlhttp.send();
 
-
-
-
-
-  // $.ajax({
-  //   type: 'POST',
-  //   url: './print/escpos-php-development/example/interface/windows-usb-for-phon.php',
-  //   data: {
-  //     cartArray,
-  //     total,
-  //     total_receive,
-  //     change,
-  //     customer_name,
-  //     user
-  //   },
-  //   success: function (data) {}
-  // })
-
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -452,6 +444,8 @@ $('.cart-button').on("click", ".calculate-cart", function (event) {
 
   document.getElementById("customer-name").value = "";
   document.getElementById("total-receive").value = "";
+  document.getElementById("book-id").value = "";
+  document.getElementById("iv-id").value = "";
   document.getElementById("total-change").style.visibility = "hidden";
   document.getElementById("not-enough-receive").style.visibility = "hidden";
   document.getElementById("footer-submit").style.visibility = "hidden";
@@ -470,10 +464,21 @@ function getListProductTable() {
 }
 
 function calculate_change() {
+  var book_id = document.getElementById("book-id").value;
+  var iv_id = document.getElementById("iv-id").value;
   var total_cart = Number(document.getElementById("total-cart").innerHTML);
   var total_receive = Number(document.getElementById("total-receive").value);
+
+  if(book_id == "" || iv_id == ""){
+     document.getElementById("footer-submit").style.visibility = "hidden";
+  }
+
   if (total_receive !== 0 && total_receive !== null && total_receive >= 0) {
+    if(book_id !== "" && iv_id !== ""){
+      // console.log("เล่มที่ : " + book_id);
+      // console.log("เลขที่ : " + iv_id);
     document.getElementById("footer-submit").style.visibility = "visible";
+    }
     var change = document.getElementById("total-change-span").innerHTML = total_receive - total_cart;
     if (change < 0) {
       document.getElementById("footer-submit").style.visibility = "hidden";

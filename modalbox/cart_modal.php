@@ -32,6 +32,7 @@
 
                 <div style="font-size:1.25em">
                     <div class="row justify-content-end pr-5">ยอดรวม : <span id="total-cart" class="total-cart px-1 border-1 text-primary"></span> บาท</div>
+
                     <div class="row pr-5 justify-content-end">
 
                         <div class='col-4 p-2'>
@@ -42,8 +43,20 @@
                                 <input type='text' id="customer-name" class='customer-name form-control' placeholder="ชื่อผู้ซื้อ">
                             </div>
                         </div>
+                        <div class='col-2 p-0 pt-2'>
+                            <div class="input-group">
 
-                        <div class="col-4 p-2">
+                                <input type='text' id="book-id" class='book-id form-control' placeholder="เล่มที่">
+                            </div>
+                        </div>
+                        <span class='p-0 pt-2'>&nbsp/&nbsp</span>
+                        <div class='col-2 p-0 pt-2'>
+                            <div class="input-group">
+
+                                <input type='text' id="iv-id" class='iv-id form-control' placeholder="เลขที่">
+                            </div>
+                        </div>
+                        <div class="col-3 p-1 pt-2">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fas fa-coins"></i></div>
@@ -61,7 +74,7 @@
                 </div>
             </div>
             <div class="cart-button modal-footer">
-                <button type="button" onclick="" data-user="<?=$_SESSION['user_name']?>" id="footer-submit" class="calculate-cart btn btn-primary" data-dismiss="modal" style="visibility:hidden">ยืนยันการขายและพิมพ์ใบเสร็จ</button>
+                <button type="button" onclick="" data-user="<?= $_SESSION['user_name'] ?>" id="footer-submit" class="calculate-cart btn btn-primary" data-dismiss="modal" style="visibility:hidden">ยืนยันการขายและพิมพ์ใบเสร็จ</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
             </div>
         </div>
@@ -71,6 +84,12 @@
 <script>
     $(document).ready(function() {
         $('#total-receive').on("keyup", function(event) {
+            calculate_change();
+        });
+        $('#book-id').on("keyup", function(event) {
+            calculate_change();
+        });
+        $('#iv-id').on("keyup", function(event) {
             calculate_change();
         });
 

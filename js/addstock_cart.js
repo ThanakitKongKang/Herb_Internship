@@ -189,6 +189,7 @@ var shoppingCart2 = (function () {
 
 $('#product tbody').on("click", "th", function (event) {
   event.preventDefault();
+  window.scrollTo(0,document.body.scrollHeight);
   var product_id = ($(this).data('product_id'));
   var product_name = $(this).data('product_name');
   var product_type = $(this).data('product_type');

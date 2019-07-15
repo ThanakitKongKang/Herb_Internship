@@ -1,16 +1,18 @@
 <?php  //include from root php's style
 $path = $_SERVER['DOCUMENT_ROOT'];
 $path .= "/herb_internship/head.php";
+$path .= "/head.php";
 include_once($path);
 
 ?>
 
 <head>
 
-    <title>รายงานผลประกอบการ NED <?=$title_credit?></title>
+    <title>รายงานผลประกอบการ NED <?= $title_credit ?></title>
     <style>
-        .table th,.table td{
-            padding : 0rem 1rem 0rem 1rem;
+        .table th,
+        .table td {
+            padding: 0rem 1rem 0rem 1rem;
         }
     </style>
 </head>
@@ -22,6 +24,15 @@ include_once($path);
 
                 <div class="col d-flex buttons">
                     <button class="btn btn-success" id="print-button" style="visibility:hidden;" onclick="printJS({ printable: 'content', type: 'html', style: 'td {text-align: center;}' })"><i class="fas fa-file-export"></i> print</button>
+                    <div class='ml-1'>
+                        <div class="input-group" id="search-field" style="visibility:hidden;width:70%">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-search"></i></div>
+                            </div>
+                            <input type="text" id="search-value" class="form-control" placeholder="ชื่อสินค้า">
+                        </div>
+                    </div>
+
                     <input id="date1" type="date" class="ml-auto form-control" style="width:17.5%">
                     <span class='text-white mt-2 ml-1'>ถึง</span>
                     <input id="date2" type="date" class="ml-2 form-control" style="width:17.5%;z-index:-1;background-color:#ccc">
@@ -59,6 +70,7 @@ include_once($path);
 
             if (date2 == "" && date1 != "" || diffDays == 0) {
                 document.getElementById("print-button").style.visibility = "visible";
+                document.getElementById("search-field").style.visibility = "visible"
                 document.getElementById("date2").style.zIndex = 1;
                 document.getElementById("date2").style.backgroundColor = "#fff";
                 xmlhttp.open("GET", "./model/model_summary_select.php?page=NED&mode=date&date1=" + date1, true);
@@ -66,12 +78,14 @@ include_once($path);
             } else if (date1 == "") {
                 document.getElementById("content").innerHTML = please_choose;
                 document.getElementById("print-button").style.visibility = "hidden";
+                document.getElementById("search-field").style.visibility = "hidden"
                 document.getElementById("date2").style.zIndex = -1;
                 document.getElementById("date2").style.backgroundColor = "#ccc";
                 document.getElementById("date2").value = "";
 
             } else if (diffDays < 0) {
                 document.getElementById("print-button").style.visibility = "hidden";
+                document.getElementById("search-field").style.visibility = "hidden"
                 document.getElementById("content").innerHTML = "<h1 class='text-center text-danger' style='margin-top:20%;' id='text-date-choose'>มีข้อผิดพลาด! วันที่ไม่ถูกต้อง</h1>";
 
             } else {
@@ -101,11 +115,13 @@ include_once($path);
 
             if (date2 != "" && diffDays > 0) {
                 document.getElementById("print-button").style.visibility = "visible";
+                document.getElementById("search-field").style.visibility = "visible"
                 xmlhttp.open("GET", "./model/model_summary_select.php?page=NED&mode=date&date1=" + date1 + "&date2=" + date2, true);
                 xmlhttp.send();
 
             } else if (diffDays < 0) {
                 document.getElementById("print-button").style.visibility = "hidden";
+                document.getElementById("search-field").style.visibility = "hidden"
                 document.getElementById("content").innerHTML = "<h1 class='text-center text-danger' style='margin-top:20%;' id='text-date-choose'>มีข้อผิดพลาด! วันที่ไม่ถูกต้อง</h1>";
 
             } else {
@@ -117,6 +133,32 @@ include_once($path);
 
         $('#text-date-choose').on('click', function() {
             document.getElementById("date1").focus();
+        });
+
+        $('#search-value').on("keyup", function(event) {
+            var input = document.getElementById("search-value").value;
+            var input, filter, table, tr, td, i, txtValue;
+            table = document.getElementById("the-table");
+            tr = table.getElementsByTagName("tr");
+            if(input !== ""){
+                document.getElementById("footer-summary").style.display = "none";
+            }
+            else if(input == ""){
+                document.getElementById("footer-summary").style.display = "";
+            }
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.indexOf(input) > -1) {
+                        tr[i].style.display = "";
+                    } else if (filter == "") {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
         });
 
         // $('.buttons').on("click", "#print-button", function(event) {
