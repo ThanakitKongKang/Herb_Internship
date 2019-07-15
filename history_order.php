@@ -7,16 +7,12 @@ include_once($path);
 
 <head>
     <title>ประวัติการขาย <?= $title_credit ?></title>
-    <style>
-        td,th {
-            white-space: nowrap !important;
-            word-wrap: break-word;
-        }
+    <script src="./js/history_page/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
+    <link rel="stylesheet" href="./css/history_page/main.css" />
+    <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="./js/history_page/jquery-ui-1.10.0.custom.min.css" />
+    <script data-require="jqueryui@*" data-semver="1.10.0" src="./js/history_page/jquery-ui.js"></script>
+    <script src="./js/history_page/jquery.dataTables.js" data-semver="1.9.4" data-require="datatables@*"></script>
 
-        table {
-            table-layout: fixed;
-        }
-    </style>
 </head>
 
 <body>
@@ -25,12 +21,19 @@ include_once($path);
         include($_SERVER['DOCUMENT_ROOT'] . "/herb_internship/model/model_order_history_select.php");
         ?>
         <div class="my-3">
-            <table style='position:relative;left:10%;' class="table table-responsive table-hover" id="history_order" data-page-length='10'>
+            <div class="row justify-content-end">
+                <p id="date_filter" class="text-white">
+                    <span id="date-label-from" class="date-label">จากวันที่ : </span><input class="date_range_filter date form-control mx-0" type="text" id="datepicker_from" style="width:25%;display:inline" />
+                    <span id="date-label-to" class="date-label">ถึงวันที่ : <input class="date_range_filter date form-control mx-0" type="text" id="datepicker_to" style="width:25%;display:inline" />
+                </p>
+            </div>
+            <table style='position:relative;left:5%;' class="table table-responsive table-hover" id="history_order" data-page-length='10'>
 
                 <thead class="thead-dark">
                     <tr>
                         <th class="align-middle text-center">เวลาที่ขาย</th>
                         <th class="align-middle text-center">รหัสออร์เดอร์</th>
+                        <th class="align-middle text-center">เล่มที่/เลขที่</th>
                         <th class="align-middle text-center">รหัสสินค้า</th>
                         <th class="align-middle text-center">ชื่อสินค้า</th>
                         <th class="align-middle text-center">จำนวน</th>
@@ -43,11 +46,12 @@ include_once($path);
 
                 <tbody id="tbodyData" class='bg-light'>
                     <?php
-                    while ($rowOrder = $listOrderHistory->fetch()) {
+                    while ($rowOrder = $listHistory->fetch()) {
                         $sum = $rowOrder['order_price'] * $rowOrder['order_count'];
                         echo '<tr>
                     <td class="text-center">' . $rowOrder['order_date'] . '</td>
                     <td  class="text-center">ord' . $rowOrder['order_id'] . '</td>
+                    <td class="text-center">' . $rowOrder['book_id'] . '/' . $rowOrder['iv_id'] . '</td>
                     <td class="text-center">' . $rowOrder['product_id'] . '</td>
                     <td>' . $rowOrder['product_name'] . '</td>
                     <td class="text-right">' . $rowOrder['order_count'] . '</td>
@@ -58,9 +62,11 @@ include_once($path);
                     }
                     ?>
                 </tbody>
+                <tfoot id="footer" class="bg-dark text-white" style="font-size:1.25em"></tfoot>
             </table>
 
         </div>
+    </div>
 </body>
 
 <script>
@@ -72,7 +78,7 @@ include_once($path);
             info: false,
             "order": [0, 'DESC'],
             "deferRender": true,
-
+            "sPaginationType": "full_numbers",
             "columnDefs": [{
                     "targets": [4, 5, 6],
                     "searchable": false,
@@ -87,9 +93,85 @@ include_once($path);
                 search: "_INPUT_",
                 searchPlaceholder: "ค้นหา"
             }
+        });
+        $("#datepicker_from").datepicker({
+            showOn: "button",
+            // buttonImage: "images/calendar.gif",
+            buttonImageOnly: false,
+            "onSelect": function(date) {
+                minDateFilter = new Date(date).getTime();
+                table.fnDraw();
+                var input, table2, tr, td1, td2, i;
+                var sum = 0,
+                    count = 0;
+                table2 = document.getElementById("history_order");
+                tr = table2.getElementsByTagName("tr");
+                for (i = 1; i < tr.length; i++) {
+                    td1 = tr[i].getElementsByTagName("td")[5];
+                    if (td1 != undefined)
+                        count = count + Number(td1.innerHTML);
+                    td2 = tr[i].getElementsByTagName("td")[7];
+                    if (td2 != undefined)
+                        sum = sum + Number(td2.innerHTML);
+                }
+                document.getElementById("footer").innerHTML = "<tr><td colspan='5'>รวมทั้งสิ้น</td><td class='text-right'>" + count + "</td><td></td><td class='text-right'>" + sum + "</td><td></td></tr>";
 
+            }
+        }).keyup(function() {
+            minDateFilter = new Date(this.value).getTime();
+            table.fnDraw();
         });
 
+        $("#datepicker_to").datepicker({
+            showOn: "button",
+            // buttonImage: "_etc/herb.ico",
+            buttonImageOnly: false,
+            "onSelect": function(date) {
+                maxDateFilter = new Date(date).getTime();
+                table.fnDraw();
+                var input, table2, tr, td1, td2, i;
+                var sum = 0,
+                    count = 0;
+                table2 = document.getElementById("history_order");
+                tr = table2.getElementsByTagName("tr");
+                for (i = 1; i < tr.length; i++) {
+                    td1 = tr[i].getElementsByTagName("td")[5];
+                    if (td1 != undefined)
+                        count = count + Number(td1.innerHTML);
+                    td2 = tr[i].getElementsByTagName("td")[7];
+                    if (td2 != undefined)
+                        sum = sum + Number(td2.innerHTML);
+                }
+            }
+        }).keyup(function() {
+            maxDateFilter = new Date(this.value).getTime();
+            table.fnDraw();
+        });
 
+        // Date range filter
+        minDateFilter = "";
+        maxDateFilter = "";
+
+        $.fn.dataTableExt.afnFiltering.push(
+            function(oSettings, aData, iDataIndex) {
+                if (typeof aData._date == 'undefined') {
+                    aData._date = new Date(aData[0]).getTime();
+                }
+
+                if (minDateFilter && !isNaN(minDateFilter)) {
+                    if (aData._date < minDateFilter) {
+                        return false;
+                    }
+                }
+
+                if (maxDateFilter && !isNaN(maxDateFilter)) {
+                    if (aData._date > maxDateFilter) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        );
     });
 </script>
