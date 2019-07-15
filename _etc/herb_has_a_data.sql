@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2019 at 05:08 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+-- Generation Time: Jul 15, 2019 at 06:23 PM
+-- Server version: 10.3.15-MariaDB
+-- PHP Version: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -37,6 +37,34 @@ CREATE TABLE `order_detail` (
   `user` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `order_detail`
+--
+
+INSERT INTO `order_detail` (`order_id`, `product_id`, `order_count`, `order_price`, `order_cost`, `user`) VALUES
+(2, '002', 3, 50, 27.85, 'sdn01'),
+(3, '002', 2, 50, 27.85, 'sdn01'),
+(4, '002', 1, 50, 27.85, 'sdn01'),
+(5, '002', 2, 50, 27.85, 'sdn01'),
+(2, '015', 3, 90, 53.88, 'sdn01'),
+(3, '015', 2, 90, 53.88, 'sdn01'),
+(4, '015', 12, 90, 53.88, 'sdn01'),
+(5, '015', 2, 90, 53.88, 'sdn01'),
+(3, '016', 2, 90, 60.13, 'sdn01'),
+(4, '016', 14, 90, 60.13, 'sdn01'),
+(5, '016', 4, 90, 60.13, 'sdn01'),
+(2, '017', 3, 90, 58.88, 'sdn01'),
+(4, '017', 14, 90, 58.88, 'sdn01'),
+(5, '017', 2, 90, 58.88, 'sdn01'),
+(4, '018', 15, 90, 53.88, 'sdn01'),
+(5, '018', 2, 90, 53.88, 'sdn01'),
+(2, '019', 1, 90, 58.88, 'sdn01'),
+(4, '019', 12, 90, 58.88, 'sdn01'),
+(5, '019', 2, 90, 58.88, 'sdn01'),
+(4, '020', 12, 90, 51.5, 'sdn01'),
+(2, '021', 2, 90, 53.88, 'sdn01'),
+(4, '021', 2, 90, 53.88, 'sdn01');
+
 -- --------------------------------------------------------
 
 --
@@ -45,8 +73,21 @@ CREATE TABLE `order_detail` (
 
 CREATE TABLE `order_history` (
   `order_id` int(11) NOT NULL,
-  `order_date` datetime NOT NULL
+  `order_date` datetime NOT NULL,
+  `book_id` int(10) NOT NULL,
+  `iv_id` int(10) NOT NULL,
+  `status` enum('uncancelled','cancelled') COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `order_history`
+--
+
+INSERT INTO `order_history` (`order_id`, `order_date`, `book_id`, `iv_id`, `status`) VALUES
+(2, '2019-07-12 17:40:44', 2, 10, 'cancelled'),
+(3, '2019-07-15 19:42:22', 1, 2, 'uncancelled'),
+(4, '2019-07-15 19:42:49', 5, 4, 'uncancelled'),
+(5, '2019-07-16 22:58:57', 0, 0, 'uncancelled');
 
 -- --------------------------------------------------------
 
@@ -72,30 +113,16 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_type`, `product_potent`, `product_amount`, `product_cost`, `product_price`, `product_price_discount`, `product_stock`, `product_status`) VALUES
-('001', 'ขมิ้นชัน', 'ED', '250 mg', '50 แคปซูล', 27.85, 50, 42.5, 583, 'ขาย'),
-('002', 'จันทลิลา', 'NED', '250 mg', '50 แคปซูล', 27.85, 50, 42.5, 58, 'ขาย'),
-('003', 'ธาตุบรรจบ', 'ED', '250 mg', '50 แคปซูล', 27.21, 50, 42.5, 29, 'ขาย'),
-('004', 'บอระเพ็ด', 'NED', '250 mg', '50 แคปซูล', 24.71, 50, 42.5, 112, 'ขาย'),
-('005', 'เบาหวาน', 'NED', '250 mg', '50 แคปซูล', 27.21, 50, 42.5, 598, 'ขาย'),
-('006', 'ประสระไพล', 'ED', '250 mg', '50 เม็ด', 23.53, 50, 42.5, 1045, 'ขาย'),
-('007', 'ฟ้าทลายโจร', 'ED', '250 mg', '50 แคปซูล', 24.71, 50, 42.5, 842, 'ขาย'),
-('008', 'มะระขี้นก', 'ED', '250 mg', '50 แคปซูล', 26.6, 50, 42.5, 80, 'ขาย'),
-('009', 'ริดสีดวงทวาร', 'ED', '250 mg', '50 แคปซูล', 25.14, 50, 42.5222, 0, 'ขาย'),
-('010', 'สหัสธารา', 'ED', '250 mg', '50 แคปซูล', 27.21, 50, 42.5, 170, 'ขาย'),
-('011', 'อัมฤควาที', 'ED', '250 mg', '50 เม็ด', 23.52, 50, 42.5, 1123079, 'ขาย'),
-('012', 'อินทรจักร', 'ED', '250 mg', '50 เม็ด', 24.15, 50, 42.5, 125, 'ขาย'),
-('013', 'ปราบชมพูทวีป', 'ED', '250 mg', '50 แคปซูล', 29.19, 50, 42.5, 159, 'ขาย'),
-('014', 'ปลูกไฟชาตุ', 'ED', '250 mg', '50 แคปซูล', 29.19, 50, 42.5, 85, 'ขาย'),
-('015', 'ขมิ้นชัน', 'ED', '250 mg', '100 แคปซูล', 53.88, 90, 74.5, 7094, 'ขาย'),
-('016', 'จันทลิลา', 'ED', '250 mg', '100 แคปซูล', 60.13, 90, 74.5, 97, 'ขาย'),
-('017', 'ธาตุบรรจบ', 'ED', '250 mg', '100 แคปซูล', 58.88, 90, 74.5, 35, 'ขาย'),
-('018', 'บอระเพ็ด', 'NED', '250 mg', '100 แคปซูล', 53.88, 90, 74.5, 498, 'ขาย'),
-('019', 'เบาหวาน', 'NED', '250 mg', '100 แคปซูล', 58.88, 90, 74.5, 699, 'ขาย'),
-('020', 'ประสระไพล', 'ED', '250 mg', '100 เม็ด', 51.5, 90, 74.5, 99, 'ขาย'),
-('021', 'ฟ้าทลายโจร', 'ED', '250 mg', '100 แคปซูล', 53.88, 90, 74.5, 199, 'ขาย'),
+('002', 'จันทลิลา', 'NED', '250 mg', '50 แคปซูล', 27.85, 50, 42.5, 51, 'ขาย'),
+('015', 'ขมิ้นชัน', 'ED', '250 mg', '100 แคปซูล', 53.88, 90, 74.5, 7065, 'ขาย'),
+('016', 'จันทลิลา', 'ED', '250 mg', '100 แคปซูล', 60.13, 90, 74.5, 50, 'ขาย'),
+('017', 'ธาตุบรรจบ', 'ED', '250 mg', '100 แคปซูล', 58.88, 90, 74.5, 14, 'ขาย'),
+('018', 'บอระเพ็ด', 'NED', '250 mg', '100 แคปซูล', 53.88, 90, 74.5, 484, 'ขาย'),
+('019', 'เบาหวาน', 'NED', '250 mg', '100 แคปซูล', 58.88, 90, 74.5, 683, 'ขาย'),
+('020', 'ประสระไพล', 'ED', '250 mg', '100 เม็ด', 51.5, 90, 74.5, 87, 'ขาย'),
+('021', 'ฟ้าทลายโจร', 'ED', '250 mg', '100 แคปซูล', 53.88, 90, 74.5, 197, 'ขาย'),
 ('022', 'มะระขี้นก', 'ED', '250 mg', '100 แคปซูล', 57.63, 90, 74.5, 501, 'ขาย'),
 ('023', 'ริดสีดวงทวาร', 'ED', '250 mg', '100 แคปซูล', 54.74, 90, 74.5, 401, 'ขาย'),
-('024', 'สหัสธารา', 'ED', '250 mg', '100 แคปซูล', 58.88, 90, 74.5, 99, 'ขาย'),
 ('025', 'อัมฤควาที', 'ED', '250 mg', '100 เม็ด', 51.5, 90, 74.5, 99, 'ขาย'),
 ('026', 'อิททรจักร', 'ED', '250 mg', '100 เม็ด', 52.75, 90, 74.5, 101, 'ขาย'),
 ('027', 'พลทิพย์', 'ED', 'ระบุไม่ได้', '50 เม็ด', 15.53, 25, 20, 1, 'ขาย'),
@@ -124,6 +151,19 @@ CREATE TABLE `stock_detail` (
   `user` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `stock_detail`
+--
+
+INSERT INTO `stock_detail` (`stock_id`, `stock_date`, `product_id`, `stock`, `user`) VALUES
+(1, '2019-07-15 19:28:11', '002', 9, 'sdn01'),
+(2, '2019-07-15 19:28:11', '017', 2, 'sdn01'),
+(3, '2019-07-15 19:28:11', '018', 3, 'sdn01'),
+(4, '2019-07-15 19:28:11', '015', 3, 'sdn01'),
+(5, '2019-07-15 19:28:11', '019', 1, 'sdn01'),
+(6, '2019-07-15 19:28:11', '016', 7, 'sdn01'),
+(7, '2019-07-15 19:28:11', '021', 2, 'sdn01');
+
 -- --------------------------------------------------------
 
 --
@@ -141,6 +181,7 @@ CREATE TABLE `user_info` (
 --
 
 INSERT INTO `user_info` (`user`, `user_name`, `user_password`) VALUES
+('admin', 'ผู้ดูแลระบบ', 'yongyung'),
 ('sdn01', 'นายศักดาดิ์ นาหก', 'sdn01'),
 ('snr01', 'นางสุดารัตน์  ศรีกะพา', 'snr01'),
 ('tpk01', 'นายธัญเทพ  เค้าทอง', 'tpk01'),
@@ -189,13 +230,13 @@ ALTER TABLE `user_info`
 -- AUTO_INCREMENT for table `order_history`
 --
 ALTER TABLE `order_history`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `stock_detail`
 --
 ALTER TABLE `stock_detail`
-  MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
