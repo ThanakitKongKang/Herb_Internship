@@ -23,7 +23,7 @@ include_once($path);
         <div class="my-3">
             <div class="row justify-content-end">
                 <div class="mr-auto">
-                    <button class="btn btn-danger" id="order_cancel">ยกเลิกออร์เดอร์</button>
+                    <button class="btn btn-danger" id="order_cancel"><i class="fas fa-ban"></i> ยกเลิกออร์เดอร์</button>
                 </div>
                 <p id="date_filter" class="text-white">
                     <span id="date-label-from" class="date-label">จากวันที่ : </span><input class="date_range_filter date form-control mx-0" type="text" id="datepicker_from" style="width:25%;display:inline" />
