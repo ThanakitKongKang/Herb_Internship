@@ -249,6 +249,19 @@ include_once($path);
         });
 
         $('#order_cancel').on('click', function(event) {
+            var current_input = document.getElementById("order_id_input").value;
+            if (document.getElementById("order_id_input").value != "") {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("ord_info").innerHTML = this.responseText;
+                        // $('#orderCancel').modal('show');
+                    }
+                };
+                xmlhttp.open("GET", "./model/model_get_order_detail_by_order_id.php?ord=" + current_input, true);
+                xmlhttp.send();
+            }
+
             jQuery.noConflict();
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
@@ -272,6 +285,7 @@ include_once($path);
             var min = Number(document.getElementById("order_id_input").min);
             var max = Number(document.getElementById("order_id_input").max);
             var order_id_input = Number(document.getElementById("order_id_input").value);
+            document.getElementById("footer-submit").style.display = "";
             if (max > 0) {
                 if (order_id_input < min) {
                     Swal.fire({

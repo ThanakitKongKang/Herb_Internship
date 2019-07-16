@@ -16,8 +16,15 @@
             <div class="modal-body">
                 <button class="btn btn-danger" id="modal-delete" style="position:absolute;right:1rem;top:1.5rem;display:none"><i class="far fa-trash-alt"></i></button>
                 <div class="row justify-content-center text-center">
-                  <input type="number" min="1" max="" id="order_id_input" class="form-control" style="width:17%" placeholder="รหัสออร์เดอร์..">
+
+                    <div class="input-group mb-3" style="width:25%">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">ord</span>
+                        </div>
+                        <input type="number" min="1" max="" id="order_id_input" class="form-control" placeholder="รหัสออร์เดอร์..">
+                    </div>
                 </div>
+
                 <div class="container" id="ord_info">
 
 
@@ -25,7 +32,7 @@
 
             </div>
             <div class="cancel-footer modal-footer">
-                <button type="button" onclick="" id="footer-submit" class="order-cancel-btn btn btn-danger text-white" data-dismiss="modal">ดำเนินการยกเลิกออร์เดอร์นี้</button>
+                <button type="button" style="display:none" id="footer-submit" class="order-cancel-btn btn btn-danger text-white" data-dismiss="modal">ดำเนินการยกเลิกออร์เดอร์นี้</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
 
 
