@@ -15,8 +15,8 @@
             </div>
             <div class="modal-body">
                 <button class="btn btn-danger" id="modal-delete" style="position:absolute;right:1rem;top:1.5rem;display:none"><i class="far fa-trash-alt"></i></button>
-                <div class="row justify-content-center">
-                  <input type="number" min="1" max="" id="order_id_input" class="form-control" style="width:50%" placeholder="กรุณากรอกหมายเลขออร์เดอร์..">
+                <div class="row justify-content-center text-center">
+                  <input type="number" min="1" max="" id="order_id_input" class="form-control" style="width:17%" placeholder="รหัสออร์เดอร์..">
                 </div>
                 <div class="container" id="ord_info">
 

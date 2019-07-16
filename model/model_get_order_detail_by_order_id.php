@@ -11,13 +11,60 @@ $listOrdDetail->execute();
 $i = 1;
 $count = 0;
 $sum = 0;
+date_default_timezone_set('Asia/Bangkok');
+$timezone = date_default_timezone_get();
 while ($rowListOrdDetail = $listOrdDetail->fetch()) {
     if ($listOrdDetail->rowCount() > 0 && $i == 1) {
+        $date = date_create($rowListOrdDetail['order_date']);
+        $dayDisplay = $date->format('d');
+        $yearDisplay = $date->format('Y');
+        $yearDisplay += 543;
+        $monthDisplay = $date->format('m');
+        $time = $date->format('H:i');
+        switch ($monthDisplay) {
+            case "01":
+                $monthDisplay = "มกราคม";
+                break;
+            case "02":
+                $monthDisplay = "กุมภาพันธ์";
+                break;
+            case "03":
+                $monthDisplay = "มีนาคม";
+                break;
+            case "04":
+                $monthDisplay = "เมษายน";
+                break;
+            case "05":
+                $monthDisplay = "พฤษภาคม";
+                break;
+            case "06":
+                $monthDisplay = "มิถุนายน";
+                break;
+            case "07":
+                $monthDisplay = "กรกฎาคม";
+                break;
+            case "08":
+                $monthDisplay = "สิงหาคม";
+                break;
+            case "09":
+                $monthDisplay = "กันยายน";
+                break;
+            case "10":
+                $monthDisplay = "ตุลาคม";
+                break;
+            case "11":
+                $monthDisplay = "พฤศจิกายน";
+                break;
+            case "12":
+                $monthDisplay = "ธันวาคม";
+                break;
+        }
+
         echo '<div class="mt-3">รายการสินค้าในออร์เดอร์ที่ : ' . $rowListOrdDetail['order_id'];
-        echo '<span style="float:right">' . $rowListOrdDetail['order_date'] . '</span> </div>';
+        echo '<span style="float:right">วันที่ ' . $dayDisplay . ' ' . $monthDisplay . ' ' . $yearDisplay . ' ' . $time . ' น.</span> </div>';
         echo '<div>เล่ม/เลขที่ : <span id="book_iv">' . $rowListOrdDetail['book_id'] . '/' . $rowListOrdDetail['iv_id'] . '</span></div>';
         echo '<div class="row mt-3"><table class="table table-hover">
-        <thead class="thead-dark"><tr><th>รหัสสินค้า</th><th>ชื่อสินค้า</th><th>ราคาที่ขาย</th><th>จำนวน</th><th>รวม</th><tr></thead><tbody>';
+        <thead class="thead-dark"><tr><th>รหัสสินค้า</th><th>ชื่อสินค้า</th><th>ราคาที่ขาย</th><th>จำนวน</th><th>รวม (บาท)</th><tr></thead><tbody>';
     }
     echo '<tr><td>' . $rowListOrdDetail['product_id'] . '</td>';
     echo '<td>' . $rowListOrdDetail['product_name'] . '</td>';

@@ -82,7 +82,7 @@ $timezone = date_default_timezone_get();
 $day = date('d', time());
 
 if (strlen($day) == 1) {
-    $dy = '0' . $day;
+    $day = '0' . $day;
 }
 $yearDisplay = date('Y', time());
 $yearDisplay += 543;

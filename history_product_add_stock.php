@@ -26,7 +26,7 @@ include_once($path);
                     <span id="date-label-to" class="date-label">ถึงวันที่:<input class="date_range_filter date form-control mx-0" type="text" id="datepicker_to" style="width:25%;display:inline" />
                 </p>
             </div>
-            <table style="position:relative;left:20%" class="table table-responsive table-hover" id="history_order" data-page-length='10'>
+            <table style="position:relative;left:17.5%" class="table table-responsive table-hover" id="history_order" data-page-length='10'>
 
                 <thead class="thead-dark">
                     <tr id="footer" class="bg-dark text-white mb-2"></tr>
@@ -41,9 +41,56 @@ include_once($path);
 
                 <tbody id="tbodyData" class='bg-light'>
                     <?php
+                    date_default_timezone_set('Asia/Bangkok');
+                    $timezone = date_default_timezone_get();
                     while ($rowStock = $listHistory->fetch()) {
+
+                        $date = date_create($rowStock['stock_date']);
+                        $dayDisplay = $date->format('d');
+                        $yearDisplay = $date->format('Y');
+                        $yearDisplay += 543;
+                        $monthDisplay = $date->format('m');
+                        $time = $date->format('H:i');
+                        switch ($monthDisplay) {
+                            case "01":
+                                $monthDisplay = "มกราคม";
+                                break;
+                            case "02":
+                                $monthDisplay = "กุมภาพันธ์";
+                                break;
+                            case "03":
+                                $monthDisplay = "มีนาคม";
+                                break;
+                            case "04":
+                                $monthDisplay = "เมษายน";
+                                break;
+                            case "05":
+                                $monthDisplay = "พฤษภาคม";
+                                break;
+                            case "06":
+                                $monthDisplay = "มิถุนายน";
+                                break;
+                            case "07":
+                                $monthDisplay = "กรกฎาคม";
+                                break;
+                            case "08":
+                                $monthDisplay = "สิงหาคม";
+                                break;
+                            case "09":
+                                $monthDisplay = "กันยายน";
+                                break;
+                            case "10":
+                                $monthDisplay = "ตุลาคม";
+                                break;
+                            case "11":
+                                $monthDisplay = "พฤศจิกายน";
+                                break;
+                            case "12":
+                                $monthDisplay = "ธันวาคม";
+                                break;
+                        }
                         echo '<tr>
-                    <td class="text-center">' . $rowStock['stock_date'] . '</td>
+                        <td class="">' . $dayDisplay . ' ' . $monthDisplay . ' ' . $yearDisplay . ' ' . $time . ' น.</td>
                     <td class="text-center">' . $rowStock['product_id'] . '</td>
                     <td>' . $rowStock['product_name'] . '</td>
                     <td class="text-right">' . $rowStock['stock'] . '</td>
