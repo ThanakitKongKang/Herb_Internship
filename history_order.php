@@ -51,56 +51,56 @@ include_once($path);
 
                 <tbody id="tbodyData" class='bg-light'>
                     <?php
-                    date_default_timezone_set('Asia/Bangkok');
-                    $timezone = date_default_timezone_get();
+                    // date_default_timezone_set('Asia/Bangkok');
+                    // $timezone = date_default_timezone_get();
                     while ($rowOrder = $listHistory->fetch()) {
-                        $date = date_create($rowOrder['order_date']);
-                        $dayDisplay = $date->format('d');
-                        $yearDisplay = $date->format('Y');
-                        $yearDisplay += 543;
-                        $monthDisplay = $date->format('m');
-                        $time = $date->format('H:i');
-                        switch ($monthDisplay) {
-                            case "01":
-                                $monthDisplay = "มกราคม";
-                                break;
-                            case "02":
-                                $monthDisplay = "กุมภาพันธ์";
-                                break;
-                            case "03":
-                                $monthDisplay = "มีนาคม";
-                                break;
-                            case "04":
-                                $monthDisplay = "เมษายน";
-                                break;
-                            case "05":
-                                $monthDisplay = "พฤษภาคม";
-                                break;
-                            case "06":
-                                $monthDisplay = "มิถุนายน";
-                                break;
-                            case "07":
-                                $monthDisplay = "กรกฎาคม";
-                                break;
-                            case "08":
-                                $monthDisplay = "สิงหาคม";
-                                break;
-                            case "09":
-                                $monthDisplay = "กันยายน";
-                                break;
-                            case "10":
-                                $monthDisplay = "ตุลาคม";
-                                break;
-                            case "11":
-                                $monthDisplay = "พฤศจิกายน";
-                                break;
-                            case "12":
-                                $monthDisplay = "ธันวาคม";
-                                break;
-                        }
+                        // $date = date_create($rowOrder['order_date']);
+                        // $dayDisplay = $date->format('d');
+                        // $yearDisplay = $date->format('Y');
+                        // $yearDisplay += 543;
+                        // $monthDisplay = $date->format('m');
+                        // $time = $date->format('H:i');
+                        // switch ($monthDisplay) {
+                        //     case "01":
+                        //         $monthDisplay = "มกราคม";
+                        //         break;
+                        //     case "02":
+                        //         $monthDisplay = "กุมภาพันธ์";
+                        //         break;
+                        //     case "03":
+                        //         $monthDisplay = "มีนาคม";
+                        //         break;
+                        //     case "04":
+                        //         $monthDisplay = "เมษายน";
+                        //         break;
+                        //     case "05":
+                        //         $monthDisplay = "พฤษภาคม";
+                        //         break;
+                        //     case "06":
+                        //         $monthDisplay = "มิถุนายน";
+                        //         break;
+                        //     case "07":
+                        //         $monthDisplay = "กรกฎาคม";
+                        //         break;
+                        //     case "08":
+                        //         $monthDisplay = "สิงหาคม";
+                        //         break;
+                        //     case "09":
+                        //         $monthDisplay = "กันยายน";
+                        //         break;
+                        //     case "10":
+                        //         $monthDisplay = "ตุลาคม";
+                        //         break;
+                        //     case "11":
+                        //         $monthDisplay = "พฤศจิกายน";
+                        //         break;
+                        //     case "12":
+                        //         $monthDisplay = "ธันวาคม";
+                        //         break;
+                        // }
                         $sum = $rowOrder['order_price'] * $rowOrder['order_count'];
                         echo '<tr>
-                    <td class="">' . $dayDisplay . ' ' . $monthDisplay . ' ' . $yearDisplay . ' ' . $time . ' น.</td>
+                    <td class="">' .$rowOrder['order_date']. ' </td>
                     <td  class="text-center">ord' . $rowOrder['order_id'] . '</td>
                     <td class="text-center">' . $rowOrder['book_id'] . '/' . $rowOrder['iv_id'] . '</td>
                     <td class="text-center">' . $rowOrder['product_id'] . '</td>
