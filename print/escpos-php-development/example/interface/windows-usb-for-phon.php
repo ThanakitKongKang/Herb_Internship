@@ -161,10 +161,16 @@ foreach ($cartArray as $cart) {
         $name_lines[$k] = addSpaces($l, 20);
     }
 
-    $qtyx_price = str_split($cart['count'] . "      " . number_format((float) $cart['product_price'], 2, '.', ''), 15);
-    foreach ($qtyx_price as $k => $l) {
+    $qtyx = str_split($cart['count'], 10);
+    foreach ($qtyx as $k => $l) {
         $l = trim($l);
-        $qtyx_price[$k] = addSpaces($l, 20);
+        $qtyx[$k] = addSpaces($l, 10);
+    }
+
+    $price = str_split(number_format((float) $cart['product_price'], 2, '.', ''), 5);
+    foreach ($price as $k => $l) {
+        $l = trim($l);
+        $price[$k] = addSpaces($l, 10);
     }
 
     $total_price = str_split($cart['total'], 8);
@@ -176,28 +182,34 @@ foreach ($cartArray as $cart) {
     $counter = 0;
     $temp = [];
     $temp[] = count($name_lines);
-    $temp[] = count($qtyx_price);
+    $temp[] = count($qtyx);
+    $temp[] = count($price);
     $temp[] = count($total_price);
     $counter = max($temp);
 
     for ($i = 0; $i < $counter; $i++) {
         $localname = '';
-        $localqtp = '';
+        $localqt = '';
+        $localp = '';
         $localtt = '';
 
         $pdf->Cell(10, 5, iconv('UTF-8', 'TIS-620', ""), 0, 0);
         if (isset($name_lines[$i])) {
             $localname .= ($name_lines[$i]);
         }
-        if (isset($qtyx_price[$i])) {
-            $localqtp .= ($qtyx_price[$i]);
+        if (isset($qtyx[$i])) {
+            $localqt .= ($qtyx[$i]);
+        }
+        if (isset($price[$i])) {
+            $localp .= ($price[$i]);
         }
         if (isset($total_price[$i])) {
             $localtt .= ($total_price[$i]);
         }
         $pdf->SetFont('THSarabunNew reg', '', 12);
-        $pdf->Cell(63.5, 4, iconv('UTF-8', 'TIS-620', $localname), 0, 0);
-        $pdf->Cell(20, 4, iconv('UTF-8', 'TIS-620', $localqtp), 0, 0);
+        $pdf->Cell(60, 4, iconv('UTF-8', 'TIS-620', $localname), 0, 0);
+        $pdf->Cell(10, 4, iconv('UTF-8', 'TIS-620', $localqt), 0, 0);
+        $pdf->Cell(10, 4, iconv('UTF-8', 'TIS-620', $localp), 0, 0);
         $pdf->Cell(10, 4, iconv('UTF-8', 'TIS-620', $localtt), 0, 1);
     }
 }
