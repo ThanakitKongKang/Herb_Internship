@@ -12,9 +12,9 @@
 
                 <li class="nav-item">
                     <a class="nav-link 
-                                    <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') {
-                                        echo "active";
-                                    } ?>" href="index.php"><i class="fas fa-home"></i> หน้าหลัก <span class="sr-only">(current)</span></a>
+                                            <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') {
+                                                echo "active";
+                                            } ?>" href="index.php"><i class="fas fa-home"></i> หน้าหลัก <span class="sr-only">(current)</span></a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -113,6 +113,7 @@
                             <span><i class="fas fa-user-tie"></i> <?= $_SESSION["user_name"] ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" target="_blank" href="./_etc/manual.pdf" id=""><i class="fas fa-book"></i> คู่มือการใช้งาน</a>
                             <a class="dropdown-item text-danger" href="./model/model_user_logout.php" id="logout-button"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</a>
 
                         </div>
@@ -121,9 +122,9 @@
             <?php } ?>
 
             <!-- <form class="form-inline my-2 my-lg-0 mr-auto">
-                                    <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                                </form> -->
+                                            <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
+                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                                        </form> -->
 
         </div>
     </nav>

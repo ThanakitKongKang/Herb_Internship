@@ -14,12 +14,12 @@ include_once($path);
         <h2 class="text-center shadow-sm p-3 mb-1 bg-white rounded">เพิ่มรายการสินค้าใหม่</h2>
 
         <form id="form_product_add" method="post">
-            <div class="bg-light p-5 rounded">
+            <div class="bg-light p-5 rounded shadow-lg mb-5 bg-white">
                 <!-- ชื่อ -->
                 <div class="form-group row">
                     <label for="name" class="col-sm-2 col-form-label">ชื่อผลิตภัณฑ์</label>
                     <div class="col-sm-6">
-                        <input type="text" required class="form-control" name="product_name" id="product_name" placeholder="ชื่อผลิตภัณฑ์">
+                        <input type="text" autocomplete="off" required class="form-control" name="product_name" id="product_name" placeholder="ชื่อผลิตภัณฑ์">
                     </div>
                 </div>
                 <!-- ประเภทสินค้า -->
@@ -47,10 +47,10 @@ include_once($path);
                 <div class="form-group row">
                     <label for="potent" class="col-sm-2 col-form-label">ความแรงยา/ขนาดบรรจุ</label>
                     <div class="col-sm-3">
-                        <input type="text" required class="form-control" name="product_potent" id="product_potent" placeholder="ความแรง">
+                        <input type="text" autocomplete="off" required class="form-control" name="product_potent" id="product_potent" placeholder="ความแรง">
                     </div>
                     <div class="col-sm-3">
-                        <input type="text" required class="form-control" name="product_amount" id="product_amount" placeholder="ขนาดบรรจุ">
+                        <input type="text" autocomplete="off" required class="form-control" name="product_amount" id="product_amount" placeholder="ขนาดบรรจุ">
                     </div>
 
                 </div>
