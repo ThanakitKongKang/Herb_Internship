@@ -43,7 +43,7 @@ include_once($path);
                         <th class="align-middle text-center">จำนวน</th>
                         <th class="align-middle text-center">ราคาต่อชิ้น</th>
                         <th class="align-middle text-center">รวม</th>
-                        <th class="align-middle text-center">ชื่อผู้ขาย</th>
+                        <th class="align-middle text-center">ผู้ทำรายการ</th>
 
                     </tr>
 
@@ -100,7 +100,7 @@ include_once($path);
                         // }
                         $sum = $rowOrder['order_price'] * $rowOrder['order_count'];
                         echo '<tr>
-                    <td class="">' .$rowOrder['order_date']. ' </td>
+                    <td class="">' . $rowOrder['order_date'] . ' </td>
                     <td  class="text-center">ord' . $rowOrder['order_id'] . '</td>
                     <td class="text-center">' . $rowOrder['book_id'] . '/' . $rowOrder['iv_id'] . '</td>
                     <td class="text-center">' . $rowOrder['product_id'] . '</td>
@@ -133,7 +133,7 @@ include_once($path);
                 [10, 25, 50, 100, 200, -1],
                 [10, 25, 50, 100, 200, "All"]
             ],
-            "order": [0, 'DESC'],
+            "aaSorting": [[ 1, "DESC" ]],
             "deferRender": true,
             "sPaginationType": "full_numbers",
             "columnDefs": [{
@@ -285,7 +285,7 @@ include_once($path);
             var min = Number(document.getElementById("order_id_input").min);
             var max = Number(document.getElementById("order_id_input").max);
             var order_id_input = Number(document.getElementById("order_id_input").value);
-            document.getElementById("footer-submit").style.display = "";
+
             if (max > 0) {
                 if (order_id_input < min) {
                     Swal.fire({
@@ -310,6 +310,11 @@ include_once($path);
                     if (this.readyState == 4 && this.status == 200) {
                         document.getElementById("ord_info").innerHTML = this.responseText;
                         // $('#orderCancel').modal('show');
+                        if (document.getElementById("order_cancelled") == null) {
+                            document.getElementById("footer-submit").style.display = "";
+                        } else {
+                            document.getElementById("footer-submit").style.display = "none";
+                        }
                     }
                 };
                 xmlhttp.open("GET", "./model/model_get_order_detail_by_order_id.php?ord=" + order_id_input, true);
@@ -321,6 +326,7 @@ include_once($path);
                     text: 'ขณะนี้ยังไม่มีรายการขาย'
                 })
             }
+
         }
 
         $('.order-cancel-btn').on('click', function(event) {
@@ -348,25 +354,25 @@ include_once($path);
                         url: './model/model_order_cancel.php', // the url where we want to POST
                         data: formData, // our data object,
 
-                        success: function(data) {
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'top-end',
-                                showConfirmButton: false,
-                                timer: 3000
-                            });
+                        // success: function(data) {
+                        //     const Toast = Swal.mixin({
+                        //         toast: true,
+                        //         position: 'top-end',
+                        //         showConfirmButton: false,
+                        //         timer: 3000
+                        //     });
 
-                            Toast.fire({
-                                title: 'สำเร็จ !',
-                                text: 'ท่านได้ทำรายการยกเลิกออร์เดอร์ที่ ' + order_id_input,
-                                type: 'success',
-                                confirmButtonText: 'ตกลง',
-                            })
+                        //     Toast.fire({
+                        //         title: 'สำเร็จ !',
+                        //         text: 'ท่านได้ทำรายการยกเลิกออร์เดอร์ที่ ' + order_id_input,
+                        //         type: 'success',
+                        //     })
 
-                        }
+                        // }
                     });
 
                     $('#orderCancel').modal('hide');
+                    location.reload();
                 } else {
                     $('#orderCancel').modal('show');
                 }

@@ -35,7 +35,7 @@ include_once($path);
                         <th class="align-middle text-center">รหัสสินค้า</th>
                         <th class="align-middle text-center">ชื่อสินค้า</th>
                         <th class="align-middle text-center">จำนวนที่เพิ่ม</th>
-                        <th class="align-middle text-center">ชื่อผู้ขาย</th>
+                        <th class="align-middle text-center">ผู้ทำรายการ</th>
                     </tr>
                 </thead>
 
@@ -70,7 +70,7 @@ include_once($path);
                 [10, 25, 50, 100, 200, -1],
                 [10, 25, 50, 100, 200, "All"]
             ],
-            "order": [0, 'DESC'],
+            "aaSorting": [[ 0, "DESC" ]],
             "deferRender": true,
             "sPaginationType": "full_numbers",
             "columnDefs": [{

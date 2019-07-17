@@ -6,7 +6,6 @@ $listOrdDetail = $pdo->prepare("SELECT * FROM  order_detail , order_history ,pro
 WHERE order_detail.order_id = order_history.order_id 
 AND order_detail.product_id = product.product_id
 AND order_history.order_id = ?
-AND order_history.status = 'uncancelled'
 ");
 $listOrdDetail->bindParam(1, $_GET["ord"]);
 $listOrdDetail->execute();
@@ -63,8 +62,14 @@ while ($rowListOrdDetail = $listOrdDetail->fetch()) {
                 $monthDisplay = "ธันวาคม";
                 break;
         }
-
-        echo '<div class="mt-3">รายการสินค้าในออร์เดอร์ที่ : ' . $rowListOrdDetail['order_id'];
+        $cancelled = "";
+        $cancelled_text = "";
+        if ($rowListOrdDetail['status'] == 'cancelled') {
+            $cancelled = "opacity:0.75";
+            $cancelled_text = "<h3 class='mt-5 text-center text-danger' id='order_cancelled'>ออร์เดอร์นี้ถูกยกเลิกไปแล้ว</h3>";
+        }
+        echo $cancelled_text;
+        echo '<div style="' . $cancelled . '"><div class="mt-3">รายการสินค้าในออร์เดอร์ที่ : ' . $rowListOrdDetail['order_id'];
         echo '<span style="float:right">วันที่ ' . $dayDisplay . ' ' . $monthDisplay . ' ' . $yearDisplay . ' ' . $time . ' น.</span> </div>';
         echo '<div>เล่ม/เลขที่ : <span id="book_iv">' . $rowListOrdDetail['book_id'] . '/' . $rowListOrdDetail['iv_id'] . '</span></div>';
         echo '<div class="row mt-3"><table class="table table-hover">
@@ -84,7 +89,7 @@ if ($listOrdDetail->rowCount() > 0) {
     echo '</tbody><tfoot class="bg-dark text-white">';
     echo '<tr><td colspan="3">รวมทั้งสิ้น</td><td>' . $count . '</td><td>' . $sum . '</td></tr>';
     echo '</tfoot>';
-    echo '</table></div>';
+    echo '</table></div></div>';
 } else {
-    echo '<h3 class="mt-5 text-center text-danger">ออร์เดอร์นี้ถูกยกเลิกไปแล้ว</h1>';
+    echo '<h3 class="mt-5 text-center text-danger">ออร์เดอร์นี้ถูกยกเลิกไปแล้ว</h3>';
 }
